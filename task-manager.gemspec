@@ -19,4 +19,5 @@ Gem::Specification.new do |s|
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "pg"
+  s.add_development_dependency "rspec-rails"
 end
