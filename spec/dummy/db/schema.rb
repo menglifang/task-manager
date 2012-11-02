@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121102144728) do
+ActiveRecord::Schema.define(:version => 20121102151448) do
 
   create_table "task_manager_assignables", :force => true do |t|
     t.integer  "plan_id"
@@ -20,6 +20,17 @@ ActiveRecord::Schema.define(:version => 20121102144728) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
+
+  create_table "task_manager_callables", :force => true do |t|
+    t.integer  "callback_id"
+    t.string   "callback_type"
+    t.integer  "plan_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "task_manager_callables", ["callback_id", "callback_type"], :name => "index_task_manager_callables_on_callback_id_and_callback_type"
+  add_index "task_manager_callables", ["plan_id"], :name => "index_task_manager_callables_on_plan_id"
 
   create_table "task_manager_plans", :force => true do |t|
     t.string   "name"
