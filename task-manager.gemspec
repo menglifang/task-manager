@@ -19,7 +19,8 @@ Gem::Specification.new do |s|
   s.add_dependency "ransack"
   s.add_dependency "kaminari"
   s.add_dependency "activerecord-postgres-hstore", "~> 0.4.1"
-  # s.add_dependency "jquery-rails"
+  s.add_dependency "enumerize", "~> 0.5.0"
+  s.add_dependency "default_value_for", "~> 2.0.1"
 
   s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails"
