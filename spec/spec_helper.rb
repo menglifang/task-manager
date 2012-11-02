@@ -4,6 +4,7 @@ require "dummy/config/environment"
 require 'rspec/rails'
 require 'rspec/autorun'
 
+require 'shoulda-matchers'
 require 'factory_girl_rails'
 require 'pry'
 
