@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121102151448) do
+ActiveRecord::Schema.define(:version => 20121102183150) do
 
   create_table "task_manager_assignables", :force => true do |t|
     t.integer  "plan_id"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(:version => 20121102151448) do
     t.hstore   "data"
     t.datetime "last_task_created_at"
     t.boolean  "autocompletable"
+    t.string   "plan_type"
+    t.integer  "ahead_of_time"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
   end
