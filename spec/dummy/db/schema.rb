@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121102055631) do
+ActiveRecord::Schema.define(:version => 20121102144728) do
+
+  create_table "task_manager_assignables", :force => true do |t|
+    t.integer  "plan_id"
+    t.integer  "assignee_id"
+    t.string   "assignee_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "task_manager_plans", :force => true do |t|
     t.string   "name"
