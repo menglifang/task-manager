@@ -6,6 +6,8 @@ class CreateTaskManagerPlans < ActiveRecord::Migration
       t.hstore :data
       t.timestamp :last_task_created_at
       t.boolean :autocompletable
+      t.string :plan_type
+      t.integer :ahead_of_time
 
       t.timestamps
     end
