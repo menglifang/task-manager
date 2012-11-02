@@ -6,5 +6,8 @@ class CreateTaskManagerAssignables < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :task_manager_assignables, [:assignee_id, :assignee_type]
+    add_index :task_manager_assignables, :plan_id
   end
 end
