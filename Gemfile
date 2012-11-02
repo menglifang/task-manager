@@ -15,3 +15,9 @@ gem "jquery-rails"
 
 # To use debugger
 # gem 'debugger'
+
+gem "activerecord-postgres-hstore", "~> 0.4.1"
+
+group :test do
+  gem 'rspec-rails'
+end
