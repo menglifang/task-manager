@@ -1,3 +1,6 @@
+require "enumerize"
+require "default_value_for"
+
 require "task-manager/api_constraints"
 require "task-manager/engine"
 
