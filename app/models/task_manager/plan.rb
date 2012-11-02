@@ -15,10 +15,13 @@ module TaskManager
     default_value_for :ahead_of_time, 0
 
     attr_accessible :autocompletable, :data, :last_task_created_at,
-      :name, :plan_type, :ahead_of_time
+      :name, :plan_type, :ahead_of_time, :begin_to_remind, :enabled_at
 
     validates :name, presence: true, uniqueness: true
     validates :plan_type, presence: true
     validates :ahead_of_time, numericality: { greater_than_or_equal_to: 0 }
+    validates :begin_to_remind, presence: true,
+      numericality: { less_than_or_equal_to: 0 }
+    validates :enabled_at, presence: true
   end
 end

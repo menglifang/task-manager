@@ -5,5 +5,7 @@ FactoryGirl.define do
     data {{ x: ['A', 'B', 'C'], y: [1, 2, 3] }}
     last_task_created_at 1.day.ago
     autocompletable false
+    enabled_at { Time.now }
+    begin_to_remind -24
   end
 end
