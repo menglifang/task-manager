@@ -3,11 +3,9 @@ require 'spec_helper'
 describe TaskManager::Plan do
   describe 'associations' do
     it { should have_many :assignables }
-    it { should have_many(:assignees).through(:assignables) }
     it { should accept_nested_attributes_for :assignables }
 
     it { should have_many :callables }
-    it { should have_many(:callbacks).through(:callables) }
   end
 
   describe 'validations' do
