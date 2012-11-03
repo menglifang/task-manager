@@ -63,13 +63,25 @@ module TaskManager
         #
         #   {
         #     "plan": {
-        #       "name": ...,                # 必填且唯一
-        #       "plan_type": ...,           # 必填，有效取值：'daily', 'weekly', 'monthly', 'quarterly', 'yearly'
-        #       "data": ...,
-        #       "enabled_at": ...,          # 必填
-        #       "ahead_of_time": ...,       # 必填且大于等于0，缺省值为0
-        #       "begin_to_remind": ...,     # 必填且小于等于0
-        #       "autocompletable": ...      # 必填，缺省值为false
+        #       "name": ...,                     # 必填且唯一
+        #       "plan_type": ...,                # 必填，有效取值：'daily',
+        #                                        # 'weekly', 'monthly',
+        #                                        # 'quarterly', 'yearly'
+        #       "data": ...,                     # 可选
+        #       "enabled_at": ...,               # 必填
+        #       "ahead_of_time": ...,            # 必填且大于等于0，缺省值为0
+        #       "begin_to_remind": ...,          # 必填且小于等于0
+        #       "autocompletable": ...,          # 必填，缺省值为false
+        #
+        #       "assignables_attributes": [{     # 至少需要一个assignable
+        #         "assignable_id": ...,
+        #         "assignable_type": ...
+        #       }, ...],
+        #
+        #       "callables_attributes": [{       # 可选
+        #         "callable_id": ...,
+        #         "callable_type": ...
+        #       }]
         #     }
         #   }
         #
@@ -86,7 +98,11 @@ module TaskManager
         #     "begin_to_remind": ...,
         #     "autocompletable": ...,
         #     "created_at": ...,
-        #     "updated_at": ...
+        #     "updated_at": ...,
+        #     "assignees": [{
+        #       "id": ...,
+        #       "name": ...
+        #     }, ...]
         #   }
         #   ## 失败
         #   HTTP/1.1 422 Unprocessable Entity
@@ -115,13 +131,35 @@ module TaskManager
         #
         #   {
         #     "plan": {
-        #       "name": ...,                # 必填且唯一
-        #       "plan_type": ...,           # 必填，有效取值：'daily', 'weekly', 'monthly', 'quarterly', 'yearly'
-        #       "data": ...,
-        #       "enabled_at": ...,          # 必填
-        #       "ahead_of_time": ...,       # 必填且大于等于0，缺省值为0
-        #       "begin_to_remind": ...,     # 必填且小于等于0
-        #       "autocompletable": ...      # 必填，缺省值为false
+        #       "name": ...,                     # 必填且唯一
+        #       "plan_type": ...,                # 必填，有效取值：'daily',
+        #                                        # 'weekly', 'monthly',
+        #                                        # 'quarterly', 'yearly'
+        #       "data": ...,                     # 可选
+        #       "enabled_at": ...,               # 必填
+        #       "ahead_of_time": ...,            # 必填且大于等于0，缺省值为0
+        #       "begin_to_remind": ...,          # 必填且小于等于0
+        #       "autocompletable": ...,          # 必填，缺省值为false
+        #
+        #       "assignables_attributes": [{
+        #         "id": ...,                     ## 可选，
+        #                                        ## 如果有，则更新，否则创建
+        #         "assignable_id": ...,          ## 必填
+        #         "assignable_type": ...,        ## 必填
+        #         "_destroy": "1"                ## 可选，
+        #                                        ## 如果设置，存在则删除，
+        #                                        ## 不存在则忽略
+        #       }, ...],
+        #
+        #       "callables_attributes": [{       # 可选
+        #         "id": ...,                     ## 可选，
+        #                                        ## 如果有，则更新，否则创建
+        #         "callable_id": ...,            ## 必填
+        #         "callable_type": ...,          ## 必填
+        #         "_destroy": "1"                ## 可选，
+        #                                        ## 如果设置，存在则删除，
+        #                                        ## 不存在则忽略
+        #       }]
         #     }
         #   }
         #
@@ -138,7 +176,11 @@ module TaskManager
         #     "begin_to_remind": ...,
         #     "autocompletable": ...,
         #     "created_at": ...,
-        #     "updated_at": ...
+        #     "updated_at": ...,
+        #     "assignees": [{
+        #       "id": ...,
+        #       "name": ...
+        #     }, ...]
         #   }
         #   ## 失败
         #   HTTP/1.1 422 Unprocessable Entity
