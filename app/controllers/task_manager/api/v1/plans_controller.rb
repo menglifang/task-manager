@@ -49,11 +49,14 @@ module TaskManager
         #   }
         def index
           plans = TaskManager::Plan.search(params[:q]).result
-
-          render json: {
+          result = {
             total: plans.count,
-            plans: plans.page(params[:page]).per(params[:limit])
-          }, status: :ok
+            plans: ActiveModel::ArraySerializer.new(
+              plans.page(params[:page]).per(params[:limit])
+            ).as_json
+          }
+
+          render json: result, status: :ok
         end
 
         # 创建计划
