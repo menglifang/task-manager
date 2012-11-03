@@ -17,11 +17,10 @@ module TaskManager
     attr_accessible :autocompletable, :data, :last_task_created_at,
       :name, :plan_type, :ahead_of_time, :begin_to_remind, :enabled_at
 
-    validates :name, presence: true, uniqueness: true
-    validates :plan_type, presence: true
-    validates :ahead_of_time, numericality: { greater_than_or_equal_to: 0 }
-    validates :begin_to_remind, presence: true,
-      numericality: { less_than_or_equal_to: 0 }
-    validates :enabled_at, presence: true
+    validates_presence_of :name, :plan_type, :begin_to_remind,
+      :enabled_at, :assignables
+    validates_uniqueness_of :name
+    validates_numericality_of :ahead_of_time, greater_than_or_equal_to: 0
+    validates_numericality_of :begin_to_remind, less_than_or_equal_to: 0
   end
 end
