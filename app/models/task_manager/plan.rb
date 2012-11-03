@@ -17,7 +17,8 @@ module TaskManager
     accepts_nested_attributes_for :assignables
 
     attr_accessible :autocompletable, :data, :last_task_created_at,
-      :name, :plan_type, :ahead_of_time, :begin_to_remind, :enabled_at
+      :name, :plan_type, :ahead_of_time, :begin_to_remind, :enabled_at,
+      :assignables_attributes
 
     validates_presence_of :name, :plan_type, :begin_to_remind,
       :enabled_at, :assignables
