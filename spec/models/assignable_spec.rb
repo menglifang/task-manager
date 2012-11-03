@@ -7,7 +7,7 @@ describe TaskManager::Assignable do
   end
 
   describe 'validations' do
-    it { should validate_presence_of :plan }
-    it { should validate_presence_of :assignee }
+    it { should validate_presence_of :assignee_id }
+    it { should validate_presence_of :assignee_type }
   end
 end
