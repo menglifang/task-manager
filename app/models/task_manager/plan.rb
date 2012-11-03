@@ -3,10 +3,7 @@ module TaskManager
     extend Enumerize
 
     has_many :assignables
-    has_many :assignees, through: :assignables
-
     has_many :callables
-    has_many :callbacks, through: :callables
 
     enumerize :plan_type, in: [:daily, :weekly, :monthly, :quarterly, :yearly]
 
@@ -25,5 +22,13 @@ module TaskManager
     validates_uniqueness_of :name
     validates_numericality_of :ahead_of_time, greater_than_or_equal_to: 0
     validates_numericality_of :begin_to_remind, less_than_or_equal_to: 0
+
+    def assignees
+      assignables.collect(&:assignee)
+    end
+
+    def callbacks
+      callables.collect(&:callback)
+    end
   end
 end
