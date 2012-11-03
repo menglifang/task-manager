@@ -5,7 +5,9 @@ module TaskManager
       class PlansController < TaskManager::ApplicationController
         respond_to :json
 
-        # 查询计划，支持的查询属性有：
+        # 查询计划
+        #
+        # 支持的查询属性有：
         #   name                      计划名
         #   plan_type                 计划类型
         #   autocompletable           是否自动完成
