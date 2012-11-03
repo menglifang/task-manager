@@ -4,6 +4,8 @@ describe TaskManager::Plan do
   describe 'associations' do
     it { should have_many :assignables }
     it { should have_many(:assignees).through(:assignables) }
+    it { should accept_nested_attributes_for :assignables }
+
     it { should have_many :callables }
     it { should have_many(:callbacks).through(:callables) }
   end
@@ -20,5 +22,7 @@ describe TaskManager::Plan do
     it { should validate_presence_of :begin_to_remind }
     it { should validate_numericality_of :begin_to_remind }
     it { should_not allow_value(1).for(:begin_to_remind) }
+    it { should validate_presence_of :assignables }
+    it { should validate_presence_of :assignables }
   end
 end
