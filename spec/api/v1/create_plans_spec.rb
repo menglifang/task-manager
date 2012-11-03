@@ -15,7 +15,6 @@ describe 'Creating a plan', type: :request do
     it 'creates a plan successfully' do
       post '/task-manager/api/plans', params.merge(format: :json)
 
-      binding.pry
       response.status.should == 201
     end
   end
