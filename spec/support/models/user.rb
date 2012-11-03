@@ -1,4 +1,6 @@
-class User < ActiveRecord::Base; end
+class User < ActiveRecord::Base
+  attr_accessible :name
+end
 
 unless User.table_exists?
   ActiveRecord::Base.connection.instance_eval do
