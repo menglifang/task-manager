@@ -79,13 +79,13 @@ module TaskManager
         #       "autocompletable": ...,          # 必填，缺省值为false
         #
         #       "assignables_attributes": [{     # 至少需要一个assignable
-        #         "assignable_id": ...,
-        #         "assignable_type": ...
+        #         "assignee_id": ...,
+        #         "assignee_type": ...
         #       }, ...],
         #
         #       "callables_attributes": [{       # 可选
-        #         "callable_id": ...,
-        #         "callable_type": ...
+        #         "callback_id": ...,
+        #         "callback_type": ...
         #       }]
         #     }
         #   }
@@ -149,8 +149,8 @@ module TaskManager
         #       "assignables_attributes": [{
         #         "id": ...,                     ## 可选，
         #                                        ## 如果有，则更新，否则创建
-        #         "assignable_id": ...,          ## 必填
-        #         "assignable_type": ...,        ## 必填
+        #         "assignee_id": ...,          ## 必填
+        #         "assignee_type": ...,        ## 必填
         #         "_destroy": "1"                ## 可选，
         #                                        ## 如果设置，存在则删除，
         #                                        ## 不存在则忽略
@@ -159,8 +159,8 @@ module TaskManager
         #       "callables_attributes": [{       # 可选
         #         "id": ...,                     ## 可选，
         #                                        ## 如果有，则更新，否则创建
-        #         "callable_id": ...,            ## 必填
-        #         "callable_type": ...,          ## 必填
+        #         "callback_id": ...,            ## 必填
+        #         "callback_type": ...,          ## 必填
         #         "_destroy": "1"                ## 可选，
         #                                        ## 如果设置，存在则删除，
         #                                        ## 不存在则忽略
