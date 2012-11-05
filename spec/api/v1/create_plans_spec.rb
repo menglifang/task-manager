@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Creating a plan', type: :request do
+describe 'API for creating a plan', type: :request do
   context 'with valid params' do
     let(:user) { User.create!(name: 'user for test') }
 
