@@ -15,7 +15,7 @@ module TaskManager
 
     attr_accessible :autocompletable, :data, :last_task_created_at,
       :name, :plan_type, :ahead_of_time, :begin_to_remind, :enabled_at,
-      :assignables_attributes
+      :assignables_attributes, :callables_attributes
 
     validates_presence_of :name, :plan_type, :begin_to_remind,
       :enabled_at, :assignables
