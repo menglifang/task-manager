@@ -11,15 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121102151448) do
+ActiveRecord::Schema.define(:version => 20121105172821) do
 
   create_table "task_manager_assignables", :force => true do |t|
-    t.integer  "plan_id"
+    t.integer  "target_id"
+    t.string   "target_type"
     t.integer  "assignee_id"
     t.string   "assignee_type"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
+
+  add_index "task_manager_assignables", ["assignee_id", "assignee_type"], :name => "index_task_manager_assignables_on_assignee_id_and_assignee_type"
+  add_index "task_manager_assignables", ["target_id", "target_type"], :name => "index_task_manager_assignables_on_target_id_and_target_type"
 
   create_table "task_manager_callables", :force => true do |t|
     t.integer  "callback_id"
@@ -43,6 +47,17 @@ ActiveRecord::Schema.define(:version => 20121102151448) do
     t.datetime "last_task_created_at"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
+  end
+
+  create_table "task_manager_tasks", :force => true do |t|
+    t.string   "name"
+    t.string   "task_type"
+    t.string   "status"
+    t.hstore   "data"
+    t.datetime "deadline"
+    t.datetime "reminding_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
 end
