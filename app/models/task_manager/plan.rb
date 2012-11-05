@@ -3,7 +3,7 @@ module TaskManager
     extend Enumerize
 
     has_many :assignables, as: :target
-    has_many :callables
+    has_many :callables, as: :target
 
     enumerize :plan_type, in: [:daily, :weekly, :monthly, :quarterly, :yearly]
 
