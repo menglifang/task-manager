@@ -1,6 +1,6 @@
 module TaskManager
   class Assignable < ActiveRecord::Base
-    belongs_to :plan
+    belongs_to :target, polymorphic: true
     belongs_to :assignee, polymorphic: true
 
     validates_presence_of :assignee_id, :assignee_type
