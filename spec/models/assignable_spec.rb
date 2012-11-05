@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe TaskManager::Assignable do
   describe 'associations' do
-    it { should belong_to :plan }
+    it { should belong_to :target }
     it { should belong_to :assignee }
   end
 
