@@ -94,20 +94,22 @@ module TaskManager
         #   ## 成功
         #   HTTP/1.1 201 Created
         #   {
-        #     "id": ...,
-        #     "name": ...,
-        #     "plan_type": ...,
-        #     "data": ...,
-        #     "enabled_at": ...,
-        #     "ahead_of_time": ...,
-        #     "begin_to_remind": ...,
-        #     "autocompletable": ...,
-        #     "created_at": ...,
-        #     "updated_at": ...,
-        #     "assignees": [{
+        #     "plan": {
         #       "id": ...,
-        #       "name": ...
-        #     }, ...]
+        #       "name": ...,
+        #       "plan_type": ...,
+        #       "data": ...,
+        #       "enabled_at": ...,
+        #       "ahead_of_time": ...,
+        #       "begin_to_remind": ...,
+        #       "autocompletable": ...,
+        #       "created_at": ...,
+        #       "updated_at": ...,
+        #       "assignees": [{
+        #         "id": ...,
+        #         "name": ...
+        #       }, ...]
+        #     }
         #   }
         #   ## 失败
         #   HTTP/1.1 422 Unprocessable Entity
@@ -172,20 +174,22 @@ module TaskManager
         #   ## 成功
         #   HTTP/1.1 202 Accepted
         #   {
-        #     "id": ...,
-        #     "name": ...,
-        #     "plan_type": ...,
-        #     "data": ...,
-        #     "enabled_at": ...,
-        #     "ahead_of_time": ...,
-        #     "begin_to_remind": ...,
-        #     "autocompletable": ...,
-        #     "created_at": ...,
-        #     "updated_at": ...,
-        #     "assignees": [{
+        #     "plan": {
         #       "id": ...,
-        #       "name": ...
-        #     }, ...]
+        #       "name": ...,
+        #       "plan_type": ...,
+        #       "data": ...,
+        #       "enabled_at": ...,
+        #       "ahead_of_time": ...,
+        #       "begin_to_remind": ...,
+        #       "autocompletable": ...,
+        #       "created_at": ...,
+        #       "updated_at": ...,
+        #       "assignees": [{
+        #         "id": ...,
+        #         "name": ...
+        #       }, ...]
+        #     }
         #   }
         #   ## 失败
         #   HTTP/1.1 422 Unprocessable Entity
