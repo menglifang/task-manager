@@ -2,7 +2,7 @@ module TaskManager
   class Plan < ActiveRecord::Base
     extend Enumerize
 
-    has_many :assignables
+    has_many :assignables, as: :target
     has_many :callables
 
     enumerize :plan_type, in: [:daily, :weekly, :monthly, :quarterly, :yearly]
