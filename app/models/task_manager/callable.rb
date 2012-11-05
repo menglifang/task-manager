@@ -3,7 +3,8 @@ module TaskManager
     belongs_to :callback, polymorphic: true
     belongs_to :target, polymorphic: true
 
-    validates :target, presence: true
-    validates :callback, presence: true
+    validates_presence_of :callback_id, :callback_type
+
+    attr_accessible :callback_id, :callback_type
   end
 end
