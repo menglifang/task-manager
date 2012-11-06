@@ -7,7 +7,8 @@ describe TaskManager::Callable do
   end
 
   describe 'validations' do
-    it { should validate_presence_of :target }
-    it { should validate_presence_of :callback }
+    [:callback_id, :callback_type].each do |a|
+      it { should validate_presence_of a }
+    end
   end
 end
