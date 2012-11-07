@@ -7,5 +7,15 @@ FactoryGirl.define do
     autocompletable false
     enabled_at { Time.now }
     begin_to_remind -24
+
+    factory :plan_with_assignees do
+      ignore do
+        assignees_count 1
+      end
+
+      after(:create) do |p, e|
+        FactoryGirl.create_list(:assignable, assignees_count, target: p)
+      end
+    end
   end
 end
