@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :plan, class: TaskManager::Plan do
-    name 'A test plan'
+    sequence(:name) { |n| "plan-#{n}" }
     plan_type :daily
     data {{ x: ['A', 'B', 'C'], y: [1, 2, 3] }}
     last_task_created_at 1.day.ago
@@ -13,8 +13,8 @@ FactoryGirl.define do
         assignees_count 1
       end
 
-      after(:create) do |p, e|
-        FactoryGirl.create_list(:assignable, assignees_count, target: p)
+      after(:build) do |p, e|
+        p.assignables = FactoryGirl.build_list(:assignable, e.assignees_count, target: p)
       end
     end
   end
