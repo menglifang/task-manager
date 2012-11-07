@@ -49,9 +49,11 @@ module TaskManager
       reminding_at = default_deadline.ago(-(begin_to_remind * 60))
       status = autocompletable ? :finished : :new
 
+      tasks = []
+
       Plan.transaction do
         assignables.each do |a|
-          Task.create! do |t|
+          tasks << Task.create! do |t|
             t.name = name
             t.data = data
             t.task_type = plan_type
@@ -63,6 +65,10 @@ module TaskManager
           end
         end
       end
+
+      update_attributes(last_task_created_at: Time.now)
+
+      tasks
     end
 
     class << self
