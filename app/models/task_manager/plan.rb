@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 module TaskManager
   class Plan < ActiveRecord::Base
     extend Enumerize
@@ -31,6 +32,9 @@ module TaskManager
       callables.collect(&:callback)
     end
 
+    # 生成计划任务
+    #
+    # 为每一个计划的执行者创建一个计划任务。
     def generate_tasks
       now = Time.now
       default_deadline = case plan_type.to_sym
@@ -43,11 +47,17 @@ module TaskManager
 
       deadline = default_deadline.ago(ahead_of_time * 60)
       reminding_at = default_deadline.ago(-(begin_to_remind * 60))
+      status = autocompletable ? :finished : :new
 
       Plan.transaction do
         assignables.each do |a|
-          Task.create!(name: name, data: data, task_type: plan_type,
-                      deadline: deadline, reminding_at: reminding_at) do |t|
+          Task.create! do |t|
+            t.name = name
+            t.data = data
+            t.task_type = plan_type
+            t.deadline = deadline
+            t.reminding_at = reminding_at
+            t.status = status
             t.assignable = a
             t.callables = callables
           end
