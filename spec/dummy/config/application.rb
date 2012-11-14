@@ -11,6 +11,8 @@ require "sprockets/railtie"
 Bundler.require
 require "task-manager"
 require "siesta"
+require "ransack"
+require "kaminari"
 
 module Dummy
   class Application < Rails::Application
