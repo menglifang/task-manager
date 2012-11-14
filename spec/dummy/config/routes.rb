@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   mount TaskManager::Engine => "/task-manager"
+  mount Siesta::Engine => '/'
 
-  root to: 'home#show'
+  resources :extjs
 end
