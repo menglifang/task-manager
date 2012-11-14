@@ -8,3 +8,4 @@ spec/dummy/.sass-cache
 spec/dummy/config/database.yml
 .yardoc/
 doc/
+.rvmrc
