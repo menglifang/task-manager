@@ -1,24 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dummy - ExtJS</title>
+<title>Dummy - ExtJS</title>
 
-  <%= stylesheet_link_tag "extjs/resources/css/ext-all", :media => "all" %>
-  <%= stylesheet_link_tag "application", :media => "all" %>
+<%= stylesheet_link_tag "extjs/resources/css/ext-all", :media => "all" %>
+<%= stylesheet_link_tag "application", :media => "all" %>
 
-  <% if Rails.env.production? %>
-    <%= javascript_include_tag "application" %>
-  <% else %>
-    <%= javascript_include_tag "extjs/ext-all-debug" %>
-    <%= javascript_include_tag "extjs/ext-lang-zh_CN" %>
-    <%= javascript_include_tag "task-manager/extjs/app.js" %>
-  <% end %>
+<%= javascript_include_tag "application" %>
 
-  <%= csrf_meta_tags %>
+<%= csrf_meta_tags %>
 </head>
 <body>
 
-  <%= yield %>
+<%= yield %>
 
 </body>
 </html>
