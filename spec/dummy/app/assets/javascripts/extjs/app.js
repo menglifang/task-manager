@@ -1,10 +1,14 @@
+// Register all stores
+Ext.data.StoreManager.register([
+  Ext.create('TM.store.Plans', { storeId: 'TM.store.Plans'})
+]);
+
 Ext.application({
   name: 'Dummy',
   appFolder: 'assets/extjs/app',
 
   controllers: [
     'Viewport',
-    'TM.controller.Plans'
   ],
 
   autoCreateViewport: true,
