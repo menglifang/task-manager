@@ -10,6 +10,7 @@ require "sprockets/railtie"
 
 Bundler.require
 require "task-manager"
+require "siesta"
 
 module Dummy
   class Application < Rails::Application
