@@ -4,6 +4,7 @@ Ext.application({
 
   controllers: [
     'Viewport',
+    'TM.controller.Plans'
   ],
 
   autoCreateViewport: true,
