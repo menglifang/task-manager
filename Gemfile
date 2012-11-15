@@ -19,6 +19,7 @@ gem "jquery-rails"
 gem "activerecord-postgres-hstore", "~> 0.4.1"
 
 group :development, :test do
+  gem 'sass-rails'
   gem 'siesta'
   gem 'rspec-rails'
 end

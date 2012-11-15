@@ -13,6 +13,7 @@ require "task-manager"
 require "siesta"
 require "ransack"
 require "kaminari"
+require "sass-rails"
 
 module Dummy
   class Application < Rails::Application
