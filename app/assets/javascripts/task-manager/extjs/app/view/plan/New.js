@@ -4,8 +4,7 @@ Ext.define('TM.view.plan.New', {
 
   defaults: {
     xtype: 'fieldset',
-    margin: '5 10',
-    //border: false
+    margin: '5 10'
   },
 
   items: [{
@@ -56,7 +55,7 @@ Ext.define('TM.view.plan.New', {
   }, {
     xtype: 'fieldset',
     id: 'selectField',
-    title: '截止时间',
+    title: '计划完成时限',
     layout: {
       type: 'table',
       columns: 2
@@ -69,48 +68,49 @@ Ext.define('TM.view.plan.New', {
       id: 'new_quarterly_month',
       name: 'quarterly_month',
       xtype: 'combo',
-      // store: 'TM.store.quarterly_month',
-      valueField: 'value'
+      store: 'TM.store.QuarterlyMonths',
+      valueField: 'value',
+      editable: false
     }, {
       fieldLabel: '月',
       id: 'new_month',
       name: 'month',
       xtype: 'combo',
-      // store: 'TM.store.month',
+      store: 'TM.store.Months',
       valueField: 'value',
-      // hidden: true
+      editable: false
     }, {
       fieldLabel: '日',
       id: 'new_weekly_day',
       name: 'weekly_day',
-      // store: 'TM.store.week',
+      store: 'TM.store.WeekDays',
       valueField: 'value',
       xtype: 'combo',
-
+      editable: false
     }, {
       fieldLabel: '日',
       id: 'new_day',
       name: 'day',
-      // store: 'TM.store.date',
+      store: 'TM.store.Days',
       valueField: 'value',
       xtype: 'combo',
-      // hidden: true
+      editable: false
     }, {
       fieldLabel: '时',
       id: 'new_hour',
       name: 'hour',
-      // store: 'TM.store.date',
+      store: 'TM.store.Hours',
       valueField: 'value',
       xtype: 'combo',
-      // hidden: true
+      editable: false
     }, {
       fieldLabel: '分',
       id: 'new_minute',
       name: 'minute',
-      // store: 'TM.store.date',
+      store: 'TM.store.Minutes',
       valueField: 'value',
       xtype: 'combo',
-      // hidden: true
+      editable: false
     }]
   }],
 
@@ -172,5 +172,4 @@ Ext.define('TM.view.plan.New', {
     fieldSet.getComponent('new_hour').show();
     fieldSet.getComponent('new_minute').show();
   }
-
 });

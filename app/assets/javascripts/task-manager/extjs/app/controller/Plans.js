@@ -5,6 +5,14 @@ Ext.define('TM.controller.Plans', {
     'plan.Index'
   ],
 
+  // stores: [
+  //   'Plan'
+  // ],
+
+  models: [
+    'Plan'
+  ],
+
   refs: [{
     ref: 'searchForm',
     selector: 'plan_search'
@@ -32,8 +40,36 @@ Ext.define('TM.controller.Plans', {
       },
       'plan_new combo': {
         change: this.onPlanTypeChange
+      },
+      'plan_new button[action="save"]': {
+        click: this.onSaveClick
+      },
+      'plan_new button[action="reset"]': {
+        click: this.onResetClick
       }
     });
+  },
+
+  onResetClick: function(btn) {
+    this.getPlanNew().getForm().reset();
+  },
+
+  onSaveClick: function(btn) {
+    var attrs = this.getPlanNew().getValues();
+
+    var self = this;
+
+    var Plan = TM.model.Plan;
+    var plan = Plan.create(attrs, {
+      success: function() {
+        Ext.Msg.alert('提示', '计划添加成功!');
+        self.getPlanStore().insert(0, plan);
+        self.getPlanNew().getForm.close();
+      },
+      failure: function() {
+        Ext.Msg.alert('提示', '计划添加失败!')
+      }
+    })
   },
 
   onQueryClick: function(btn) {
