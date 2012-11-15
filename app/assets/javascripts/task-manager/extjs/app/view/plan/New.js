@@ -57,7 +57,7 @@
 			id: 'new_quarterly_month',
 			name: 'quarterly_month',
 			xtype: 'combo',
-			store: 'TM.store.quarterly_month',
+			// store: 'TM.store.quarterly_month',
 	 		valueField: 'value'
 		}, {
 			fieldLabel: '月',
