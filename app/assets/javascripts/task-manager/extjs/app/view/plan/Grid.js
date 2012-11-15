@@ -4,19 +4,19 @@ Ext.define('TM.view.plan.Grid', {
 
   store: 'TM.store.Plans',
 
-	tbar: [{
-		text: '添加',
-		// iconCls: '',
-		action: 'add'
-	}, {
-		text: '修改',
-		// iconCls: '',
-		action: 'edit'
-	}, {
-		text: '删除',
-		// iconCls: '',
-		action: 'delete'
-	}],
+  tbar: [{
+    text: '添加',
+    iconCls: 'btn-add-icon',
+    action: 'add'
+  }, '-', {
+    text: '修改',
+    iconCls: 'btn-edit-icon',
+    action: 'edit'
+  }, '-', {
+    text: '删除',
+    iconCls: 'btn-delete-icon',
+    action: 'delete'
+  }],
 
   columns: [{
     text: '计划名称',
@@ -27,18 +27,18 @@ Ext.define('TM.view.plan.Grid', {
     width: 60,
     renderer: function(v, m, record) {
       switch (record.get('plan_type')) {
-      case 'yearly':
-        return '年计划';
-      case 'yearly':
-        return '季计划';
-      case 'yearly':
-        return '月计划';
-      case 'yearly':
-        return '周计划';
-      case 'yearly':
-        return '日计划';
-      default:
-        return '';
+        case 'yearly':
+          return '年计划';
+        case 'yearly':
+          return '季计划';
+        case 'yearly':
+          return '月计划';
+        case 'yearly':
+          return '周计划';
+        case 'yearly':
+          return '日计划';
+        default:
+          return '';
       }
     }
   }, {
@@ -57,7 +57,7 @@ Ext.define('TM.view.plan.Grid', {
     width: 80,
     dataIndex: 'assignee'
     //renderer: function(v, m, record) {
-      //return record.get('assignee').name;
+    //return record.get('assignee').name;
     //}
   }]
 });
