@@ -38,7 +38,6 @@ Ext.define('TM.view.plan.Search', {
           name: 'q[plan_type]'
         }, {
           fieldLabel: '是否自动完成',
-          labelWidth: 100,
           xtype: 'combo',
           editable: false,
           valueField: 'value',
@@ -96,19 +95,17 @@ Ext.define('TM.view.plan.Search', {
           }]
         }, {
           layout: 'hbox',
-          margin: '10 30 0',
+          margin: '20 30 0',
           items: [{
             xtype: 'button',
             width: 60,
             text: '查询',
-            scale: 'medium',
             action: 'query'
           }, {
             xtype: 'button',
             margin: '0 0 0 20',
             width: 60,
             text: '重置',
-            scale: 'medium',
             action: 'reset'
           }]
         }]
