@@ -102,7 +102,7 @@ Ext.define('TM.view.plan.Search', {
             width: 60,
             text: '查询',
             scale: 'medium',
-            action: 'search'
+            action: 'query'
           }, {
             xtype: 'button',
             margin: '0 0 0 20',

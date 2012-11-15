@@ -14,6 +14,9 @@ Ext.define('TM.controller.Plans', {
   ],
 
   refs: [{
+    ref: 'searchForm',
+    selector: 'plan_search'
+  }, {
     ref: 'planWindow',
     selector: 'plan_window'
   }, {
@@ -23,6 +26,9 @@ Ext.define('TM.controller.Plans', {
 
   init: function() {
     this.control({
+      'plan_search button[action="query"]': {
+        click: this.onQueryClick
+      },
       'plan_grid button[action="add"]': {
         click: this.onAddClick
       },
@@ -58,6 +64,12 @@ Ext.define('TM.controller.Plans', {
         Ext.Msg.alert('提示', '计划添加失败!')
       }
     })
+  },
+
+  onQueryClick: function(btn) {
+    var params = this.getSearchForm().getValues();
+
+    Ext.getStore('TM.store.Plans').load({ params: params });
   },
 
   onAddClick: function() {
