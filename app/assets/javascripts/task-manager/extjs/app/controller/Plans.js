@@ -2,10 +2,10 @@ Ext.define('TM.controller.Plans', {
   extend: 'Ext.app.Controller',
 
   views: [
-    'plan.Grid'
+    'plan.Index'
   ],
 
   index: function() {
-    this.render('TM.view.plan.Grid');
+    this.render('TM.view.plan.Index');
   }
 });
