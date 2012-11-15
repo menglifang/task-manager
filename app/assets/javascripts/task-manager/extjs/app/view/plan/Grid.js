@@ -4,6 +4,20 @@ Ext.define('TM.view.plan.Grid', {
 
   store: 'TM.store.Plans',
 
+	tbar: [{
+		text: '添加',
+		// iconCls: '',
+		action: 'add'
+	}, {
+		text: '修改',
+		// iconCls: '',
+		action: 'edit'
+	}, {
+		text: '删除',
+		// iconCls: '',
+		action: 'delete'
+	}],
+
   columns: [{
     text: '计划名称',
     dataIndex: 'name',
