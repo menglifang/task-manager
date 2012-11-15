@@ -9,6 +9,13 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
- *= require task-manager/application
  */
+.btn-add-icon {
+  background: url(image_path('task-manager/icons/add.png')) no-repeat;
+}
+.btn-edit-icon {
+  background: url(image_path('task-manager/icons/edit.png')) no-repeat;
+} 
+.btn-delete-icon {
+  background: url(image_path('task-manager/icons/delete.png')) no-repeat;
+} 
