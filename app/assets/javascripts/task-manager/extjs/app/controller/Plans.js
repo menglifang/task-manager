@@ -14,6 +14,9 @@ Ext.define('TM.controller.Plans', {
   }, {
     ref: 'planNew',
     selector: 'plan_new'
+  }, {
+    ref: 'planType',
+    selector: 'plan_new combo[name="plan_type"]'
   }],
 
   init: function() {
@@ -24,8 +27,11 @@ Ext.define('TM.controller.Plans', {
       'plan_grid button[action="add"]': {
         click: this.onAddClick
       },
+      'plan_new': {
+        afterrender: this.onNewFormAfterRender
+      },
       'plan_new combo': {
-        change: this.onPlanTypeChang
+        change: this.onPlanTypeChange
       }
     });
   },
@@ -40,7 +46,11 @@ Ext.define('TM.controller.Plans', {
     Ext.create('TM.view.plan.Window').show();
   },
 
-  onPlanTypeChang: function(combo, value, oldValue) {
+  onNewFormAfterRender: function() {
+    this.getPlanType().setValue('daily');
+  },
+
+  onPlanTypeChange: function(combo, value, oldValue) {
     if (value == oldValue) return;
 
     if(value == 'yearly') {
@@ -52,7 +62,7 @@ Ext.define('TM.controller.Plans', {
     } else if(value == 'weekly') {
       this.getPlanNew().showWeeklyField();
     } else if(value == 'daily') {
-      this.getPlanNew().showDayltyField();
+      this.getPlanNew().showDailyField();
     }
   },
 
