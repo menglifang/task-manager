@@ -6,8 +6,12 @@ Ext.define('TM.controller.Plans', {
   ],
 
   // stores: [
-  //   'Types'
+  //   'Plan'
   // ],
+
+  models: [
+    'Plan'
+  ],
 
   refs: [{
     ref: 'planWindow',
@@ -23,16 +27,44 @@ Ext.define('TM.controller.Plans', {
         click: this.onAddClick
       },
       'plan_new combo': {
-        change: this.onPlanTypeChang
+        change: this.onPlanTypeChange
+      },
+      'plan_new button[action="save"]': {
+        click: this.onSaveClick
+      },
+      'plan_new button[action="reset"]': {
+        click: this.onResetClick
       }
     });
+  },
+
+  onResetClick: function(btn) {
+    this.getPlanNew().getForm().reset();
+  },
+
+  onSaveClick: function(btn) {
+    var attrs = this.getPlanNew().getValues();
+
+    var self = this;
+
+    var Plan = TM.model.Plan;
+    var plan = Plan.create(attrs, {
+      success: function() {
+        Ext.Msg.alert('提示', '计划添加成功!');
+        self.getPlanStore().insert(0, plan);
+        self.getPlanNew().getForm.close();
+      },
+      failure: function() {
+        Ext.Msg.alert('提示', '计划添加失败!')
+      }
+    })
   },
 
   onAddClick: function() {
     Ext.create('TM.view.plan.Window').show();
   },
 
-  onPlanTypeChang: function(combo, value, oldValue) {
+  onPlanTypeChange: function(combo, value, oldValue) {
     if (value == oldValue) return;
 
     if(value == 'yearly') {

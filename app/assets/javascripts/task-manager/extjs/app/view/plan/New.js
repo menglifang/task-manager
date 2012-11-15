@@ -5,12 +5,12 @@
  	defaults: {
  		xtype: 'fieldset',
 		margin: '0 auto',
-		border: false
+		border: 1
  	},
 
  	items: [
  	{
- 		
+ 		title: '基本信息',
 		layout: {
 	        type: 'table',
 	        columns: 1
@@ -45,6 +45,7 @@
  	}, {
 		xtype: 'fieldset',
 		id: 'selectField',
+		title: '计划完成时限',
 		layout: {
 	        type: 'table',
 	        columns: 2
@@ -57,48 +58,49 @@
 			id: 'new_quarterly_month',
 			name: 'quarterly_month',
 			xtype: 'combo',
-			// store: 'TM.store.quarterly_month',
-	 		valueField: 'value'
+			store: 'TM.store.QuarterlyMonths',
+	 		valueField: 'value',
+			editable: false
 		}, {
 			fieldLabel: '月',
 			id: 'new_month',
 			name: 'month',
 			xtype: 'combo',
-			// store: 'TM.store.month',
+			store: 'TM.store.Months',
 	 		valueField: 'value',
-			// hidden: true
+			editable: false
 		}, {
 			fieldLabel: '日',
 			id: 'new_weekly_day',
 			name: 'weekly_day',
-			// store: 'TM.store.week',
+			store: 'TM.store.WeekDays',
 	 		valueField: 'value',
 			xtype: 'combo',
-			
+			editable: false
 		}, {
 			fieldLabel: '日',
 			id: 'new_day',
 			name: 'day',
-			// store: 'TM.store.date',
+			store: 'TM.store.Days',
 	 		valueField: 'value',
 			xtype: 'combo',
-			// hidden: true
+			editable: false
 		}, {
 			fieldLabel: '时',
 			id: 'new_hour',
 			name: 'hour',
-			// store: 'TM.store.date',
+			store: 'TM.store.Hours',
 	 		valueField: 'value',
 			xtype: 'combo',
-			// hidden: true
+			editable: false
 		}, {
 			fieldLabel: '分',
 			id: 'new_minute',
 			name: 'minute',
-			// store: 'TM.store.date',
+			store: 'TM.store.Minutes',
 	 		valueField: 'value',
 			xtype: 'combo',
-			// hidden: true
+			editable: false
 		}]
  	}],
 
@@ -114,11 +116,11 @@
  	showYearlyField: function() {
  		var fieldSet = this.getComponent('selectField');
  		fieldSet.getComponent('new_quarterly_month').hide();
-    fieldSet.getComponent('new_weekly_day').hide();
-    fieldSet.getComponent('new_month').show();
-    fieldSet.getComponent('new_day').show();
-    fieldSet.getComponent('new_hour').show();
-    fieldSet.getComponent('new_minute').show();
+	    fieldSet.getComponent('new_weekly_day').hide();
+	    fieldSet.getComponent('new_month').show();
+	    fieldSet.getComponent('new_day').show();
+	    fieldSet.getComponent('new_hour').show();
+	    fieldSet.getComponent('new_minute').show();
  	},
 
  	showMonthlyField: function() {
@@ -134,31 +136,31 @@
 	showQuarterlyField: function() {
 		var fieldSet = this.getComponent('selectField');
 		fieldSet.getComponent('new_quarterly_month').hide();
-    fieldSet.getComponent('new_weekly_day').hide();
-    fieldSet.getComponent('new_month').hide();
-    fieldSet.getComponent('new_day').show();
-    fieldSet.getComponent('new_hour').show();
-    fieldSet.getComponent('new_minute').show();
+	    fieldSet.getComponent('new_weekly_day').hide();
+	    fieldSet.getComponent('new_month').hide();
+	    fieldSet.getComponent('new_day').show();
+	    fieldSet.getComponent('new_hour').show();
+	    fieldSet.getComponent('new_minute').show();
 	},
 
 	showWeeklyField: function() {
 		var fieldSet = this.getComponent('selectField');
 		fieldSet.getComponent('new_quarterly_month').hide();
-    fieldSet.getComponent('new_weekly_day').show();
-    fieldSet.getComponent('new_month').hide();
-    fieldSet.getComponent('new_day').hide();
-    fieldSet.getComponent('new_hour').show();
-    fieldSet.getComponent('new_minute').show(); 
+	    fieldSet.getComponent('new_weekly_day').show();
+	    fieldSet.getComponent('new_month').hide();
+	    fieldSet.getComponent('new_day').hide();
+	    fieldSet.getComponent('new_hour').show();
+	    fieldSet.getComponent('new_minute').show(); 
 	},
 
 	showDayltyField: function() {
 		var fieldSet = this.getComponent('selectField');
 		fieldSet.getComponent('new_quarterly_month').hide();
-    fieldSet.getComponent('new_weekly_day').hide();
-    fieldSet.getComponent('new_month').hide();
-    fieldSet.getComponent('new_day').hide();
-    fieldSet.getComponent('new_hour').show();
-    fieldSet.getComponent('new_minute').show();
+	    fieldSet.getComponent('new_weekly_day').hide();
+	    fieldSet.getComponent('new_month').hide();
+	    fieldSet.getComponent('new_day').hide();
+	    fieldSet.getComponent('new_hour').show();
+	    fieldSet.getComponent('new_minute').show();
 	}
 
  });
