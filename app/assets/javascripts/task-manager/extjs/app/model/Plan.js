@@ -28,5 +28,39 @@ Ext.define('TM.model.Plan', {
       root: 'plans',
       totalProperty: 'total'
     }
+  },
+
+  statics: {
+    create: function(attrs, opts) {
+      var plan = Ext.create('TM.model.Plan', attrs);
+
+      opts = opts || {};
+      var success = opts.success;
+
+      Ext.apply(opts, {
+        url: '/task-manager/api/plans',
+        method: 'POST',
+        jsonData: {
+          plan: {
+            name: attrs.name,
+            plan_type: attrs.plan_type,
+            data: {
+              x: attrs.data[x],
+              y: attrs.data[y]
+            },
+            enabled_at: attrs.enabled_at,
+            ahead_of_time: attrs.ahead_of_time,
+            begin_to_remind: attrs.begin_to_remind,
+            autocompletable: attrs.autocompletable,
+            assignables_attributes: [{
+              assignee_id: 1,
+              assignee_type: 'User'
+            }],
+            callables_attributes: null
+          }
+        }
+      });
+
+    }
   }
 });
