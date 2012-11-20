@@ -14,6 +14,7 @@ require "siesta"
 require "ransack"
 require "kaminari"
 require "sass-rails"
+require "pry"
 
 module Dummy
   class Application < Rails::Application
