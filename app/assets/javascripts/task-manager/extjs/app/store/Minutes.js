@@ -12,7 +12,7 @@ Ext.define('TM.store.Minutes',{
 	  { "text": "6", 'value': '6' },
 	  { "text": "7", 'value': '7' },
 	  { "text": "8", 'value': '8' },
-	  { "text": "6", 'value': '9' },
+	  { "text": "9", 'value': '9' },
 	  { "text": "10", 'value': '10' },
 	  { "text": "11", 'value': '11' },
 	  { "text": "12", 'value': '12' },
