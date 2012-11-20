@@ -8,6 +8,7 @@ Ext.define('TM.view.plan.New', {
   },
 
   items: [{
+    id: 'fillField',
     title: '基本信息',
     layout: {
       type: 'table',
