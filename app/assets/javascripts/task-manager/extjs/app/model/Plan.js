@@ -44,7 +44,15 @@ Ext.define('TM.model.Plan', {
           plan: {
             data: {
               x: attrs.dataX,
-              y: attrs.dataY
+              y: attrs.dataY,
+              ahead_of_time: {
+                month: attrs.month,
+                quartely_month: attrs.month,
+                day: attrs.month,
+                weekly_day: attrs.month,
+                hour: attrs.month,
+                minute: attrs.month
+              }
             },
             name: attrs.name,
             assignables_attributes: [{
@@ -54,8 +62,7 @@ Ext.define('TM.model.Plan', {
             plan_type: attrs.plan_type,
             enabled_at: attrs.enabled_at,
             begin_to_remind: attrs.begin_to_remind,
-            autocompletable: attrs.autocompletable,
-            ahead_of_time: attrs.ahead_of_time
+            autocompletable: attrs.autocompletable
           }
         },
         success: function() {
