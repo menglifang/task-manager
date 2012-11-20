@@ -8,6 +8,7 @@ Ext.define('TM.view.plan.New', {
   },
 
   items: [{
+    id: 'fillField',
     title: '基本信息',
     layout: {
       type: 'table',
@@ -53,6 +54,7 @@ Ext.define('TM.view.plan.New', {
       minValue: new Date()
     }, {
       fieldLabel: '完成前几天提醒',
+      id: 'new_begin_to_remind',
       emptyText: '计划完成前多少天开始提醒，此处为倒计时。',
       value: '0',
       name: 'begin_to_remind'

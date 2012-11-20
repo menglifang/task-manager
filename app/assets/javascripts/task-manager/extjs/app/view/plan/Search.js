@@ -95,7 +95,7 @@ Ext.define('TM.view.plan.Search', {
           }]
         }, {
           layout: 'hbox',
-          margin: '20 30 0',
+          margin: '20 0 0 60',
           items: [{
             xtype: 'button',
             formBind: true,

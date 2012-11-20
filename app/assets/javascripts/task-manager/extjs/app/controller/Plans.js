@@ -222,16 +222,20 @@ Ext.define('TM.controller.Plans', {
   onPlanTypeChange: function(combo, value, oldValue) {
     if (value == oldValue) return;
 
-    if(value == 'yearly') {
-      this.getPlanNew().showYearlyField();
-    } else if(value == 'quarterly') {
-      this.getPlanNew().showMonthlyField();
-    } else if(value == 'monthly') {
-      this.getPlanNew().showQuarterlyField();
-    } else if(value == 'weekly') {
-      this.getPlanNew().showWeeklyField();
-    } else if(value == 'daily') {
+    if(value == 'daily') {
+      this.getPlanNew().getComponent('fillField').getComponent('new_begin_to_remind').setDisabled(true);
       this.getPlanNew().showDailyField();
+    } else {
+      this.getPlanNew().getComponent('fillField').getComponent('new_begin_to_remind').setDisabled(false);
+      if(value == 'yearly') {
+        this.getPlanNew().showYearlyField();
+      } else if(value == 'quarterly') {
+        this.getPlanNew().showMonthlyField();
+      } else if(value == 'monthly') {
+        this.getPlanNew().showQuarterlyField();
+      } else if(value == 'weekly') {
+        this.getPlanNew().showWeeklyField();
+      }
     }
   },
 

@@ -55,14 +55,16 @@ Ext.define('TM.model.Plan', {
               }
             },
             name: attrs.name,
+            plan_type: attrs.plan_type,
+            enabled_at: attrs.enabled_at,
+            begin_to_remind: attrs.begin_to_remind,
+            autocompletable: attrs.autocompletable,
+            ahead_of_time: attrs.ahead_of_time,
             assignables_attributes: [{
               assignee_id: 1,
               assignee_type: 'User'
             }],
-            plan_type: attrs.plan_type,
-            enabled_at: attrs.enabled_at,
-            begin_to_remind: attrs.begin_to_remind,
-            autocompletable: attrs.autocompletable
+            callables_attributes: null
           }
         },
         success: function() {
