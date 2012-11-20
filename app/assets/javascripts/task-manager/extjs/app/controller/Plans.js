@@ -171,19 +171,20 @@ Ext.define('TM.controller.Plans', {
     attrs.enabled_at = Ext.Date.parse(date, "Y/m/d", true);
 
     var time = attrs.plan_type;
-    if(time == 'daily') {
-      attrs.ahead_of_time = Ext.Number.from(attrs.hour, 0)*60 + Ext.Number.from(attrs.minute, 0);
-    }else {
-      attrs.ahead_of_time = Ext.Number.from('', 0);
-    };
+
+    //TODO.
+    // if (time == 'monthly'){
+    //   attrs.
+    // }else if(tiem == 'weekly') {
+    //   attrs.ahead_of_time = Ext.Number.from(attrs.weekly_day, 0)*24*60 + Ext.Number.from(attrs.hour, 0)*60 + Ext.Number.from(attrs.minute, 0);
+    // }else if(time == 'daily') {
+    //   attrs.ahead_of_time = Ext.Number.from(attrs.hour, 0)*60 + Ext.Number.from(attrs.minute, 0);
+    // } else {
+    //   attrs.ahead_of_time = Ext.Number.from('', 0);
+    // };
 
     attrs.autocompletable = (attrs.autocompletable == 'on') ? true : false;
-    // var value = attrs.autocompletable;
-    // if(value == 'on')
-    //   attrs.autocompletable = this.PlanChangeTrue();
-    // else 
-    //   attrs.autocompletable = this.PlanChangeFalse(); 
-
+    
     var Plan = TM.model.Plan;
     var plan = Plan.create(attrs, {
       success: function() {
