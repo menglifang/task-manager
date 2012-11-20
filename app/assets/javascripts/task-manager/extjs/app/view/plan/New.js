@@ -47,6 +47,7 @@ Ext.define('TM.view.plan.New', {
       name: 'enabled_at'
     }, {
       fieldLabel: '提前多少时间提醒',
+      id: 'new_begin_to_remind',
       name: 'begin_to_remind'
     }, {
       fieldLabel: '是否自动完成',
