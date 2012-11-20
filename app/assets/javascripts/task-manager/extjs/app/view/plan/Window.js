@@ -7,7 +7,7 @@ Ext.define('TM.view.plan.Window', {
 	modal: true,
 
 	width: 600,
-	height: 520,
+	height: 550,
 
 	layout: {
 		type: 'fit',
