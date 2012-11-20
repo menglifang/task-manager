@@ -42,25 +42,41 @@ Ext.define('TM.model.Plan', {
         method: 'POST',
         jsonData: {
           plan: {
+            data: {
+              x: attrs.dataX,
+              y: attrs.dataY
+            },
             name: attrs.name,
             plan_type: attrs.plan_type,
-            data: {
-              x: attrs.data[x],
-              y: attrs.data[y]
-            },
             enabled_at: attrs.enabled_at,
-            ahead_of_time: attrs.ahead_of_time,
             begin_to_remind: attrs.begin_to_remind,
             autocompletable: attrs.autocompletable,
+            ahead_of_time: attrs.ahead_of_time,
             assignables_attributes: [{
               assignee_id: 1,
               assignee_type: 'User'
             }],
             callables_attributes: null
           }
+        },
+        success: function() {
+          var obj = Ext.JSON.decode(response.responseText);
+          exam.set(obj);
+          exam.commit();
+
+          if(success) success.call(opts.scope || this);
         }
       });
+      Ext.Ajax.request(opts);
 
+      return plan;
     }
+  },
+
+  destroy: function() {
+    this.callParent(arguments);
+
+    if(this.store) this.store.remove(this);
   }
 });
+

@@ -98,6 +98,7 @@ Ext.define('TM.view.plan.Search', {
           margin: '20 0 0 60',
           items: [{
             xtype: 'button',
+            formBind: true,
             width: 60,
             text: '查询',
             action: 'query'
@@ -120,4 +121,18 @@ Ext.define('TM.view.plan.Search', {
     //text: '重置',
     //action: 'reset'
   //}]
+
+  hasQueryParams: function() {
+    var hasParams = false;
+    Ext.Object.each(this.getValues(), function(key, value) {
+      if(value) {
+       hasParams = true;
+
+       // Break each
+       return false;
+      }
+    });
+
+    return hasParams;
+  }
 });
