@@ -64,7 +64,7 @@ Ext.define('TM.controller.Plans', {
       success: function() {
         Ext.Msg.alert('提示', '计划添加成功!');
         self.getPlanStore().insert(0, plan);
-        self.getPlanNew().getForm.close();
+        self.getPlanWindow().close();
       },
       failure: function() {
         Ext.Msg.alert('提示', '计划添加失败!')
