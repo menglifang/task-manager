@@ -24,6 +24,9 @@ Ext.define('TM.view.plan.New', {
       fieldLabel: '计划名称',
       name: 'name',
       allowBlank: false
+    },{
+      fieldLabel: '计划执行人',
+      name: 'assignables',
     }, {
       fieldLabel: '计划类型',
       name: 'plan_type',
@@ -35,17 +38,22 @@ Ext.define('TM.view.plan.New', {
       allowBlank: false
     }, {
       fieldLabel: '横向指标',
-      name: 'data[x]'
+      name: 'dataX'
     }, {
       fieldLabel: '纵向指标',
-      name: 'data[y]'
+      name: 'dataY'
     }, {
       fieldLabel: '生效时间',
       xtype: 'datefield',
       editable: false,
-      name: 'enabled_at'
+      anchor: '100%',
+      format: 'Y/m/d',
+      name: 'enabled_at',
+      id: 'enabled_at',
+      minValue: new Date()
     }, {
-      fieldLabel: '提前多少时间提醒',
+      fieldLabel: '完成前几天提醒',
+      emptyText: '计划完成前多少天开始提醒，此处为倒计时。',
       name: 'begin_to_remind'
     }, {
       fieldLabel: '是否自动完成',
@@ -55,7 +63,7 @@ Ext.define('TM.view.plan.New', {
   }, {
     xtype: 'fieldset',
     id: 'selectField',
-    title: '计划完成时限',
+    title: '计划完成截至时限',
     layout: {
       type: 'table',
       columns: 2

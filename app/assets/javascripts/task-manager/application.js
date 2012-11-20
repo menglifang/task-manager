@@ -6,6 +6,8 @@
 //
 //= require_self
 //
+//= require ./extjs/app/view/plan/Edit
+//= require ./extjs/app/view/plan/EditWindow
 //= require ./extjs/app/view/plan/New
 //= require ./extjs/app/view/plan/Window
 //= require ./extjs/app/view/plan/Search
