@@ -36,7 +36,6 @@ module TaskManager
         #       "plan_type": ...,
         #       "enabled_at": ...,
         #       "last_task_created_at": ...,
-        #       "ahead_of_time": ...,
         #       "begin_to_remind": ...,
         #       "autocompletable": ...,
         #       "created_at": ...,
@@ -74,7 +73,6 @@ module TaskManager
         #                                        # 'quarterly', 'yearly'
         #       "data": ...,                     # 可选
         #       "enabled_at": ...,               # 必填
-        #       "ahead_of_time": ...,            # 必填且大于等于0，缺省值为0
         #       "begin_to_remind": ...,          # 必填且小于等于0
         #       "autocompletable": ...,          # 必填，缺省值为false
         #
@@ -100,7 +98,6 @@ module TaskManager
         #       "plan_type": ...,
         #       "data": ...,
         #       "enabled_at": ...,
-        #       "ahead_of_time": ...,
         #       "begin_to_remind": ...,
         #       "autocompletable": ...,
         #       "created_at": ...,
@@ -144,7 +141,6 @@ module TaskManager
         #                                        # 'quarterly', 'yearly'
         #       "data": ...,                     # 可选
         #       "enabled_at": ...,               # 必填
-        #       "ahead_of_time": ...,            # 必填且大于等于0，缺省值为0
         #       "begin_to_remind": ...,          # 必填且小于等于0
         #       "autocompletable": ...,          # 必填，缺省值为false
         #
@@ -180,7 +176,6 @@ module TaskManager
         #       "plan_type": ...,
         #       "data": ...,
         #       "enabled_at": ...,
-        #       "ahead_of_time": ...,
         #       "begin_to_remind": ...,
         #       "autocompletable": ...,
         #       "created_at": ...,

@@ -1,8 +1,15 @@
 FactoryGirl.define do
   factory :plan, class: TaskManager::Plan do
     sequence(:name) { |n| "plan-#{n}" }
-    plan_type :daily
-    data {{ x: ['A', 'B', 'C'], y: [1, 2, 3] }}
+    plan_type [:daily, :weekly, :monthly, :quarterly, :yearly].sample
+    data {{
+      x: ['A', 'B', 'C'],
+      y: [1, 2, 3],
+      deadline_month: rand(12)+1,
+      deadline_day: rand(28)+1,
+      deadline_hour: rand(23),
+      deadline_minute: rand(59)
+    }}
     last_task_created_at 1.day.ago
     autocompletable false
     enabled_at { Time.now }

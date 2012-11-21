@@ -1,6 +1,8 @@
 # -*- encoding: utf-8 -*-
 module TaskManager
+  # TODO 验证data的合法性
   class Plan < ActiveRecord::Base
+    include DeadlineCalculator
     extend Enumerize
 
     has_many :assignables, as: :target
@@ -10,18 +12,15 @@ module TaskManager
 
     serialize :data, ActiveRecord::Coders::Hstore
 
-    default_value_for :ahead_of_time, 0
-
     accepts_nested_attributes_for :assignables
 
     attr_accessible :autocompletable, :data, :last_task_created_at,
-      :name, :plan_type, :ahead_of_time, :begin_to_remind, :enabled_at,
+      :name, :plan_type, :begin_to_remind, :enabled_at,
       :assignables_attributes, :callables_attributes
 
     validates_presence_of :name, :plan_type, :begin_to_remind,
       :enabled_at, :assignables
     validates_uniqueness_of :name
-    validates_numericality_of :ahead_of_time, greater_than_or_equal_to: 0
     validates_numericality_of :begin_to_remind, less_than_or_equal_to: 0
 
     def assignees
@@ -45,7 +44,6 @@ module TaskManager
                  when :yearly then now.end_of_year
                  end
 
-      deadline = default_deadline.ago(ahead_of_time * 60)
       reminding_at = default_deadline.ago(-(begin_to_remind * 60))
       status = autocompletable ? :finished : :new
 
@@ -57,7 +55,7 @@ module TaskManager
             t.name = name
             t.data = data
             t.task_type = plan_type
-            t.deadline = deadline
+            t.deadline = calculate_deadline(plan_type, data)
             t.reminding_at = reminding_at
             t.status = status
             t.assignable = a

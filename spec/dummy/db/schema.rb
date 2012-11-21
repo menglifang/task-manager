@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(:version => 20121105173749) do
     t.hstore   "data"
     t.boolean  "autocompletable"
     t.string   "plan_type"
-    t.integer  "ahead_of_time"
     t.integer  "begin_to_remind"
     t.datetime "enabled_at"
     t.datetime "last_task_created_at"
