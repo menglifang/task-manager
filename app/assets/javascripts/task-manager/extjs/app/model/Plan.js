@@ -44,7 +44,15 @@ Ext.define('TM.model.Plan', {
           plan: {
             data: {
               x: attrs.dataX,
-              y: attrs.dataY
+              y: attrs.dataY,
+              ahead_of_time: {
+                month: attrs.month,
+                quartely_month: attrs.month,
+                day: attrs.month,
+                weekly_day: attrs.month,
+                hour: attrs.month,
+                minute: attrs.month
+              }
             },
             name: attrs.name,
             plan_type: attrs.plan_type,
