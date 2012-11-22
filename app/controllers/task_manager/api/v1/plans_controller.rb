@@ -36,7 +36,6 @@ module TaskManager
         #       "plan_type": ...,
         #       "enabled_at": ...,
         #       "last_task_created_at": ...,
-        #       "ahead_of_time": ...,
         #       "begin_to_remind": ...,
         #       "autocompletable": ...,
         #       "created_at": ...,
@@ -72,9 +71,19 @@ module TaskManager
         #       "plan_type": ...,                # 必填，有效取值：'daily',
         #                                        # 'weekly', 'monthly',
         #                                        # 'quarterly', 'yearly'
-        #       "data": ...,                     # 可选
+        #       "data": {
+        #         "x": ...,                      # 可选
+        #         "y": ...,                      # 可选
+        #         "deadline_month": ...,         # 当"plan_type"为'yearly'或
+        #                                        #  'quarterly'时，为必填项；
+        #                                        #  否则，为null
+        #         "deadline_day": ...,           # 当"plan_type"为'monthly'或
+        #                                        #  'weekly'时，为必填项；
+        #                                        #  否则，为null
+        #         "deadline_hour": ...,          # 必填
+        #         "deadline_minute": ...         # 必填
+        #       },
         #       "enabled_at": ...,               # 必填
-        #       "ahead_of_time": ...,            # 必填且大于等于0，缺省值为0
         #       "begin_to_remind": ...,          # 必填且小于等于0
         #       "autocompletable": ...,          # 必填，缺省值为false
         #
@@ -100,7 +109,6 @@ module TaskManager
         #       "plan_type": ...,
         #       "data": ...,
         #       "enabled_at": ...,
-        #       "ahead_of_time": ...,
         #       "begin_to_remind": ...,
         #       "autocompletable": ...,
         #       "created_at": ...,
@@ -142,9 +150,19 @@ module TaskManager
         #       "plan_type": ...,                # 必填，有效取值：'daily',
         #                                        # 'weekly', 'monthly',
         #                                        # 'quarterly', 'yearly'
-        #       "data": ...,                     # 可选
+        #       "data": {
+        #         "x": ...,                      # 可选
+        #         "y": ...,                      # 可选
+        #         "deadline_month": ...,         # 当"plan_type"为'yearly'或
+        #                                        #  'quarterly'时，为必填项；
+        #                                        #  否则，为null
+        #         "deadline_day": ...,           # 当"plan_type"为'monthly'或
+        #                                        #  'weekly'时，为必填项；
+        #                                        #  否则，为null
+        #         "deadline_hour": ...,          # 必填
+        #         "deadline_minute": ...         # 必填
+        #       },
         #       "enabled_at": ...,               # 必填
-        #       "ahead_of_time": ...,            # 必填且大于等于0，缺省值为0
         #       "begin_to_remind": ...,          # 必填且小于等于0
         #       "autocompletable": ...,          # 必填，缺省值为false
         #
@@ -180,7 +198,6 @@ module TaskManager
         #       "plan_type": ...,
         #       "data": ...,
         #       "enabled_at": ...,
-        #       "ahead_of_time": ...,
         #       "begin_to_remind": ...,
         #       "autocompletable": ...,
         #       "created_at": ...,

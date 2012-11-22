@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121105173749) do
+ActiveRecord::Schema.define(:version => 20121122042051) do
+
+  create_table "departments", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "task_manager_assignables", :force => true do |t|
     t.integer  "target_id"
@@ -42,7 +48,6 @@ ActiveRecord::Schema.define(:version => 20121105173749) do
     t.hstore   "data"
     t.boolean  "autocompletable"
     t.string   "plan_type"
-    t.integer  "ahead_of_time"
     t.integer  "begin_to_remind"
     t.datetime "enabled_at"
     t.datetime "last_task_created_at"
@@ -59,10 +64,6 @@ ActiveRecord::Schema.define(:version => 20121105173749) do
     t.datetime "reminding_at"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
-  end
-
-  create_table "users", :force => true do |t|
-    t.string "name"
   end
 
 end

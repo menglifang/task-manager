@@ -6,6 +6,8 @@ require "active_model_serializers"
 
 require "task-manager/api_constraints"
 require "task-manager/engine"
+require "task-manager/deadline_calculator"
+require "task-manager/deadline_validator"
 
 module TaskManager
 

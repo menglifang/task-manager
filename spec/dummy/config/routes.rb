@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   mount Siesta::Engine => '/'
 
   resources :extjs
+  resources :assignees
 end
