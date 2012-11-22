@@ -4,7 +4,8 @@ Ext.application({
 
   controllers: [
     'Viewport',
-    'TM.controller.Plans'
+    'TM.controller.Plans',
+    'TM.controller.Tasks'
   ],
 
   autoCreateViewport: true,
@@ -15,7 +16,8 @@ Ext.application({
   ],
 
   routes: {
-    'plan': 'TM.controller.Plans#index'
+    'plan': 'TM.controller.Plans#index',
+    'task': 'TM.controller.Tasks#index'
   },
 
   launch: function() {
