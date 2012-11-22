@@ -12,7 +12,7 @@ module TaskManager
 
     serialize :data, ActiveRecord::Coders::Hstore
 
-    accepts_nested_attributes_for :assignables
+    accepts_nested_attributes_for :assignables, :callables
 
     attr_accessible :autocompletable, :data, :last_task_created_at,
       :name, :plan_type, :begin_to_remind, :enabled_at,

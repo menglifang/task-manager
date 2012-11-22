@@ -12,7 +12,8 @@ Ext.define('TM.controller.Plans', {
   // ],
 
   models: [
-    'Plan'
+    'Plan',
+    'Assignee'
   ],
 
   refs: [{
@@ -30,6 +31,15 @@ Ext.define('TM.controller.Plans', {
   }, {
     ref: 'assignablesField',
     selector: 'plan_new textfield[id="assignables"]'
+  }, {
+    ref: 'selectAssignablesGrid',
+    selector: 'plan_selectassignablesGrid'
+  }, {
+    ref: 'selectAssignables',
+    selector: 'plan_selectassignables'
+  }, {
+    ref: 'assignablesWindow',
+    selector: 'plan_assignableswindow'
   }],
 
   init: function() {
@@ -64,6 +74,13 @@ Ext.define('TM.controller.Plans', {
       'plan_new button[action="reset"]': {
         click: this.onResetClick
       },
+      'plan_selectassignablesGrid': {
+        select: this.onSelectAssignablesGridSelect,
+        deselect: this.onSelectAssignablesGridDeselect
+      },
+      'plan_selectassignables button[action="save"]': {
+        click: this.onSelectAssignablesGridSave
+      },
       'plan_edit': {
         render: this.onEditFormRender
       },
@@ -82,6 +99,28 @@ Ext.define('TM.controller.Plans', {
 
   onSelectAssignables: function() {
     Ext.create('TM.view.plan.AssignablesWindow').show();
+  },
+
+  onSelectAssignablesGridSelect: function(row, record, index, eOpts) {
+    var assignees = this.getPlanNew().assignees;
+
+    assignees.push(record);
+  },
+
+  onSelectAssignablesGridDeselect: function(row, record, index, eOpts) {
+    var assignees = this.getPlanNew().assignees;
+
+    Ext.Array.remove(assignees, record);
+  },
+
+  onSelectAssignablesGridSave: function(btn) {
+    var results = new Array();
+    Ext.Array.forEach(this.getPlanNew().assignees, function(record, index, assignees) {
+      results.push(record.get('name'));
+    });
+    this.getAssignablesField().setValue(results.join(', '));
+
+    this.getAssignablesWindow().close();
   },
 
   onUpdateClick: function(btn) {
@@ -175,22 +214,25 @@ Ext.define('TM.controller.Plans', {
     var self = this;
     var attrs = this.getPlanNew().getValues();
 
-    // TUDO ..
-    // attrs.data = attrs['data[x]'] + ',' + attrs['data[y]'];
+    attrs.assignees = this.getPlanNew().assignees;
 
     attrs.begin_to_remind = Ext.Number.from(attrs.begin_to_remind) * -1;
     // attrs.enabled_at =  new Date(document.getElementById("enabled_at").value);
     var date = this.getPlanNew().getValues().enabled_at;
     attrs.enabled_at = Ext.Date.parse(date, "Y/m/d", true);
 
-    var time = attrs.plan_type;
+    // var type = attrs.plan_type;
+
+    // if (type == 'yearly') {
+    //   attrs.deadline_month = 
+    // }
 
     //TODO.
-    // if (time == 'monthly'){
+    // if (type == 'monthly'){
     //   attrs.
-    // }else if(tiem == 'weekly') {
+    // }else if(type == 'weekly') {
     //   attrs.ahead_of_time = Ext.Number.from(attrs.weekly_day, 0)*24*60 + Ext.Number.from(attrs.hour, 0)*60 + Ext.Number.from(attrs.minute, 0);
-    // }else if(time == 'daily') {
+    // }else if(type == 'daily') {
     //   attrs.ahead_of_time = Ext.Number.from(attrs.hour, 0)*60 + Ext.Number.from(attrs.minute, 0);
     // } else {
     //   attrs.ahead_of_time = Ext.Number.from('', 0);

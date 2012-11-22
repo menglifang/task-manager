@@ -6,11 +6,6 @@ Ext.define('TM.view.plan.SelectAssignables', {
     'TM.view.plan.SelectAssignablesGrid',
   ],
 
-  defaults: {
-    margin: 5,
-    height: '100%'
-  },
-
   items: [{
     xtype: 'plan_selectassignablesGrid',
     flex: 1
@@ -18,7 +13,7 @@ Ext.define('TM.view.plan.SelectAssignables', {
 
   buttons: [{
     text: '确定',
-    action: 'confirm'
+    action: 'save'
   }, {
     text: '取消',
     action: 'cancel'

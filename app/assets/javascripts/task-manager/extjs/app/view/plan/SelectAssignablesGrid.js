@@ -1,14 +1,15 @@
 Ext.define('TM.view.plan.SelectAssignablesGrid', {
 	extend: 'Ext.ux.MultiSelectablePagingGrid',
 	xtype: 'plan_selectassignablesGrid',
+	
+	store: 'TM.store.Assignees',
+	height: 490,
 
-
-	defaults: {
-		margin: 5,
-		height: '100%'
-	},
+	border: 0,
 
 	columns: [{
-  	text: '任务名称',
+  	text: '名称',
+  	flex: 1,
+  	dataIndex: 'name' 
   }]
 });

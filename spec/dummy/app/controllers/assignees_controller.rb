@@ -4,7 +4,7 @@ class AssigneesController < ApplicationController
 
   def index
     departments = Department.all
-    assignees = departments.inject([]) { |c, i| c << {id: i.id, class_name: i.class.name}}
+    assignees = departments.inject([]) { |c, i| c << {id: i.id, name: i.name, class_name: i.class.name}}
 
     result = {
       total: assignees.count,

@@ -37,6 +37,16 @@ Ext.define('TM.model.Plan', {
       opts = opts || {};
       var success = opts.success;
 
+      var assignables_attributes = new Array();
+      Ext.Array.forEach(attrs.assignees, function(record, index, assignees) {
+        assignables_attributes.push({
+          assignee_id: record.get('id'),
+          assignee_type: record.get('class_name')
+        })
+      });
+
+      var callables_attributes = new Array();
+
       Ext.apply(opts, {
         url: '/task-manager/api/plans',
         method: 'POST',
@@ -45,26 +55,18 @@ Ext.define('TM.model.Plan', {
             data: {
               x: attrs.dataX,
               y: attrs.dataY,
-              ahead_of_time: {
-                month: attrs.month,
-                quartely_month: attrs.month,
-                day: attrs.month,
-                weekly_day: attrs.month,
-                hour: attrs.month,
-                minute: attrs.month
-              }
+              deadline_month: attrs.plan_type == 'quarterly' ? attrs.quarterly_month : attrs._month,
+              deadline_day: attrs.plan_type == 'weekly' ? attrs.weekly_day : attrs.day,
+              deadline_hour: attrs.hour,
+              deadline_minute: attrs.minute
             },
             name: attrs.name,
             plan_type: attrs.plan_type,
             enabled_at: attrs.enabled_at,
             begin_to_remind: attrs.begin_to_remind,
             autocompletable: attrs.autocompletable,
-            ahead_of_time: attrs.ahead_of_time,
-            assignables_attributes: [{
-              assignee_id: 1,
-              assignee_type: 'User'
-            }],
-            callables_attributes: null
+            assignables_attributes: assignables_attributes,
+            callables_attributes: callables_attributes
           }
         },
         success: function() {

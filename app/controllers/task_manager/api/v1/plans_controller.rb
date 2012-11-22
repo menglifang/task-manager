@@ -86,7 +86,6 @@ module TaskManager
         #       "enabled_at": ...,               # 必填
         #       "begin_to_remind": ...,          # 必填且小于等于0
         #       "autocompletable": ...,          # 必填，缺省值为false
-        #
         #       "assignables_attributes": [{     # 至少需要一个assignable
         #         "assignee_id": ...,
         #         "assignee_type": ...

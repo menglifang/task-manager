@@ -22,6 +22,7 @@
 
 // Register all stores
 Ext.data.StoreManager.register(
+	Ext.create('TM.store.Assignees', { storeId: 'TM.store.Assignees'}),
 	Ext.create('TM.store.WeekDays', { storeId: 'TM.store.WeekDays'}),
 	Ext.create('TM.store.QuarterlyMonths', { storeId: 'TM.store.QuarterlyMonths'}),
 	Ext.create('TM.store.Months', { storeId: 'TM.store.Months'}),
