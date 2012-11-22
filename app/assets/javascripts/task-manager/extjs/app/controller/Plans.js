@@ -2,7 +2,9 @@ Ext.define('TM.controller.Plans', {
   extend: 'Ext.app.Controller',
 
   views: [
-    'plan.Index'
+    'plan.Index',
+    'plan.AssignablesWindow'
+
   ],
 
   // stores: [
@@ -25,6 +27,9 @@ Ext.define('TM.controller.Plans', {
   }, {
     ref: 'planType',
     selector: 'plan_new combo[name="plan_type"]'
+  }, {
+    ref: 'assignablesField',
+    selector: 'plan_new textfield[id="assignables"]'
   }],
 
   init: function() {
@@ -43,6 +48,9 @@ Ext.define('TM.controller.Plans', {
       },
       'plan_grid button[action="delete"]': {
         click: this.onDeleteClick
+      },
+      'plan_new textfield[id="assignables"]': {
+        render: this.onSelectAssignablesRender
       },
       'plan_new': {
         afterrender: this.onNewFormAfterRender
@@ -68,6 +76,14 @@ Ext.define('TM.controller.Plans', {
     });
   },
 
+  onSelectAssignablesRender: function() {
+    this.getAssignablesField().getEl().on('click', this.onSelectAssignables);
+  },
+
+  onSelectAssignables: function() {
+    Ext.create('TM.view.plan.AssignablesWindow').show();
+  },
+
   onUpdateClick: function(btn) {
     var attrs = btn.up('plan_edit').getForm().getValues();
     var self = this;
@@ -81,9 +97,6 @@ Ext.define('TM.controller.Plans', {
       ahead_of_time: attrs.ahead_of_time,
       begin_to_remind: attrs.begin_to_remind,
       enabled_at: attrs.enabled_at,
-      last_task_created_at: attrs.last_task_created_at,
-      created_at: attrs.created_at,
-      updated_at: attrs.updated_at,
       assignees: attrs.assignees
     });
 
@@ -241,13 +254,5 @@ Ext.define('TM.controller.Plans', {
 
   index: function() {
     this.render('TM.view.plan.Index');
-  },
-
-  PlanChangeTrue: function() {
-    return true;
-  },
-
-  PlanChangeFalse: function() {
-    return false;
   }
 });
