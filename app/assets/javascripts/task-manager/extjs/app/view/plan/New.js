@@ -28,6 +28,8 @@ Ext.define('TM.view.plan.New', {
     },{
       fieldLabel: '计划执行人',
       name: 'assignables',
+      id: 'assignables',
+      readOnly: true
     }, {
       fieldLabel: '计划类型',
       name: 'plan_type',
