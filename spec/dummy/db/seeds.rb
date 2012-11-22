@@ -1,3 +1,3 @@
-10.times do |i|
-  TaskManager::Assignee.create!(name: "assignee-#{i}")
+3.times do |i|
+  Department.create!(name: "department-#{i}")
 end
