@@ -2,7 +2,7 @@
 module TaskManager
   # TODO 验证data的合法性
   class Plan < ActiveRecord::Base
-    include DeadlineCalculator
+    include TaskManager::DeadlineCalculator
     extend Enumerize
 
     has_many :assignables, as: :target
@@ -22,6 +22,9 @@ module TaskManager
       :enabled_at, :assignables
     validates_uniqueness_of :name
     validates_numericality_of :begin_to_remind, less_than_or_equal_to: 0
+
+    # validate the deadline
+    validates :data, deadline: true
 
     def assignees
       assignables.collect(&:assignee)

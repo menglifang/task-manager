@@ -1,18 +1,19 @@
 module TaskManager
   module DeadlineCalculator
     def calculate_deadline(type, opts)
-      type = convert(type)
+      type = convert_type(type)
 
       beginning = Time.now.send("beginning_of_#{type}")
-      beginning.months_since(opts[:deadline_month] || 0).
-        days_in_month(opts[:deadline_day] || 0).
-        since(opts[:deadline_hour] * 60 * 60).
-        since(opts[:deadline_minute] * 60)
+      beginning.
+        months_since((opts[:deadline_month] || opts['deadline_month']).to_i).
+        since((opts[:deadline_day] || opts['deadline_day']).to_i * 24 * 60 * 60).
+        since((opts[:deadline_hour] || opts['deadline_hour']).to_i * 60 * 60).
+        since((opts[:deadline_minute] || opts['deadline_minute']).to_i * 60)
     end
 
     private
     def convert_type(type)
-      return :day if type == :daily
+      return :day if type.to_sym == :daily
 
       type.to_s.gsub(/ly/, '').to_sym
     end
