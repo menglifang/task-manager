@@ -216,30 +216,12 @@ Ext.define('TM.controller.Plans', {
 
     attrs.assignees = this.getPlanNew().assignees;
 
-    attrs.begin_to_remind = Ext.Number.from(attrs.begin_to_remind) * -1;
     // attrs.enabled_at =  new Date(document.getElementById("enabled_at").value);
     var date = this.getPlanNew().getValues().enabled_at;
     attrs.enabled_at = Ext.Date.parse(date, "Y/m/d", true);
 
-    // var type = attrs.plan_type;
-
-    // if (type == 'yearly') {
-    //   attrs.deadline_month = 
-    // }
-
-    //TODO.
-    // if (type == 'monthly'){
-    //   attrs.
-    // }else if(type == 'weekly') {
-    //   attrs.ahead_of_time = Ext.Number.from(attrs.weekly_day, 0)*24*60 + Ext.Number.from(attrs.hour, 0)*60 + Ext.Number.from(attrs.minute, 0);
-    // }else if(type == 'daily') {
-    //   attrs.ahead_of_time = Ext.Number.from(attrs.hour, 0)*60 + Ext.Number.from(attrs.minute, 0);
-    // } else {
-    //   attrs.ahead_of_time = Ext.Number.from('', 0);
-    // };
-
     attrs.autocompletable = (attrs.autocompletable == 'on') ? true : false;
-    
+
     var Plan = TM.model.Plan;
     var plan = Plan.create(attrs, {
       success: function() {

@@ -47,7 +47,8 @@ module TaskManager
                  when :yearly then now.end_of_year
                  end
 
-      reminding_at = default_deadline.ago(-(begin_to_remind * 60))
+      #reminding_at = default_deadline.ago(-(begin_to_remind * 60))
+      reminding_at = default_deadline.ago(begin_to_remind * 60)
       status = autocompletable ? :finished : :new
 
       tasks = []
