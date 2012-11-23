@@ -21,43 +21,53 @@ Ext.define('TM.view.plan.Grid', {
   columns: [{
     text: '计划名称',
     dataIndex: 'name',
-    width: 140
+    flex: 2
   }, {
     text: '计划类型',
-    width: 60,
     renderer: function(v, m, record) {
       switch (record.get('plan_type')) {
         case 'yearly':
           return '年计划';
-        case 'yearly':
+        case 'quarterly':
           return '季计划';
-        case 'yearly':
+        case 'monthly':
           return '月计划';
-        case 'yearly':
+        case 'weekly':
           return '周计划';
-        case 'yearly':
+        case 'daily':
           return '日计划';
         default:
           return '';
       }
-    }
+    },
+    flex: 1
   }, {
-    text: '计划内容',
-    width: 300
+    text: '执行者',
+    renderer: function(v, m, record) {
+      var names = new Array();
+      Ext.Array.forEach(record.get('assignees'), function(assignee, index, assignees) {names.push(assignee.name)});
+      return names.join(', ');
+    },
+    flex: 3
   }, {
     text: '最后任务生成时间',
     dataIndex: 'last_task_created_at',
-    width: 100
+    flex: 2
   }, {
     text: '生效时间',
-    dataIndex: 'enabled_at',
-    width: 100
+    renderer: function(v, m, record) {
+      return Ext.Date.format(record.get('enabled_at'), 'Y年m月j日 H:m:s');
+    },
+    flex: 2
   }, {
-    text: '执行者',
-    width: 80,
-    dataIndex: 'assignee'
-    //renderer: function(v, m, record) {
-    //return record.get('assignee').name;
-    //}
+    text: '是否自动完成',
+    renderer: function(v, m, record) {
+      return record.get('autocompletable') == true ? '是' : '否';
+    },
+    flex: 1
+  }, {
+    text: '开始提醒天数',
+    dataIndex: 'begin_to_remind',
+    flex: 1
   }]
 });
