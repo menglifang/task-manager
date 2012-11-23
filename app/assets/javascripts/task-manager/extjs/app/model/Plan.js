@@ -7,6 +7,12 @@ Ext.define('TM.model.Plan', {
     { name: 'name' },
     { name: 'plan_type' },
     { name: 'data', type: 'auto' },
+    { name: 'dataX', convert: function(v, record) {
+      return record.get('data').x;
+    }},
+    { name: 'dataY', convert: function(v, record) {
+      return record.get('data').y;
+    }},
     { name: 'autocompletable', type: 'boolean' },
 
     { name: 'ahead_of_time', type: 'int' },
@@ -55,8 +61,8 @@ Ext.define('TM.model.Plan', {
             data: {
               x: attrs.dataX,
               y: attrs.dataY,
-              deadline_month: attrs.plan_type == 'quarterly' ? attrs.quarterly_month : attrs.month,
-              deadline_day: attrs.plan_type == 'weekly' ? attrs.weekly_day : attrs.day,
+              deadline_month: attrs.plan_type == 'quarterly' ? attrs.quarterly_month : (attrs.plan_type == 'yearly' ? attrs.month : null),
+              deadline_day: attrs.plan_type == 'weekly' ? attrs.weekly_day : (attrs.plan_type == 'daily' ? null : attrs.day),
               deadline_hour: attrs.hour,
               deadline_minute: attrs.minute
             },
@@ -69,10 +75,10 @@ Ext.define('TM.model.Plan', {
             callables_attributes: callables_attributes
           }
         },
-        success: function() {
+        success: function(response) {
           var obj = Ext.JSON.decode(response.responseText);
-          exam.set(obj);
-          exam.commit();
+          plan.set(obj);
+          plan.commit();
 
           if(success) success.call(opts.scope || this);
         }

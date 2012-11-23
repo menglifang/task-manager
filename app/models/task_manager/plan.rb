@@ -21,7 +21,7 @@ module TaskManager
     validates_presence_of :name, :plan_type, :begin_to_remind,
       :enabled_at, :assignables
     validates_uniqueness_of :name
-    validates_numericality_of :begin_to_remind, less_than_or_equal_to: 0
+    validates_numericality_of :begin_to_remind, greater_than_or_equal_to: 0
 
     # validate the deadline
     validates :data, deadline: true

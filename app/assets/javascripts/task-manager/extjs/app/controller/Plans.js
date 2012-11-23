@@ -26,6 +26,9 @@ Ext.define('TM.controller.Plans', {
     ref: 'planNew',
     selector: 'plan_new'
   }, {
+    ref: 'planEdit',
+    selector: 'plan_edit'
+  }, {
     ref: 'planType',
     selector: 'plan_new combo[name="plan_type"]'
   }, {
@@ -67,6 +70,9 @@ Ext.define('TM.controller.Plans', {
       },
       'plan_new combo': {
         change: this.onPlanTypeChange
+      },
+      'plan_edit combo': {
+        change: this.onEditPlanTypeChange
       },
       'plan_new button[action="save"]': {
         click: this.onSaveClick
@@ -157,19 +163,20 @@ Ext.define('TM.controller.Plans', {
     btn.up('plan_editwindow').close();
   },
 
-  onEditFormRender: function(btn) {
-    var record = btn.up('plan_grid').getRecord();
-    record.plan_type = record.get('plan_type');
+  onEditFormRender: function(record) {
+    // var value = this.getPlanEdit().getValues();
+    var value = record;
+    value.plan_type = record.plan_type;
 
-    if(record.plan_type == 'yearly') {
+    if(value.plan_type == 'yearly') {
       this.getPlanNew().showYearlyField();
-    } else if(record.plan_type == 'quarterly') {
+    } else if(value.plan_type == 'quarterly') {
       this.getPlanNew().showMonthlyField();
-    } else if(record.plan_type == 'monthly') {
+    } else if(value.plan_type == 'monthly') {
       this.getPlanNew().showQuarterlyField();
-    } else if(record.plan_type == 'weekly') {
+    } else if(value.plan_type == 'weekly') {
       this.getPlanNew().showWeeklyField();
-    } else if(record.plan_type == 'daily') {
+    } else if(value.plan_type == 'daily') {
       this.getPlanNew().showDailyField();
     }
   },
@@ -184,7 +191,7 @@ Ext.define('TM.controller.Plans', {
 
     var win = Ext.create('TM.view.plan.EditWindow');
 
-    win.down('TM.view.plan.Edit').loadRecord(record);
+    win.down('plan_edit').loadRecord(record);
     
     win.show();
   },
@@ -226,7 +233,7 @@ Ext.define('TM.controller.Plans', {
     var plan = Plan.create(attrs, {
       success: function() {
         Ext.Msg.alert('提示', '计划添加成功!');
-        self.getPlanStore().insert(0, plan);
+        Ext.getStore('TM.store.Plans').insert(0, plan);
         self.getPlanWindow().close();
       },
       failure: function() {
@@ -276,6 +283,25 @@ Ext.define('TM.controller.Plans', {
     }
   },
 
+  onEditPlanTypeChange: function(combo, value, oldValue) {
+    if (value == oldValue) return;
+
+    if(value == 'daily') {
+      this.getPlanEdit().getComponent('editFillField').getComponent('new_begin_to_remind').setDisabled(true);
+      this.getPlanEdit().showDailyField();
+    } else {
+      this.getPlanEdit().getComponent('editFillField').getComponent('new_begin_to_remind').setDisabled(false);
+      if(value == 'yearly') {
+        this.getPlanEdit().showYearlyField();
+      } else if(value == 'quarterly') {
+        this.getPlanEdit().showMonthlyField();
+      } else if(value == 'monthly') {
+        this.getPlanEdit().showQuarterlyField();
+      } else if(value == 'weekly') {
+        this.getPlanEdit().showWeeklyField();
+      }
+    }
+  },
   index: function() {
     this.render('TM.view.plan.Index');
   }

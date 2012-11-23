@@ -12,6 +12,8 @@
 //= require ./extjs/app/view/plan/SelectAssignablesGrid
 //= require ./extjs/app/view/plan/SelectAssignables 
 //= require ./extjs/app/view/plan/AssignablesWindow 
+//= require ./extjs/app/view/plan/Edit
+//= require ./extjs/app/view/plan/EditWindow
 //= require ./extjs/app/view/plan/New
 //= require ./extjs/app/view/plan/Window
 //= require ./extjs/app/view/plan/Search
