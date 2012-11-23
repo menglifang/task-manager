@@ -19,3 +19,25 @@
 .btn-delete-icon {
   background: url(image_path('task-manager/icons/delete.png')) no-repeat;
 } 
+table.data {
+  border: 1px solid #aaa;
+  width: 100%;
+	margin: 5px;
+	margin-left: 60px;
+  tr {
+    td.title {
+      font-weight: bold;
+      font-size: 14px;
+      border-right: 1px solid #aaa;
+      text-align: center;
+      width: 100px;
+    }
+    td.name {
+      text-align: right;
+      width: 70px;
+    }
+    td {
+      padding: 3px;
+    }
+  }
+}
