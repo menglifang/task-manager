@@ -2,6 +2,10 @@ Ext.define('TM.view.plan.Grid', {
   extend: 'Ext.ux.MultiSelectablePagingGrid',
   xtype: 'plan_grid',
 
+  requires: [
+    'Ext.ux.RowExpander'
+  ],
+
   store: 'TM.store.Plans',
 
   tbar: [{
@@ -16,6 +20,27 @@ Ext.define('TM.view.plan.Grid', {
     text: '删除',
     iconCls: 'btn-delete-icon',
     action: 'delete'
+  }],
+
+  plugins: [{
+    ptype: 'rowexpander',
+    rowBodyTpl: [
+      '<table class="data">',
+        '<tr>',
+          '<td rowspan="3" class="title">计划内容</td>',
+          '<td class="name">截止时限:</td>',
+          '<td class="value">第{data.deadline_month}个月，第{data.deadline_day}天，{data.deadline_hour}时{data.deadline_minute}分</td>',
+        '</tr>',
+        '<tr>',
+          '<td class="name">横向指标:</td>',
+          '<td class="value">{data.x}</td>',
+        '</tr>',
+        '<tr>',
+          '<td class="name">纵向指标:</td>',
+          '<td class="value">{data.y}</td>',
+        '</tr>',
+      '</table>'
+     ]
   }],
 
   columns: [{
