@@ -1,3 +1,9 @@
 class Department < ActiveRecord::Base
-  attr_accessible :name
+  include ActsAsTree
+
+  acts_as_tree order: "name"
+
+  attr_accessible :name, :parent_id, :children_count
+
+  validates_presence_of :name
 end

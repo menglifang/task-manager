@@ -14,6 +14,7 @@ require "siesta"
 require "ransack"
 require "kaminari"
 require "sass-rails"
+require "acts_as_tree"
 require "pry"
 
 module Dummy

@@ -15,8 +15,10 @@ ActiveRecord::Schema.define(:version => 20121122042051) do
 
   create_table "departments", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "parent_id"
+    t.integer  "children_count", :default => 0
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "task_manager_assignables", :force => true do |t|
