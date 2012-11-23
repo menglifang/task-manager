@@ -55,7 +55,7 @@ Ext.define('TM.model.Plan', {
             data: {
               x: attrs.dataX,
               y: attrs.dataY,
-              deadline_month: attrs.plan_type == 'quarterly' ? attrs.quarterly_month : attrs._month,
+              deadline_month: attrs.plan_type == 'quarterly' ? attrs.quarterly_month : attrs.month,
               deadline_day: attrs.plan_type == 'weekly' ? attrs.weekly_day : attrs.day,
               deadline_hour: attrs.hour,
               deadline_minute: attrs.minute
