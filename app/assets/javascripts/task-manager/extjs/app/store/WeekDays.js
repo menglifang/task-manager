@@ -3,12 +3,12 @@ Ext.define('TM.store.WeekDays',{
 
 	fields: ['text', 'value'],
 	data : [
-	  { "text": "第一天", 'value': '1' },
-	  { "text": "第二天", 'value': '2' },
-	  { "text": "第三天", 'value': '3' },
-	  { "text": "第四天", 'value': '4' },
-	  { "text": "第五天", 'value': '5' },
-	  { "text": "第六天", 'value': '6' },
-	  { "text": "第七天", 'value': '7' }
+	  { "text": "星期一", 'value': '1' },
+	  { "text": "星期二", 'value': '2' },
+	  { "text": "星期三", 'value': '3' },
+	  { "text": "星期四", 'value': '4' },
+	  { "text": "星期五", 'value': '5' },
+	  { "text": "星期六", 'value': '6' },
+	  { "text": "星期日", 'value': '7' }
 	]
 });
