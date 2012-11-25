@@ -150,7 +150,7 @@ Ext.define('TM.view.plan.New', {
 
   showMonthlyField: function() {
     var fieldSet = this.getComponent('selectField');
-    fieldSet.getComponent('new_quarterly_month').show();
+    fieldSet.getComponent('new_quarterly_month').hide();
     fieldSet.getComponent('new_weekly_day').hide();
     fieldSet.getComponent('new_month').hide();
     fieldSet.getComponent('new_day').show();
@@ -160,7 +160,7 @@ Ext.define('TM.view.plan.New', {
 
   showQuarterlyField: function() {
     var fieldSet = this.getComponent('selectField');
-    fieldSet.getComponent('new_quarterly_month').hide();
+    fieldSet.getComponent('new_quarterly_month').show();
     fieldSet.getComponent('new_weekly_day').hide();
     fieldSet.getComponent('new_month').hide();
     fieldSet.getComponent('new_day').show();

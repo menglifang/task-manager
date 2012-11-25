@@ -26,6 +26,9 @@ Ext.define('TM.controller.Plans', {
     ref: 'planNew',
     selector: 'plan_new'
   }, {
+    ref: 'planEditWindow',
+    selector: 'plan_editwindow'
+  }, {
     ref: 'planEdit',
     selector: 'plan_edit'
   }, {
@@ -35,8 +38,11 @@ Ext.define('TM.controller.Plans', {
     ref: 'assignablesField',
     selector: 'plan_new textfield[id="assignables"]'
   }, {
+    ref: 'editAssignablesField',
+    selector: 'plan_edit textfield[id="editassignables"]'
+  }, {
     ref: 'selectAssignablesGrid',
-    selector: 'plan_selectassignablesGrid'
+    selector: 'plan_selectassignablesgrid'
   }, {
     ref: 'selectAssignables',
     selector: 'plan_selectassignables'
@@ -65,6 +71,9 @@ Ext.define('TM.controller.Plans', {
       'plan_new textfield[id="assignables"]': {
         render: this.onSelectAssignablesRender
       },
+      'plan_edit textfield[id="editassignables"]': {
+        render: this.onEditSelectAssignablesRender
+      },
       'plan_new': {
         afterrender: this.onNewFormAfterRender
       },
@@ -84,9 +93,16 @@ Ext.define('TM.controller.Plans', {
         select: this.onSelectAssignablesGridSelect,
         deselect: this.onSelectAssignablesGridDeselect
       },
+      // 'plan_selectassignablesGrid': {
+      //   select: this.onEditSelectAssignablesGridSelect,
+      //   deselect: this.onEditSelectAssignablesGridDeselect
+      // },
       'plan_selectassignables button[action="save"]': {
         click: this.onSelectAssignablesGridSave
       },
+      // 'plan_selectassignables button[action="save"]': {
+      //   click: this.onEditSelectAssignablesGridSave
+      // },
       'plan_edit': {
         render: this.onEditFormRender
       },
@@ -101,6 +117,10 @@ Ext.define('TM.controller.Plans', {
 
   onSelectAssignablesRender: function() {
     this.getAssignablesField().getEl().on('click', this.onSelectAssignables);
+  },
+
+  onEditSelectAssignablesRender: function() {
+    this.getEditAssignablesField().getEl().on('click', this.onSelectAssignables);
   },
 
   onSelectAssignables: function() {
@@ -129,34 +149,80 @@ Ext.define('TM.controller.Plans', {
     this.getAssignablesWindow().close();
   },
 
-  onUpdateClick: function(btn) {
-    var attrs = btn.up('plan_edit').getForm().getValues();
-    var self = this;
+  onEditSelectAssignablesGridSelect: function(row, record, index, eOpts) {
+    var assignees = this.getPlanEdit().assigneesForEdit;
 
-    var record = Ext.create('Ext.model.Plan', {
-      id: attrs.id,
-      name: attrs.name,
-      plan_type: attrs.plan_type,
-      data: attrs.data,
-      autocompletable: attrs.autocompletable,
-      ahead_of_time: attrs.ahead_of_time,
-      begin_to_remind: attrs.begin_to_remind,
-      enabled_at: attrs.enabled_at,
-      assignees: attrs.assignees
+    assignees.push(record);
+  },
+
+  onEditSelectAssignablesGridDeselect: function(row, record, index, eOpts) {
+    var assignees = this.getPlanEdit().assigneesForEdit;
+
+    Ext.Array.remove(assignees, record);
+  },
+
+  onEditSelectAssignablesGridSave: function(btn) {
+    var results = new Array();
+    Ext.Array.forEach(this.getPlanEdit().assigneesForEdit, function(record, index, assignees) {
+      results.push(record.get('name'));
     });
+    this.getEditAssignablesField().setValue(results.join(', '));
 
-    var oldRecord = btn.up('plan_edit').getRecord();
+    this.getAssignablesWindow().close();
+  },
 
-    record.save({
-      success: function() {
-        Ext.Msg.alert('提示', '更新成功!');
-        self.getPlanStore.insert(0, plan);
-        self.getPlaEditWindow().close();
+  onUpdateClick: function(btn) {
+    // var attrs = btn.up('plan_edit').getForm().getValues();
+    // var self = this;
+    // record.save({
+    //   success: function() {
+    //     Ext.Msg.alert('提示', '更新成功!');
+    //     self.getPlanStore.insert(0, plan);
+    //     self.getPlaEditWindow().close();
+    //   },
+    //   failure: function() {
+    //     Ext.Msg.alert('提示', '更新失败!');
+    //   }
+    // });
+
+
+    var self = this;
+    var attrs = this.getPlanEdit().getValues();
+
+    attrs.assignees = this.getPlanEdit().assignees;
+
+    // attrs.enabled_at =  new Date(document.getElementById("enabled_at").value);
+    var date = this.getPlanEdit().getValues().enabled_at;
+    attrs.enabled_at = Ext.Date.parse(date, "Y/m/d", true);
+
+    attrs.autocompletable = (attrs.autocompletable == 'on') ? true : false;
+
+
+    var record = btn.up('plan_edit').getRecord();
+    record.update(attrs, {
+      success: function(record, operation) {
+        Ext.Msg.alert('提示', '计划更新成功!');
+        self.getPlanEditWindow().close();
       },
       failure: function() {
-        Ext.Msg.alert('提示', '更新失败!');
+        Ext.Msg.alert('提示', '计划更新失败!')
       }
-    });
+    })
+
+    // this.getPlanModel().load({
+    //   success: function(record) {
+    //     record.update(attrs, {
+    //     success: function() {
+    //       Ext.Msg.alert('提示', '计划更新成功!');
+    //       Ext.getStore('TM.store.Plans').insert(0, plan);
+    //       self.getPlanWindow().close();
+    //     },
+    //     failure: function() {
+    //       Ext.Msg.alert('提示', '计划更新失败!')
+    //     }
+    //     })
+    //   }
+    // })
   },
 
   onCloseClick: function(btn) {
@@ -164,21 +230,6 @@ Ext.define('TM.controller.Plans', {
   },
 
   onEditFormRender: function(record) {
-    // var value = this.getPlanEdit().getValues();
-    var value = record;
-    value.plan_type = record.plan_type;
-
-    if(value.plan_type == 'yearly') {
-      this.getPlanNew().showYearlyField();
-    } else if(value.plan_type == 'quarterly') {
-      this.getPlanNew().showMonthlyField();
-    } else if(value.plan_type == 'monthly') {
-      this.getPlanNew().showQuarterlyField();
-    } else if(value.plan_type == 'weekly') {
-      this.getPlanNew().showWeeklyField();
-    } else if(value.plan_type == 'daily') {
-      this.getPlanNew().showDailyField();
-    }
   },
 
   onEditClick: function(btn) {
@@ -190,10 +241,10 @@ Ext.define('TM.controller.Plans', {
     }
 
     var win = Ext.create('TM.view.plan.EditWindow');
-
-    win.down('plan_edit').loadRecord(record);
     
     win.show();
+
+    win.down('plan_edit').loadRecord(record);
   },
 
   onDeleteClick: function(btn) {
@@ -274,9 +325,9 @@ Ext.define('TM.controller.Plans', {
       if(value == 'yearly') {
         this.getPlanNew().showYearlyField();
       } else if(value == 'quarterly') {
-        this.getPlanNew().showMonthlyField();
-      } else if(value == 'monthly') {
         this.getPlanNew().showQuarterlyField();
+      } else if(value == 'monthly') {
+        this.getPlanNew().showMonthlyField();
       } else if(value == 'weekly') {
         this.getPlanNew().showWeeklyField();
       }
@@ -287,16 +338,16 @@ Ext.define('TM.controller.Plans', {
     if (value == oldValue) return;
 
     if(value == 'daily') {
-      this.getPlanEdit().getComponent('editFillField').getComponent('new_begin_to_remind').setDisabled(true);
+      this.getPlanEdit().getComponent('editFillField').getComponent('edit_begin_to_remind').setDisabled(true);
       this.getPlanEdit().showDailyField();
     } else {
-      this.getPlanEdit().getComponent('editFillField').getComponent('new_begin_to_remind').setDisabled(false);
+      this.getPlanEdit().getComponent('editFillField').getComponent('edit_begin_to_remind').setDisabled(false);
       if(value == 'yearly') {
         this.getPlanEdit().showYearlyField();
       } else if(value == 'quarterly') {
-        this.getPlanEdit().showMonthlyField();
-      } else if(value == 'monthly') {
         this.getPlanEdit().showQuarterlyField();
+      } else if(value == 'monthly') {
+        this.getPlanEdit().showMonthlyField();
       } else if(value == 'weekly') {
         this.getPlanEdit().showWeeklyField();
       }
