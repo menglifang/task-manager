@@ -17,7 +17,7 @@ Ext.define('TM.controller.Tasks', {
 		    click: this.onSearchResetClick
 		  },
 		  'task_grid button[action="delete"]': {
-		    // click: this.onDeleteClick
+		    click: this.onDeleteClick
 		  }
 		});
 	},
@@ -34,6 +34,25 @@ Ext.define('TM.controller.Tasks', {
   onSearchResetClick: function(btn) {
     this.getSearchForm().getForm().reset();
   },
+
+	onDeleteClick: function(btn) {
+		var select = btn.up('task_grid').getSelectionModel().getSelection()[0];
+    if(select == null) {
+      Ext.Msg.alert('提示','请选择要删除的计划任务');
+      return;
+    }
+
+    Ext.Msg.confirm('提示','您确认要删除选中的计划任务吗？', function(b){
+      if(b != 'yes') return;
+
+      var selected = btn.up('task_grid').getSelectionModel().getSelection();
+      Ext.each(selected, function(s){
+        this.callParent(arguments);
+
+    		if(this.store) this.store.remove(this);
+      });
+    });
+	},
 
 	index: function() {
 		this.render('TM.view.task.Index');
