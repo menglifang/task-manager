@@ -7,7 +7,7 @@ Ext.define('TM.view.plan.SelectAssignables', {
   ],
 
   items: [{
-    xtype: 'plan_selectassignablesGrid',
+    xtype: 'plan_selectassignablesgrid',
     flex: 1
   }],
 
