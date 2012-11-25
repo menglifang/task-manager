@@ -103,6 +103,9 @@ Ext.define('TM.controller.Plans', {
       // 'plan_selectassignables button[action="save"]': {
       //   click: this.onEditSelectAssignablesGridSave
       // },
+      'plan_selectassignables button[action="cancel"]': {
+        click: this.onSelectAssignablesGridCancel
+      },
       'plan_edit': {
         render: this.onEditFormRender
       },
@@ -229,6 +232,10 @@ Ext.define('TM.controller.Plans', {
     btn.up('plan_editwindow').close();
   },
 
+  onSelectAssignablesGridCancel: function(btn) {
+    btn.up('plan_assignableswindow').close();
+  },
+
   onEditFormRender: function(record) {
   },
 
@@ -236,6 +243,9 @@ Ext.define('TM.controller.Plans', {
     var record = btn.up('plan_grid').getSelectionModel().getSelection()[0];
 
     if (record == null) {
+      Ext.Msg.alert('提示', '请选择要修改的数据');
+      return;
+    } else if(record.length > 1){
       Ext.Msg.alert('提示', '请选择要修改的数据');
       return;
     }
