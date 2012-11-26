@@ -1,16 +1,16 @@
-Ext.define('TM.view.plan.New', {
+Ext.define('TM.view.plan.Edit', {
   extend: 'Ext.form.Panel',
-  xtype: 'plan_new',
+  xtype: 'plan_edit',
 
   defaults: {
     xtype: 'fieldset',
     margin: '5 10'
   },
 
-  assignees: new Array(),
+  assigneesForEdit: new Array(),
 
   items: [{
-    id: 'fillField',
+    id: 'editFillField',
     title: '基本信息',
     layout: {
       type: 'table',
@@ -30,7 +30,7 @@ Ext.define('TM.view.plan.New', {
     },{
       fieldLabel: '计划执行人',
       name: 'assignables',
-      id: 'assignables',
+      id: 'editassignables',
       readOnly: true
     }, {
       fieldLabel: '计划类型',
@@ -54,11 +54,11 @@ Ext.define('TM.view.plan.New', {
       anchor: '100%',
       format: 'Y/m/d',
       name: 'enabled_at',
-      id: 'enabled_at',
+      id: 'editenabled_at',
       minValue: new Date()
     }, {
       fieldLabel: '完成前几天提醒',
-      id: 'new_begin_to_remind',
+      id: 'edit_begin_to_remind',
       emptyText: '计划完成前多少天开始提醒，此处为倒计时。',
       value: '0',
       name: 'begin_to_remind'
@@ -69,7 +69,7 @@ Ext.define('TM.view.plan.New', {
     }]
   }, {
     xtype: 'fieldset',
-    id: 'selectField',
+    id: 'editSelectField',
     title: '计划完成截至时限',
     layout: {
       type: 'table',
@@ -80,7 +80,7 @@ Ext.define('TM.view.plan.New', {
     },
     items: [{
       fieldLabel: '月',
-      id: 'new_quarterly_month',
+      id: 'edit_quarterly_month',
       name: 'quarterly_month',
       xtype: 'combo',
       store: 'TM.store.QuarterlyMonths',
@@ -88,7 +88,7 @@ Ext.define('TM.view.plan.New', {
       editable: false
     }, {
       fieldLabel: '月',
-      id: 'new_month',
+      id: 'edit_month',
       name: 'month',
       xtype: 'combo',
       store: 'TM.store.Months',
@@ -96,7 +96,7 @@ Ext.define('TM.view.plan.New', {
       editable: false
     }, {
       fieldLabel: '日',
-      id: 'new_weekly_day',
+      id: 'edit_weekly_day',
       name: 'weekly_day',
       store: 'TM.store.WeekDays',
       valueField: 'value',
@@ -104,7 +104,7 @@ Ext.define('TM.view.plan.New', {
       editable: false
     }, {
       fieldLabel: '日',
-      id: 'new_day',
+      id: 'edit_day',
       name: 'day',
       store: 'TM.store.Days',
       valueField: 'value',
@@ -112,7 +112,7 @@ Ext.define('TM.view.plan.New', {
       editable: false
     }, {
       fieldLabel: '时',
-      id: 'new_hour',
+      id: 'edit_hour',
       name: 'hour',
       store: 'TM.store.Hours',
       valueField: 'value',
@@ -120,7 +120,7 @@ Ext.define('TM.view.plan.New', {
       editable: false
     }, {
       fieldLabel: '分',
-      id: 'new_minute',
+      id: 'edit_minute',
       name: 'minute',
       store: 'TM.store.Minutes',
       valueField: 'value',
@@ -130,61 +130,61 @@ Ext.define('TM.view.plan.New', {
   }],
 
   buttons: [{
-    text: '保存',
+    text: '更新',
     formBind: true,
-    action: 'save'
+    action: 'update'
   }, {
-    text: '重置',
-    action: 'reset'
+    text: '关闭',
+    action: 'close'
   }],
 
   showYearlyField: function() {
-    var fieldSet = this.getComponent('selectField');
-    fieldSet.getComponent('new_quarterly_month').hide();
-    fieldSet.getComponent('new_weekly_day').hide();
-    fieldSet.getComponent('new_month').show();
-    fieldSet.getComponent('new_day').show();
-    fieldSet.getComponent('new_hour').show();
-    fieldSet.getComponent('new_minute').show();
+    var fieldSet = this.getComponent('editSelectField');
+    fieldSet.getComponent('edit_quarterly_month').hide();
+    fieldSet.getComponent('edit_weekly_day').hide();
+    fieldSet.getComponent('edit_month').show();
+    fieldSet.getComponent('edit_day').show();
+    fieldSet.getComponent('edit_hour').show();
+    fieldSet.getComponent('edit_minute').show();
   },
 
   showMonthlyField: function() {
-    var fieldSet = this.getComponent('selectField');
-    fieldSet.getComponent('new_quarterly_month').hide();
-    fieldSet.getComponent('new_weekly_day').hide();
-    fieldSet.getComponent('new_month').hide();
-    fieldSet.getComponent('new_day').show();
-    fieldSet.getComponent('new_hour').show();
-    fieldSet.getComponent('new_minute').show();
+    var fieldSet = this.getComponent('editSelectField');
+    fieldSet.getComponent('edit_quarterly_month').hide();
+    fieldSet.getComponent('edit_weekly_day').hide();
+    fieldSet.getComponent('edit_month').hide();
+    fieldSet.getComponent('edit_day').show();
+    fieldSet.getComponent('edit_hour').show();
+    fieldSet.getComponent('edit_minute').show();
   },
 
   showQuarterlyField: function() {
-    var fieldSet = this.getComponent('selectField');
-    fieldSet.getComponent('new_quarterly_month').show();
-    fieldSet.getComponent('new_weekly_day').hide();
-    fieldSet.getComponent('new_month').hide();
-    fieldSet.getComponent('new_day').show();
-    fieldSet.getComponent('new_hour').show();
-    fieldSet.getComponent('new_minute').show();
+    var fieldSet = this.getComponent('editSelectField');
+    fieldSet.getComponent('edit_quarterly_month').show();
+    fieldSet.getComponent('edit_weekly_day').hide();
+    fieldSet.getComponent('edit_month').hide();
+    fieldSet.getComponent('edit_day').show();
+    fieldSet.getComponent('edit_hour').show();
+    fieldSet.getComponent('edit_minute').show();
   },
 
   showWeeklyField: function() {
-    var fieldSet = this.getComponent('selectField');
-    fieldSet.getComponent('new_quarterly_month').hide();
-    fieldSet.getComponent('new_weekly_day').show();
-    fieldSet.getComponent('new_month').hide();
-    fieldSet.getComponent('new_day').hide();
-    fieldSet.getComponent('new_hour').show();
-    fieldSet.getComponent('new_minute').show(); 
+    var fieldSet = this.getComponent('editSelectField');
+    fieldSet.getComponent('edit_quarterly_month').hide();
+    fieldSet.getComponent('edit_weekly_day').show();
+    fieldSet.getComponent('edit_month').hide();
+    fieldSet.getComponent('edit_day').hide();
+    fieldSet.getComponent('edit_hour').show();
+    fieldSet.getComponent('edit_minute').show(); 
   },
 
   showDailyField: function() {
-    var fieldSet = this.getComponent('selectField');
-    fieldSet.getComponent('new_quarterly_month').hide();
-    fieldSet.getComponent('new_weekly_day').hide();
-    fieldSet.getComponent('new_month').hide();
-    fieldSet.getComponent('new_day').hide();
-    fieldSet.getComponent('new_hour').show();
-    fieldSet.getComponent('new_minute').show();
+    var fieldSet = this.getComponent('editSelectField');
+    fieldSet.getComponent('edit_quarterly_month').hide();
+    fieldSet.getComponent('edit_weekly_day').hide();
+    fieldSet.getComponent('edit_month').hide();
+    fieldSet.getComponent('edit_day').hide();
+    fieldSet.getComponent('edit_hour').show();
+    fieldSet.getComponent('edit_minute').show();
   }
 });

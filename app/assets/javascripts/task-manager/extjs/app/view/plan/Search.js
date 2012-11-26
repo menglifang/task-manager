@@ -35,14 +35,14 @@ Ext.define('TM.view.plan.Search', {
           xtype: 'combo',
           store: 'TM.store.Types',
           valueField: 'value',
-          name: 'q[plan_type]'
+          name: 'q[plan_type_eq]'
         }, {
           fieldLabel: '是否自动完成',
           xtype: 'combo',
           editable: false,
           valueField: 'value',
           store: 'TM.store.Booleans',
-          name: 'q[autocompletable]'
+          name: 'q[autocompletable_eq]'
         }]
       }, {
         layout: 'column',
@@ -64,11 +64,12 @@ Ext.define('TM.view.plan.Search', {
           },
           items: [{
             fieldLabel: '最后任务生成起始时间',
-            format: 'Y年m月d H:i',
+            format: 'Y-m-d',
             editable: false,
             name: 'q[last_task_created_at_gteq]'
           }, {
             fieldLabel: '生效起始时间',
+            format: 'Y-m-d',
             xtype: 'datefield',
             editable: false,
             name: 'q[enabled_at_gteq]'
@@ -84,11 +85,12 @@ Ext.define('TM.view.plan.Search', {
           },
           items: [{
             fieldLabel: '最后任务生成终止时间',
-            format: 'Y年m月d H:i',
+            format: 'Y-m-d',
             editable: false,
             name: 'q[last_task_created_at_lteq]'
           }, {
             fieldLabel: '生效终止时间',
+            format: 'Y-m-d',
             xtype: 'datefield',
             editable: false,
             name: 'q[enabled_at_lteq]'
