@@ -299,10 +299,6 @@ Ext.define('TM.controller.Plans', {
 
   onQueryClick: function(btn) {
     var params = this.getSearchForm().getValues();
-    if(!this.getSearchForm().hasQueryParams()) {
-      Ext.Msg.alert('提示', '您要查找的条件不能全为空，至少要有一项！');
-      return;
-    }
     Ext.getStore('TM.store.Plans').load({ params: params });
   },
 
