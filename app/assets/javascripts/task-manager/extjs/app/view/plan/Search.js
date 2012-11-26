@@ -27,10 +27,10 @@ Ext.define('TM.view.plan.Search', {
           labelWidth: 130
         },
         items: [{
-          fieldLabel: '计划名称',
+          fieldLabel: '名称',
           name: 'q[name_cont]'
         }, {
-          fieldLabel: '计划类型',
+          fieldLabel: '类型',
           editable: false,
           xtype: 'combo',
           store: 'TM.store.Types',
@@ -63,12 +63,12 @@ Ext.define('TM.view.plan.Search', {
             labelWidth: 130
           },
           items: [{
-            //fieldLabel: '最后任务生成起始时间',
-            //format: 'Y-m-d',
-            //editable: false,
-            //name: 'q[last_task_created_at_gteq]'
-          //}, {
-            fieldLabel: '生效起始时间',
+            fieldLabel: '生成时间 从',
+            format: 'Y-m-d',
+            editable: false,
+            name: 'q[last_task_created_at_gteq]'
+          }, {
+            fieldLabel: '生效时间 从',
             format: 'Y-m-d',
             xtype: 'datefield',
             editable: false,
@@ -84,12 +84,12 @@ Ext.define('TM.view.plan.Search', {
             labelWidth: 130
           },
           items: [{
-            //fieldLabel: '最后任务生成终止时间',
-            //format: 'Y-m-d',
-            //editable: false,
-            //name: 'q[last_task_created_at_lteq]'
-          //}, {
-            fieldLabel: '生效终止时间',
+            fieldLabel: '至',
+            format: 'Y-m-d',
+            editable: false,
+            name: 'q[last_task_created_at_lteq]'
+          }, {
+            fieldLabel: '至',
             format: 'Y-m-d',
             xtype: 'datefield',
             editable: false,

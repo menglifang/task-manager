@@ -54,8 +54,7 @@ Ext.define('TM.view.plan.Edit', {
       anchor: '100%',
       format: 'Y/m/d',
       name: 'enabled_at',
-      id: 'editenabled_at',
-      minValue: new Date()
+      id: 'editenabled_at'
     }, {
       fieldLabel: '完成前几天提醒',
       id: 'edit_begin_to_remind',

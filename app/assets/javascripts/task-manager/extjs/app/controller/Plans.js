@@ -208,14 +208,16 @@ Ext.define('TM.controller.Plans', {
   },
 
   onEditClick: function(btn) {
-    var count = btn.up('plan_grid').getSelectionModel().getSelection().length;
-    if (count == 0) {
+    var record = btn.up('plan_grid').getSelectionModel().getSelection()[0];
+    // var select = btn.up('plan_grid').getSelectionModel().getSelection();
+    if (record == null) {
       Ext.Msg.alert('提示', '请选择要修改的数据');
       return;
-    } else if(count > 1){
-      Ext.Msg.alert('提示', '请只选择一条修改的数据');
-      return;
     }
+    // if(select.length > 1){
+    //   Ext.Msg.alert('提示', '请选择要修改的数据');
+    //   return;
+    // }
 
     var record = btn.up('plan_grid').getSelectionModel().getSelection()[0];
 

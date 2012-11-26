@@ -13,8 +13,7 @@ Ext.define('TM.view.task.Index', {
   },
 
 	items: [{
-		xtype: 'task_search',
-		width: 50
+		xtype: 'task_search'
 	}, {
 		xtype: 'task_grid',
 		flex: 1
