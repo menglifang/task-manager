@@ -202,7 +202,7 @@ Ext.define('TM.controller.Plans', {
       return;
     }
      if(length > 1){
-       Ext.Msg.alert('提示', '请选择要修改的数据');
+       Ext.Msg.alert('提示', '修改的数据一次只能选择一条！');
        return;
      }
 

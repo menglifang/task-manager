@@ -6,12 +6,6 @@ Ext.define('TM.controller.Tasks', {
 	refs: [{
 		ref: 'searchForm',
 		selector: 'task_search'
-	}, {
-		ref: 'lastTaskField',
-		selctor: 'task_search fieldset datefield[id="last_task"]'
-	}, {
-		ref: 'taskTypeField',
-		selctor: 'task_search combo[id="types"]'
 	}],
 
 	init: function() {
@@ -24,19 +18,8 @@ Ext.define('TM.controller.Tasks', {
 		  },
 		  'task_grid button[action="delete"]': {
 		    click: this.onDeleteClick
-		  },
-		  'task_search datefield[id="last_task"]': {
-		  	change: this.onLastTaskChange
 		  }
 		});
-	},
-
-	onLastTaskChange: function() {
-		this.getLastTaskField().getEl().on('render', this.onLastTaskAfterRender);
-	},
-
-	onLastTaskAfterRender: function() {
-		this.getTaskTypeField().setValue('true');
 	},
 
 	onQueryClick: function(btn) {
