@@ -162,6 +162,7 @@ DEPENDENCIES
   jquery-rails
   pg
   pry
+  rake
   rspec-rails
   sass-rails
   shoulda-matchers
