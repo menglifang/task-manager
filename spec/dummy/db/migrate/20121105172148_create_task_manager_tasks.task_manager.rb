@@ -11,6 +11,8 @@ class CreateTaskManagerTasks < ActiveRecord::Migration
       t.timestamp :deadline
       t.timestamp :reminding_at
 
+      t.timestamp :finished_at
+
       t.timestamps
     end
   end

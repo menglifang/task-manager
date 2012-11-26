@@ -13,7 +13,7 @@ module TaskManager
 
     default_value_for :status, :new
 
-    attr_accessible :data, :deadline, :name, :reminding_at, :status, :task_type
+    attr_accessible :data, :deadline, :name, :reminding_at, :status, :task_type, :finished_at
 
     validates_presence_of :name, :task_type, :status, :assignable, :deadline
 
@@ -58,6 +58,10 @@ module TaskManager
 
         update_attributes!(status: :expired)
       end
+    end
+
+    def finish
+      update_attributes(finished_at: Time.now, status: :finished)
     end
 
     class << self

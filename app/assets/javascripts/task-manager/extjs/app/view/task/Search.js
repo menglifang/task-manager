@@ -69,14 +69,14 @@ Ext.define('TM.view.task.Search', {
             fieldLabel: '完成时间 从',
             format: 'Y-m-d',
             editable: false,
-            name: 'q[last_task_created_at_gteq]',
+            name: 'q[finished_at_gteq]',
             id: 'last_task'
           }, {
             fieldLabel: '截至时间 从',
             format: 'Y-m-d',
             xtype: 'datefield',
             editable: false,
-            name: 'q[enabled_at_gteq]'
+            name: 'q[deadline_gteq]'
           }]
         }, {
           layout: 'column',
@@ -91,13 +91,13 @@ Ext.define('TM.view.task.Search', {
             fieldLabel: '至',
             format: 'Y-m-d',
             editable: false,
-            name: 'q[last_task_created_at_lteq]'
+            name: 'q[finished_at_lteq]'
           }, {
             fieldLabel: '至',
             format: 'Y-m-d',
             xtype: 'datefield',
             editable: false,
-            name: 'q[enabled_at_lteq]'
+            name: 'q[deadline_lteq]'
           }]
         }, {
           layout: 'hbox',

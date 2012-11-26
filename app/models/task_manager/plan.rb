@@ -50,6 +50,7 @@ module TaskManager
       #reminding_at = default_deadline.ago(-(begin_to_remind * 60))
       reminding_at = default_deadline.ago(begin_to_remind * 60)
       status = autocompletable ? :finished : :new
+      finished_at = autocompletable ? Time.now : nil
 
       tasks = []
 
@@ -62,6 +63,7 @@ module TaskManager
             t.deadline = calculate_deadline(plan_type, data)
             t.reminding_at = reminding_at
             t.status = status
+            t.finished_at = finished_at
             t.assignable = a
             t.callables = callables
           end
