@@ -66,10 +66,14 @@ Ext.define('TM.model.Plan', {
       opts = opts || {};
       var success = opts.success;
 
-      var assignables_attributes = [{
-        assignee_id: 1,
-        assignee_type: 'Department'
-      }];
+      var assignables_attributes = new Array();
+      Ext.Array.forEach(attrs.assignees, function(node, index, assignees) {
+        var record = Ext.getStore('TM.store.Assignees').getById(node.get('id'));
+        assignables_attributes.push({
+          assignee_id: record.get('id'),
+          assignee_type: record.get('class_name')
+        });
+      });
 
       var callables_attributes = new Array();
 
