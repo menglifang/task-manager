@@ -37,7 +37,6 @@ Ext.define('TM.model.Plan', {
     }},
     { name: 'autocompletable', type: 'boolean' },
 
-    { name: 'ahead_of_time', type: 'int' },
     { name: 'begin_to_remind', type: 'int' },
 
     { name: 'enabled_at', type: 'date' },
@@ -56,6 +55,26 @@ Ext.define('TM.model.Plan', {
     reader: {
       root: 'plans',
       totalProperty: 'total'
+    }
+  },
+
+  set: function() {
+    if (typeof arguments[0] === 'object') {
+      this.callParent(arguments);
+
+      obj = arguments[0];
+      if (obj.data) {
+        this.set('dataX', obj.data.x);
+        this.set('dataY', obj.data.y);
+        this.set('quarterly_month', obj.data.deadline_month);
+        this.set('month', obj.data.deadline_month);
+        this.set('weekly_day', obj.data.deadline_day);
+        this.set('day', obj.data.deadline_day);
+        this.set('hour', obj.data.deadline_hour);
+        this.set('minute', obj.data.deadline_minute);
+      }
+    } else {
+      this.callParent(arguments);
     }
   },
 
@@ -155,6 +174,7 @@ Ext.define('TM.model.Plan', {
         success: function(response) {
           var obj = Ext.JSON.decode(response.responseText);
           plan.set(obj.plan);
+          //plan.set('dataX', obj.plan.data.x);
           plan.commit();
 
           if(success) success.call(opts.scope || this);
