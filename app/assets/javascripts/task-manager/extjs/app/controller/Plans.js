@@ -85,15 +85,11 @@ Ext.define('TM.controller.Plans', {
       'plan_new button[action="reset"]': {
         click: this.onResetClick
       },
-      'plan_selectassignablesGrid': {
-        select: this.onSelectAssignablesGridSelect,
-        deselect: this.onSelectAssignablesGridDeselect
-      },
       'plan_selectassignables button[action="save"]': {
         click: this.onSelectAssignablesSave
       },
       'plan_selectassignables button[action="cancel"]': {
-        click: this.onSelectAssignablesGridCancel
+        click: this.onSelectAssignablesCancel
       },
       'plan_edit': {
         render: this.onEditFormRender
@@ -133,16 +129,8 @@ Ext.define('TM.controller.Plans', {
     Ext.create('TM.view.plan.AssignablesWindow', { 'action': opts.action }).show();
   },
 
-  onSelectAssignablesGridSelect: function(row, record, index, eOpts) {
-    var assignees = this.getPlanNew().assignees;
-
-    assignees.push(record);
-  },
-
-  onSelectAssignablesGridDeselect: function(row, record, index, eOpts) {
-    var assignees = this.getPlanNew().assignees;
-
-    Ext.Array.remove(assignees, record);
+  onSelectAssignablesCancel: function(btn) {
+    btn.up('plan_assignableswindow').close();
   },
 
   onSelectAssignablesSave: function(btn) {
