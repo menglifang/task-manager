@@ -83,7 +83,7 @@ Ext.define('TM.view.plan.Grid', {
   }, {
     text: '生效时间',
     renderer: function(v, m, record) {
-      return Ext.Date.format(record.get('enabled_at'), 'Y年m月j日 H:m:s');
+      return Ext.Date.format(record.get('enabled_at'), 'Y年m月j日 H:i:s');
     },
     flex: 2
   }, {
