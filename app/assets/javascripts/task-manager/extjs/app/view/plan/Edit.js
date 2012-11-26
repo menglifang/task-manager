@@ -7,7 +7,7 @@ Ext.define('TM.view.plan.Edit', {
     margin: '5 10'
   },
 
-  assigneesForEdit: new Array(),
+  assignees: new Array(),
 
   items: [{
     id: 'editFillField',

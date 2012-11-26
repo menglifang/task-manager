@@ -183,20 +183,20 @@ Ext.define('TM.controller.Plans', {
   },
 
   onEditSelectAssignablesGridSelect: function(row, record, index, eOpts) {
-    var assignees = this.getPlanEdit().assigneesForEdit;
+    var assignees = this.getPlanEdit().assignees;
 
     assignees.push(record);
   },
 
   onEditSelectAssignablesGridDeselect: function(row, record, index, eOpts) {
-    var assignees = this.getPlanEdit().assigneesForEdit;
+    var assignees = this.getPlanEdit().assignees;
 
     Ext.Array.remove(assignees, record);
   },
 
   onEditSelectAssignablesGridSave: function(btn) {
     var results = new Array();
-    Ext.Array.forEach(this.getPlanEdit().assigneesForEdit, function(record, index, assignees) {
+    Ext.Array.forEach(this.getPlanEdit().assignees, function(record, index, assignees) {
       results.push(record.get('name'));
     });
     this.getEditAssignablesField().setValue(results.join(', '));
@@ -284,6 +284,42 @@ Ext.define('TM.controller.Plans', {
     win.show();
 
     win.down('plan_edit').loadRecord(record);
+
+    this.generateEditTree(record.get('assignees'));
+
+    var results = [];
+    var nodes = Ext.getStore('TM.store.AssigneesTree').getRootNode().childNodes;
+    this.generateResult(this.getPlanEdit().assignees, results, nodes);
+    this.getEditAssignablesField().setValue(results.join(', '));
+  },
+
+  generateEditTree: function(assignees) {
+    var self = this;
+    Ext.getStore('TM.store.Assignees').reload();
+    Ext.getStore('TM.store.AssigneesTree').
+      setRootNode(Ext.getStore('TM.store.Assignees').toTreeStore().root);
+
+    Ext.Array.each(Ext.getStore('TM.store.AssigneesTree').tree.root.childNodes,
+                   function(node, index, nodes) {
+      self.checkNodes(node, assignees);
+    });
+
+  },
+
+  checkNodes: function(node, assignees) {
+    var self = this;
+    if (node.get('leaf')) {
+      Ext.Array.each(assignees, function(assignee, index, assignees) {
+        if (assignee.id == node.get('id')) {
+          self.getPlanEdit().assignees.push(node);
+          node.set('checked', true);
+        }
+      });
+    } else {
+      Ext.Array.each(node.childNodes, function(n, index, nodes) {
+        self.checkNodes(n, assignees)
+      });
+    }
   },
 
   onDeleteClick: function(btn) {
