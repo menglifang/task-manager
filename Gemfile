@@ -19,7 +19,6 @@ gem "jquery-rails"
 gem "activerecord-postgres-hstore", "~> 0.4.1"
 
 group :development, :test do
-  gem 'acts_as_tree', '~> 1.2.0'
   gem 'sass-rails'
   gem 'siesta'
   gem 'rspec-rails'
