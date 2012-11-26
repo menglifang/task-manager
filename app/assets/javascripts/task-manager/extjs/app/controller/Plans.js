@@ -158,21 +158,26 @@ Ext.define('TM.controller.Plans', {
   onSelectAssignablesSave: function(btn) {
     var nodes = Ext.getStore('TM.store.AssigneesTree').getRootNode().childNodes;
 
+    var assignees = this.getPlanNew().assignees;
+    for (var i = 0; i < assignees.length; i++) assignees.pop();
+
     var results = [];
-    this.generateResult(results, nodes);
+    this.generateResult(assignees, results, nodes);
 
     this.getAssignablesField().setValue(results.join(', '));
-
     this.getAssignablesWindow().close();
   },
 
-  generateResult: function(results, nodes) {
+  generateResult: function(assignees, results, nodes) {
     var self = this;
     Ext.Array.forEach(nodes, function(node, index, nodes) {
       if (node.get('leaf')) {
-        if (node.get('checked')) results.push(node.get('text'));
+        if (node.get('checked')) {
+          results.push(node.get('text'));
+          assignees.push(node);
+        }
       } else {
-        self.generateResult(results, node.childNodes);
+        self.generateResult(assignees, results, node.childNodes);
       }
     });
   },

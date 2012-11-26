@@ -15,7 +15,7 @@ Ext.define('TM.store.Assignees', {
     };
 
     self.each(function(assignee) {
-      self.addChild(self.getById(store.root,
+      self.addChild(self.getPositionById(store.root,
                                  assignee.get('parent_id')), assignee);
     });
 
@@ -23,13 +23,13 @@ Ext.define('TM.store.Assignees', {
   },
 
   // @private
-  getById: function(root, id) {
+  getPositionById: function(root, id) {
     if (id == null || id == 0) return root;
     if (root.id == id) return root;
 
     var childrenLength = root.children ? root.children.length : 0;
     for (var i = 0; i < childrenLength; i++) {
-      var result = this.getById(root.children[i], id);
+      var result = this.getPositionById(root.children[i], id);
       if (result != null) return result;
     }
 
