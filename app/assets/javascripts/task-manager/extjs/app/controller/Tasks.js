@@ -6,6 +6,12 @@ Ext.define('TM.controller.Tasks', {
 	refs: [{
 		ref: 'searchForm',
 		selector: 'task_search'
+	}, {
+		ref: 'lastTaskField',
+		selctor: 'task_search fieldset datefield[id="last_task"]'
+	}, {
+		ref: 'taskTypeField',
+		selctor: 'task_search combo[id="types"]'
 	}],
 
 	init: function() {
@@ -18,8 +24,19 @@ Ext.define('TM.controller.Tasks', {
 		  },
 		  'task_grid button[action="delete"]': {
 		    click: this.onDeleteClick
+		  },
+		  'task_search datefield[id="last_task"]': {
+		  	change: this.onLastTaskChange
 		  }
 		});
+	},
+
+	onLastTaskChange: function() {
+		this.getLastTaskField().getEl().on('render', this.onLastTaskAfterRender);
+	},
+
+	onLastTaskAfterRender: function() {
+		this.getTaskTypeField().setValue('true');
 	},
 
 	onQueryClick: function(btn) {
@@ -28,7 +45,7 @@ Ext.define('TM.controller.Tasks', {
       Ext.Msg.alert('提示', '您要查找的条件不能全为空，至少要有一项！');
       return;
     }
-    // Ext.getStore('TM.store.Plans').load({ params: params });
+    Ext.getStore('TM.store.Types').load({ params: params });
   },
 
   onSearchResetClick: function(btn) {
