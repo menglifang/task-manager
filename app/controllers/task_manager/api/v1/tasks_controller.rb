@@ -48,7 +48,7 @@ module TaskManager
           tasks = TaskManager::Task.search(params[:q]).result
           result = {
             total: tasks.count,
-            plans: ActiveModel::ArraySerializer.new(
+            tasks: ActiveModel::ArraySerializer.new(
               tasks.page(params[:page]).per(params[:limit])
             ).as_json
           }
