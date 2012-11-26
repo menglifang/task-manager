@@ -4,6 +4,8 @@
 //= require_tree ./extjs/app/model
 //= require_tree ./extjs/app/store
 //
+//= require_tree ./extjs/app/helper
+//
 //= require_self
 //
 //= require ./extjs/app/view/task/Search
