@@ -76,10 +76,10 @@ Ext.define('TM.view.plan.Grid', {
       return names.join(', ');
     },
     flex: 3
-  }, {
-    text: '最后任务生成时间',
-    dataIndex: 'last_task_created_at',
-    flex: 2
+  //}, {
+    //text: '最后任务生成时间',
+    //dataIndex: 'last_task_created_at',
+    //flex: 2
   }, {
     text: '生效时间',
     renderer: function(v, m, record) {
