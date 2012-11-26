@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20121122042051) do
     t.hstore   "data"
     t.datetime "deadline"
     t.datetime "reminding_at"
+    t.datetime "finished_at"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
