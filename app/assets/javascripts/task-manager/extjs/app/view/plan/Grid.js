@@ -6,6 +6,10 @@ Ext.define('TM.view.plan.Grid', {
     'Ext.ux.RowExpander'
   ],
 
+  mixins: [
+    'TM.helper.ApplicationHelper'
+  ],
+
   store: 'TM.store.Plans',
 
   tbar: [{
@@ -35,13 +39,13 @@ Ext.define('TM.view.plan.Grid', {
         '</tr>',
         '<tr>',
           '<td class="name">横向指标:</td>',
-          '<td class="value">{data.x}</td>',
+          '<td class="value">{[values.data.x == null ? "" : values.data.x]}</td>',
         '</tr>',
         '<tr>',
           '<td class="name">纵向指标:</td>',
-          '<td class="value">{data.y}</td>',
+          '<td class="value">{[values.data.y == null ? "" : values.data.y]}</td>',
         '</tr>',
-      '</table>'
+      '</table>',
      ]
   }],
 
@@ -51,21 +55,9 @@ Ext.define('TM.view.plan.Grid', {
     flex: 2
   }, {
     text: '类型',
+    dataIndex: 'plan_type',
     renderer: function(v, m, record) {
-      switch (record.get('plan_type')) {
-        case 'yearly':
-          return '年计划';
-        case 'quarterly':
-          return '季计划';
-        case 'monthly':
-          return '月计划';
-        case 'weekly':
-          return '周计划';
-        case 'daily':
-          return '日计划';
-        default:
-          return '';
-      }
+      return this.translateType(v);
     },
     flex: 1
   }, {
