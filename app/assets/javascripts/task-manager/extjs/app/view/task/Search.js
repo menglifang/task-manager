@@ -39,12 +39,12 @@ Ext.define('TM.view.task.Search', {
           valueField: 'value',
           name: 'q[task_type_eq]'
         }, {
-          fieldLabel: '完成状态',
+          fieldLabel: '状态',
           xtype: 'combo',
           editable: false,
           valueField: 'value',
-          store: 'TM.store.Booleans',
-          name: 'q[autocompletable_eq]'
+          store: 'TM.store.Statuses',
+          name: 'q[status_eq]'
         }]
       }, {
         layout: 'column',
