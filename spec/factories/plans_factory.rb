@@ -21,7 +21,7 @@ FactoryGirl.define do
     }
     autocompletable false
     enabled_at { Time.now }
-    begin_to_remind -24
+    begin_to_remind 24
 
     factory :plan_with_assignees do
       ignore do

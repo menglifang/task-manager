@@ -6,6 +6,8 @@ Ext.define('TM.view.plan.AssignablesWindow', {
 	title: '选择执行人',
 	modal: true,
 
+  action: '',
+
 	width: 480,
 	height: 550,
 

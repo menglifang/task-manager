@@ -7,10 +7,6 @@ Ext.define('TM.controller.Plans', {
 
   ],
 
-  // stores: [
-  //   'Plan'
-  // ],
-
   models: [
     'Plan',
     'Assignee'
@@ -38,11 +34,11 @@ Ext.define('TM.controller.Plans', {
     ref: 'assignablesField',
     selector: 'plan_new textfield[id="assignables"]'
   }, {
+    ref: 'selectAssignablesTree',
+    selector: 'plan_selectassignablestree'
+  }, {
     ref: 'editAssignablesField',
     selector: 'plan_edit textfield[id="editassignables"]'
-  }, {
-    ref: 'selectAssignablesGrid',
-    selector: 'plan_selectassignablesgrid'
   }, {
     ref: 'selectAssignables',
     selector: 'plan_selectassignables'
@@ -93,16 +89,9 @@ Ext.define('TM.controller.Plans', {
         select: this.onSelectAssignablesGridSelect,
         deselect: this.onSelectAssignablesGridDeselect
       },
-      // 'plan_selectassignablesGrid': {
-      //   select: this.onEditSelectAssignablesGridSelect,
-      //   deselect: this.onEditSelectAssignablesGridDeselect
-      // },
       'plan_selectassignables button[action="save"]': {
-        click: this.onSelectAssignablesGridSave
+        click: this.onSelectAssignablesSave
       },
-      // 'plan_selectassignables button[action="save"]': {
-      //   click: this.onEditSelectAssignablesGridSave
-      // },
       'plan_selectassignables button[action="cancel"]': {
         click: this.onSelectAssignablesGridCancel
       },
@@ -114,20 +103,34 @@ Ext.define('TM.controller.Plans', {
       },
       'plan_edit button[action="close"]': {
         click: this.onCloseClick
+      },
+      'plan_selectassignablestree': {
+        checkchange: this.onAssigneesTreeCheckChange
       }
     });
   },
 
+  onAssigneesTreeCheckChange: function(node, checked, opts) {
+    node.set('checked', checked);
+    node.cascadeBy(function(n) {
+      n.set('checked', checked)
+    });
+  },
+
   onSelectAssignablesRender: function() {
-    this.getAssignablesField().getEl().on('click', this.onSelectAssignables);
+    Ext.getStore('TM.store.Assignees').reload();
+    Ext.getStore('TM.store.AssigneesTree')
+      .setRootNode(Ext.getStore('TM.store.Assignees').toTreeStore().root);
+
+    this.getAssignablesField().getEl().on('click', this.onSelectAssignables, this, {action: 'create'});
   },
 
   onEditSelectAssignablesRender: function() {
-    this.getEditAssignablesField().getEl().on('click', this.onSelectAssignables);
+    this.getEditAssignablesField().getEl().on('click', this.onSelectAssignables, this, {action: 'edit'});
   },
 
-  onSelectAssignables: function() {
-    Ext.create('TM.view.plan.AssignablesWindow').show();
+  onSelectAssignables: function(eventName, fn, opts) {
+    Ext.create('TM.view.plan.AssignablesWindow', { 'action': opts.action }).show();
   },
 
   onSelectAssignablesGridSelect: function(row, record, index, eOpts) {
@@ -142,53 +145,37 @@ Ext.define('TM.controller.Plans', {
     Ext.Array.remove(assignees, record);
   },
 
-  onSelectAssignablesGridSave: function(btn) {
-    var results = new Array();
-    Ext.Array.forEach(this.getPlanNew().assignees, function(record, index, assignees) {
-      results.push(record.get('name'));
-    });
-    this.getAssignablesField().setValue(results.join(', '));
+  onSelectAssignablesSave: function(btn) {
+    var nodes = Ext.getStore('TM.store.AssigneesTree').getRootNode().childNodes;
+    var action = btn.up('plan_assignableswindow').action;
+    var view = action == 'create' ? this.getPlanNew() : this.getPlanEdit();
+    var assigneesField = action == 'create' ? this.getAssignablesField() : this.getEditAssignablesField()
 
+    view.assignees = [];
+    var assignees = view.assignees;
+
+    var results = [];
+    this.generateResult(assignees, results, nodes);
+
+    assigneesField.setValue(results.join(', '));
     this.getAssignablesWindow().close();
   },
 
-  onEditSelectAssignablesGridSelect: function(row, record, index, eOpts) {
-    var assignees = this.getPlanEdit().assigneesForEdit;
-
-    assignees.push(record);
-  },
-
-  onEditSelectAssignablesGridDeselect: function(row, record, index, eOpts) {
-    var assignees = this.getPlanEdit().assigneesForEdit;
-
-    Ext.Array.remove(assignees, record);
-  },
-
-  onEditSelectAssignablesGridSave: function(btn) {
-    var results = new Array();
-    Ext.Array.forEach(this.getPlanEdit().assigneesForEdit, function(record, index, assignees) {
-      results.push(record.get('name'));
+  generateResult: function(assignees, results, nodes) {
+    var self = this;
+    Ext.Array.forEach(nodes, function(node, index, nodes) {
+      if (node.get('leaf')) {
+        if (node.get('checked')) {
+          results.push(node.get('text'));
+          assignees.push(node);
+        }
+      } else {
+        self.generateResult(assignees, results, node.childNodes);
+      }
     });
-    this.getEditAssignablesField().setValue(results.join(', '));
-
-    this.getAssignablesWindow().close();
   },
 
   onUpdateClick: function(btn) {
-    // var attrs = btn.up('plan_edit').getForm().getValues();
-    // var self = this;
-    // record.save({
-    //   success: function() {
-    //     Ext.Msg.alert('提示', '更新成功!');
-    //     self.getPlanStore.insert(0, plan);
-    //     self.getPlaEditWindow().close();
-    //   },
-    //   failure: function() {
-    //     Ext.Msg.alert('提示', '更新失败!');
-    //   }
-    // });
-
-
     var self = this;
     var attrs = this.getPlanEdit().getValues();
 
@@ -211,29 +198,10 @@ Ext.define('TM.controller.Plans', {
         Ext.Msg.alert('提示', '计划更新失败!')
       }
     })
-
-    // this.getPlanModel().load({
-    //   success: function(record) {
-    //     record.update(attrs, {
-    //     success: function() {
-    //       Ext.Msg.alert('提示', '计划更新成功!');
-    //       Ext.getStore('TM.store.Plans').insert(0, plan);
-    //       self.getPlanWindow().close();
-    //     },
-    //     failure: function() {
-    //       Ext.Msg.alert('提示', '计划更新失败!')
-    //     }
-    //     })
-    //   }
-    // })
   },
 
   onCloseClick: function(btn) {
     btn.up('plan_editwindow').close();
-  },
-
-  onSelectAssignablesGridCancel: function(btn) {
-    btn.up('plan_assignableswindow').close();
   },
 
   onEditFormRender: function(record) {
@@ -251,11 +219,50 @@ Ext.define('TM.controller.Plans', {
     //   return;
     // }
 
+    var record = btn.up('plan_grid').getSelectionModel().getSelection()[0];
+
     var win = Ext.create('TM.view.plan.EditWindow');
-    
     win.show();
 
     win.down('plan_edit').loadRecord(record);
+
+    this.generateEditTree(record.get('assignees'));
+
+    var results = [];
+    this.getPlanEdit().assignees = [];
+    var assignees = this.getPlanEdit().assignees;
+    var nodes = Ext.getStore('TM.store.AssigneesTree').getRootNode().childNodes;
+    this.generateResult(assignees, results, nodes);
+    this.getEditAssignablesField().setValue(results.join(', '));
+  },
+
+  generateEditTree: function(assignees) {
+    var self = this;
+    Ext.getStore('TM.store.Assignees').reload();
+    Ext.getStore('TM.store.AssigneesTree').
+      setRootNode(Ext.getStore('TM.store.Assignees').toTreeStore().root);
+
+    Ext.Array.each(Ext.getStore('TM.store.AssigneesTree').tree.root.childNodes,
+                   function(node, index, nodes) {
+      self.checkNodes(node, assignees);
+    });
+
+  },
+
+  checkNodes: function(node, assignees) {
+    var self = this;
+    if (node.get('leaf')) {
+      Ext.Array.each(assignees, function(assignee, index, assignees) {
+        if (assignee.id == node.get('id')) {
+          self.getPlanEdit().assignees.push(node);
+          node.set('checked', true);
+        }
+      });
+    } else {
+      Ext.Array.each(node.childNodes, function(n, index, nodes) {
+        self.checkNodes(n, assignees)
+      });
+    }
   },
 
   onDeleteClick: function(btn) {
@@ -285,7 +292,6 @@ Ext.define('TM.controller.Plans', {
 
     attrs.assignees = this.getPlanNew().assignees;
 
-    // attrs.enabled_at =  new Date(document.getElementById("enabled_at").value);
     var date = this.getPlanNew().getValues().enabled_at;
     attrs.enabled_at = Ext.Date.parse(date, "Y/m/d", true);
 
