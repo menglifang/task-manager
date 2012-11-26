@@ -27,8 +27,8 @@ Ext.define('TM.view.plan.Grid', {
     rowBodyTpl: [
       '<table class="data">',
         '<tr>',
-          '<td rowspan="3" class="title">计划内容</td>',
-          '<td class="name">截止时限:</td>',
+          '<td rowspan="3" class="title">内容</td>',
+          '<td class="name">截止时间:</td>',
           '<td class="value">第{data.deadline_month}个月，第{data.deadline_day}天，{data.deadline_hour}时{data.deadline_minute}分</td>',
         '</tr>',
         '<tr>',
@@ -44,11 +44,11 @@ Ext.define('TM.view.plan.Grid', {
   }],
 
   columns: [{
-    text: '计划名称',
+    text: '名称',
     dataIndex: 'name',
     flex: 2
   }, {
-    text: '计划类型',
+    text: '类型',
     renderer: function(v, m, record) {
       switch (record.get('plan_type')) {
         case 'yearly':

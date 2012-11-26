@@ -241,14 +241,15 @@ Ext.define('TM.controller.Plans', {
 
   onEditClick: function(btn) {
     var record = btn.up('plan_grid').getSelectionModel().getSelection()[0];
-
+    // var select = btn.up('plan_grid').getSelectionModel().getSelection();
     if (record == null) {
       Ext.Msg.alert('提示', '请选择要修改的数据');
       return;
-    } else if(record.length > 1){
-      Ext.Msg.alert('提示', '请选择要修改的数据');
-      return;
     }
+    // if(select.length > 1){
+    //   Ext.Msg.alert('提示', '请选择要修改的数据');
+    //   return;
+    // }
 
     var win = Ext.create('TM.view.plan.EditWindow');
     
