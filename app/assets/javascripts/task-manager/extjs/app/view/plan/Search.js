@@ -63,11 +63,11 @@ Ext.define('TM.view.plan.Search', {
             labelWidth: 130
           },
           items: [{
-            fieldLabel: '生成时间 从',
-            format: 'Y-m-d',
-            editable: false,
-            name: 'q[last_task_created_at_gteq]'
-          }, {
+            //fieldLabel: '生成时间 从',
+            //format: 'Y-m-d',
+            //editable: false,
+            //name: 'q[last_task_created_at_gteq]'
+          //}, {
             fieldLabel: '生效时间 从',
             format: 'Y-m-d',
             xtype: 'datefield',
@@ -84,11 +84,11 @@ Ext.define('TM.view.plan.Search', {
             labelWidth: 130
           },
           items: [{
-            fieldLabel: '至',
-            format: 'Y-m-d',
-            editable: false,
-            name: 'q[last_task_created_at_lteq]'
-          }, {
+            //fieldLabel: '至',
+            //format: 'Y-m-d',
+            //editable: false,
+            //name: 'q[last_task_created_at_lteq]'
+          //}, {
             fieldLabel: '至',
             format: 'Y-m-d',
             xtype: 'datefield',
