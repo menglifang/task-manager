@@ -53,18 +53,22 @@ module TaskManager
       finished_at = autocompletable ? Time.now : nil
 
       tasks = []
+      data.symbolize_keys!
 
       Plan.transaction do
         assignables.each do |a|
           tasks << Task.create! do |t|
             t.name = name
-            t.data = { x: data['x'], y: data['y'] }
+            t.data = { x: data[:x], y: data[:y] }
             t.task_type = plan_type
             t.deadline = calculate_deadline(plan_type, data)
             t.reminding_at = reminding_at
             t.status = status
             t.finished_at = finished_at
-            t.assignable = a
+            t.create_assignable(
+              assignee_id: a.assignee_id,
+              assignee_type: a.assignee_type,
+            )
             t.callables = callables
           end
         end
