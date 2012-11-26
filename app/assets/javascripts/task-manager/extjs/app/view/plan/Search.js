@@ -63,11 +63,11 @@ Ext.define('TM.view.plan.Search', {
             labelWidth: 130
           },
           items: [{
-            fieldLabel: '最后任务生成起始时间',
-            format: 'Y-m-d',
-            editable: false,
-            name: 'q[last_task_created_at_gteq]'
-          }, {
+            //fieldLabel: '最后任务生成起始时间',
+            //format: 'Y-m-d',
+            //editable: false,
+            //name: 'q[last_task_created_at_gteq]'
+          //}, {
             fieldLabel: '生效起始时间',
             format: 'Y-m-d',
             xtype: 'datefield',
@@ -84,11 +84,11 @@ Ext.define('TM.view.plan.Search', {
             labelWidth: 130
           },
           items: [{
-            fieldLabel: '最后任务生成终止时间',
-            format: 'Y-m-d',
-            editable: false,
-            name: 'q[last_task_created_at_lteq]'
-          }, {
+            //fieldLabel: '最后任务生成终止时间',
+            //format: 'Y-m-d',
+            //editable: false,
+            //name: 'q[last_task_created_at_lteq]'
+          //}, {
             fieldLabel: '生效终止时间',
             format: 'Y-m-d',
             xtype: 'datefield',
@@ -97,7 +97,7 @@ Ext.define('TM.view.plan.Search', {
           }]
         }, {
           layout: 'hbox',
-          margin: '20 0 0 60',
+          margin: '5 0 0 60',
           items: [{
             xtype: 'button',
             formBind: true,
@@ -115,14 +115,6 @@ Ext.define('TM.view.plan.Search', {
       }],
     }]
   }],
-
-  //buttons: [{
-    //text: '查询',
-    //action: 'search'
-  //}, {
-    //text: '重置',
-    //action: 'reset'
-  //}]
 
   hasQueryParams: function() {
     var hasParams = false;

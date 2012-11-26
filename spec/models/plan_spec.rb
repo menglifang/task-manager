@@ -17,7 +17,7 @@ describe TaskManager::Plan do
     it { should validate_presence_of :enabled_at }
     it { should validate_presence_of :begin_to_remind }
     it { should validate_numericality_of :begin_to_remind }
-    it { should_not allow_value(1).for(:begin_to_remind) }
+    it { should_not allow_value(-1).for(:begin_to_remind) }
     it { should validate_presence_of :assignables }
     it { should validate_presence_of :assignables }
   end

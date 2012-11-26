@@ -29,7 +29,9 @@ Ext.define('TM.view.plan.Grid', {
         '<tr>',
           '<td rowspan="3" class="title">计划内容</td>',
           '<td class="name">截止时限:</td>',
-          '<td class="value">第{data.deadline_month}个月，第{data.deadline_day}天，{data.deadline_hour}时{data.deadline_minute}分</td>',
+          '<td class="value">第{[values.data.deadline_month == null ? 0 : values.data.deadline_month]}',
+          '个月，第{[values.data.deadline_day == null ? 0 : values.data.deadline_day]}天，',
+          '{data.deadline_hour}时{data.deadline_minute}分</td>',
         '</tr>',
         '<tr>',
           '<td class="name">横向指标:</td>',
@@ -74,10 +76,10 @@ Ext.define('TM.view.plan.Grid', {
       return names.join(', ');
     },
     flex: 3
-  }, {
-    text: '最后任务生成时间',
-    dataIndex: 'last_task_created_at',
-    flex: 2
+  //}, {
+    //text: '最后任务生成时间',
+    //dataIndex: 'last_task_created_at',
+    //flex: 2
   }, {
     text: '生效时间',
     renderer: function(v, m, record) {

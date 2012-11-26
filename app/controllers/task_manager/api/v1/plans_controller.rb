@@ -216,6 +216,8 @@ module TaskManager
         #     }
         #   }
         def update
+          plan.assignables.destroy_all
+
           if plan.update_attributes(params[:plan])
             render json: plan, status: :ok
           else
