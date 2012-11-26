@@ -132,15 +132,17 @@ Ext.define('TM.controller.Plans', {
     Ext.getStore('TM.store.AssigneesTree')
       .setRootNode(Ext.getStore('TM.store.Assignees').toTreeStore().root);
 
-    this.getAssignablesField().getEl().on('click', this.onSelectAssignables);
+    //this.getAssignablesField().getEl().on('click', this.onSelectAssignables('create'));
+    this.getAssignablesField().getEl().on('click', this.onSelectAssignables, this, {action: 'create'});
   },
 
   onEditSelectAssignablesRender: function() {
-    this.getEditAssignablesField().getEl().on('click', this.onSelectAssignables);
+    //this.getEditAssignablesField().getEl().on('click', this.onSelectAssignables('edit'));
+    this.getEditAssignablesField().getEl().on('click', this.onSelectAssignables, this, {action: 'edit'});
   },
 
-  onSelectAssignables: function() {
-    Ext.create('TM.view.plan.AssignablesWindow').show();
+  onSelectAssignables: function(eventName, fn, opts) {
+    Ext.create('TM.view.plan.AssignablesWindow', { 'action': opts.action }).show();
   },
 
   onSelectAssignablesGridSelect: function(row, record, index, eOpts) {
@@ -157,14 +159,17 @@ Ext.define('TM.controller.Plans', {
 
   onSelectAssignablesSave: function(btn) {
     var nodes = Ext.getStore('TM.store.AssigneesTree').getRootNode().childNodes;
+    var action = btn.up('plan_assignableswindow').action;
+    var view = action == 'create' ? this.getPlanNew() : this.getPlanEdit();
+    var assigneesField = action == 'create' ? this.getAssignablesField() : this.getEditAssignablesField()
 
-    var assignees = this.getPlanNew().assignees;
+    var assignees = view.assignees;
     for (var i = 0; i < assignees.length; i++) assignees.pop();
 
     var results = [];
     this.generateResult(assignees, results, nodes);
 
-    this.getAssignablesField().setValue(results.join(', '));
+    assigneesField.setValue(results.join(', '));
     this.getAssignablesWindow().close();
   },
 
