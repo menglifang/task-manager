@@ -196,16 +196,15 @@ Ext.define('TM.controller.Plans', {
   },
 
   onEditClick: function(btn) {
-    var record = btn.up('plan_grid').getSelectionModel().getSelection()[0];
-    // var select = btn.up('plan_grid').getSelectionModel().getSelection();
-    if (record == null) {
+    var length = btn.up('plan_grid').getSelectionModel().getSelection().length;
+    if (length == 0) {
       Ext.Msg.alert('提示', '请选择要修改的数据');
       return;
     }
-    // if(select.length > 1){
-    //   Ext.Msg.alert('提示', '请选择要修改的数据');
-    //   return;
-    // }
+     if(length > 1){
+       Ext.Msg.alert('提示', '请选择要修改的数据');
+       return;
+     }
 
     var record = btn.up('plan_grid').getSelectionModel().getSelection()[0];
 
