@@ -44,7 +44,7 @@ module TaskManager
     # 如果`next_reminding_at`返回`nil`，则表示该任务不再需要提醒。
     def remind
       Task.transaction do
-        assignee.remind_of_expiring_task(self)
+        assignee.remind_of_expiring_task(self) if assignee.respond_to?(:remind_of_expiring_task)
 
         update_attributes!(reminding_at: next_reminding_at)
       end
@@ -52,7 +52,9 @@ module TaskManager
 
     def expire
       Task.transaction do
-        callbacks.each { |c| c.call(self) }
+        callbacks.each do |c|
+          c.call(self) if c.respond_to?(:call)
+        end
 
         update_attributes!(status: :expired)
       end
