@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency "enumerize", "~> 0.5.0"
   s.add_dependency "default_value_for", "~> 2.0.1"
   s.add_dependency "active_model_serializers", "~> 0.6.0"
+  s.add_dependency "squeel", "~> 1.0.13"
 
   s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails"
