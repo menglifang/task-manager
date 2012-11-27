@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 module TaskManager
-  # TODO 验证data的合法性
   class Plan < ActiveRecord::Base
     include TaskManager::DeadlineCalculator
     extend Enumerize
@@ -24,7 +23,7 @@ module TaskManager
     validates_numericality_of :begin_to_remind, greater_than_or_equal_to: 0
 
     # validate the deadline
-    validates :data, deadline: true
+    validates :data, presence: true, deadline: true
 
     def assignees
       assignables.collect(&:assignee)
@@ -38,45 +37,53 @@ module TaskManager
     #
     # 为每一个计划的执行者创建一个计划任务。
     def generate_tasks
-      now = Time.now
-      default_deadline = case plan_type.to_sym
-                 when :daily then now.end_of_day
-                 when :weekly then now.end_of_week
-                 when :monthly then now.end_of_month
-                 when :quarterly then now.end_of_quarter
-                 when :yearly then now.end_of_year
-                 end
-
-      #reminding_at = default_deadline.ago(-(begin_to_remind * 60))
-      reminding_at = default_deadline.ago(begin_to_remind * 60)
-      status = autocompletable ? :finished : :new
-      finished_at = autocompletable ? Time.now : nil
-
       tasks = []
-      data.symbolize_keys!
-
       Plan.transaction do
         assignables.each do |a|
-          tasks << Task.create! do |t|
-            t.name = name
-            t.data = { x: data[:x], y: data[:y] }
-            t.task_type = plan_type
-            t.deadline = calculate_deadline(plan_type, data)
-            t.reminding_at = reminding_at
-            t.status = status
-            t.finished_at = finished_at
-            t.create_assignable(
-              assignee_id: a.assignee_id,
-              assignee_type: a.assignee_type,
-            )
-            t.callables = callables
-          end
+          tasks << generate_task_for_assignable(a)
         end
       end
 
       update_attributes(last_task_created_at: Time.now)
 
       tasks
+    end
+
+    def generate_task_for_assignable(a)
+      data.symbolize_keys!
+
+      reminding_at = default_deadline.ago(begin_to_remind * 60)
+      if autocompletable
+        status, finished_at = :finished, Time.now
+      else
+        status, finished_at = :new, nil
+      end
+
+      Task.create! do |t|
+        t.name = name
+        t.data = { x: data[:x], y: data[:y] }
+        t.task_type = plan_type
+        t.deadline = calculate_deadline(plan_type, data)
+        t.reminding_at = reminding_at
+        t.status = status
+        t.finished_at = finished_at
+        t.create_assignable(
+          assignee_id: a.assignee_id,
+          assignee_type: a.assignee_type,
+        )
+        t.callables = callables
+      end
+    end
+
+    def default_deadline
+      now = Time.now
+      case plan_type.to_sym
+      when :daily then now.end_of_day
+      when :weekly then now.end_of_week
+      when :monthly then now.end_of_month
+      when :quarterly then now.end_of_quarter
+      when :yearly then now.end_of_year
+      end
     end
 
     class << self
