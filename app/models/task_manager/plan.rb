@@ -91,9 +91,14 @@ module TaskManager
       #   2.4) 季计划：`Time.now.beginning_of_quarter <= last_task_created_at <= Time.now.end_of_quarter`
       #   2.5) 年计划：`Time.now.beginning_of_year <= last_task_created_at <= Time.now.end_of_year`
       def active
-        active_by_type(:daily) | active_by_type(:weekly) |
-          active_by_type(:monthly) | active_by_type(:quarterly) |
-          active_by_type(:yearly)
+        where{
+          sift(:active_by_type, 'daily') |
+          sift(:active_by_type, 'weekly') |
+          sift(:active_by_type, 'monthly') |
+          sift(:active_by_type, 'quarterly') |
+          sift(:active_by_type, 'yearly')
+
+        }
       end
 
       def active_by_type(type)
@@ -106,8 +111,7 @@ module TaskManager
                        when :yearly then now.beginning_of_year
                        end
 
-        where("plan_type = ? AND last_task_created_at <= ?",
-              type, beginning_at).where("enabled_at <= ?", now)
+        squeel{ (plan_type == type) & (last_task_created_at <= beginning_at) & (enabled_at <= now) }
       end
     end
   end
