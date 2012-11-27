@@ -10,6 +10,15 @@ Engine），因此您可以在Rails应用中通过挂载的方式来使用。另
 
 屁话：鉴于PostgreSQL的宽松的免费使用政策，以及其越来越出色的性能，强烈建议您使用之。
 
+### 依赖
+
+* PostgreSQL数据库
+
+  ```bash
+  # Ubuntu
+  sudo apt-get install postgresql-contrib
+  ```
+
 ## 安装
 
 * 安装Gem包
