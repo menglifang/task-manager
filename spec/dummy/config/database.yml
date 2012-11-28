@@ -2,7 +2,7 @@ defaults: &defaults
   adapter: postgresql
   encoding: unicode
   pool: 5
-  username: tower
+  username: postgres
   password:
   host: localhost
   port: 5432
