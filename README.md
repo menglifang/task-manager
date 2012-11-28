@@ -81,13 +81,13 @@ API文档](http://rdoc.info/github/menglifang/task-manager/master/TaskManager/Ap
 
 ```javascript
 // 代码需要放置在导入ExtJS库之后
-// require task-manager/extjs
+//= require task-manager/extjs
 ```
 
 在`app/assets/stylesheets/application.css`文件中添加：
 
 ```css
-/* require task-manager/extjs */
+/*= require task-manager/extjs */
 ```
 
 ### 开发指南
@@ -101,7 +101,9 @@ bundle install
 * 创建数据库
 
 ```bash
-cd spec/dummy
+cd path/to/task-manager/spec/dummy
+
+# 说明：需要根据您安装的数据库设置，修改path/to/task-manager/spec/dummy/config/database.yml中的相应配置
 
 # 创建开发数据库
 rake db:create db:migrate db:seed RAILS_ENV=development
