@@ -32,5 +32,17 @@ Ext.define('TM.view.assignee.TreeCombo', {
     }, this);
 
     return value;
+  },
+
+  // @protected
+  initComponent: function() {
+    this.callParent(arguments);
+
+    this.on('show', this.unCheckNodes);
+  },
+
+  // @private
+  unCheckNodes: function() {
+    this.setValue('');
   }
 });
