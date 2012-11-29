@@ -13,13 +13,12 @@
 //= require ./extjs/app/view/task/Grid
 //= require ./extjs/app/view/task/Index
 //= require ./extjs/app/view/plan/Form
+//= require ./extjs/app/view/plan/FormWindow
 //= require ./extjs/app/view/plan/SelectAssignablesTree
 //= require ./extjs/app/view/plan/SelectAssignables
 //= require ./extjs/app/view/plan/AssignablesWindow
 //= require ./extjs/app/view/plan/Edit
 //= require ./extjs/app/view/plan/EditWindow
-//= require ./extjs/app/view/plan/New
-//= require ./extjs/app/view/plan/Window
 //= require ./extjs/app/view/plan/Search
 //= require ./extjs/app/view/plan/Grid
 //= require ./extjs/app/view/plan/Index

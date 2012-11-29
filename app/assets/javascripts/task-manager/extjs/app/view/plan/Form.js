@@ -113,14 +113,14 @@ Ext.define('TM.view.plan.Form', {
     formBind: true,
     action: 'save'
   }, {
-    text: '重置',
-    action: 'reset'
+    text: '取消',
+    action: 'cancel'
   }],
 
   getValues: function() {
     var values = this.callParent();
 
-    values.data = [];
+    values.data = {};
     ['month', 'day', 'hour', 'minute'].forEach(function(name) {
       values.data['deadline_' + name] = this.getDeadlineCombo('data.deadline_' + name).getValue();
       delete values['data.deadline_' + name];

@@ -105,6 +105,9 @@ Ext.define('TM.model.Plan', {
     opts.success = function(record, operation) {
       self.set(Ext.JSON.decode(operation.response.responseText).plan);
       self.commit();
+      if (operation.action === 'create') {
+        Ext.getStore('TM.store.Plans').insert(0, self);
+      }
       if(success) success.call(self);
     };
 
