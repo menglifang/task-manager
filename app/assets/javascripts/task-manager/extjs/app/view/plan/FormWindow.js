@@ -1,9 +1,11 @@
-Ext.define('TM.view.plan.Window', {
+Ext.define('TM.view.plan.FormWindow', {
 	extend: 'Ext.window.Window',
-	requires: ['TM.view.plan.New'],
-	xtype: 'plan_window',
+	xtype: 'plan_formwindow',
 
-	title: '添加计划',
+	requires: [
+    'TM.view.plan.Form'
+  ],
+
 	modal: true,
 
 	width: 600,
@@ -15,7 +17,7 @@ Ext.define('TM.view.plan.Window', {
 	},
 
 	items: [{
-	    xtype: 'plan_new',
+	    xtype: 'plan_form',
 	    border: false
   }]
 });

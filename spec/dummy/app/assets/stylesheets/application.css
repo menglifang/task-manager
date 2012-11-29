@@ -10,5 +10,5 @@
  *
  *= require_self
  *= require_tree .
- *= require task-manager/application
+ *= require task-manager/extjs
  */

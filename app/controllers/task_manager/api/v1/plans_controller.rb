@@ -47,7 +47,7 @@ module TaskManager
         #     }, ...]
         #   }
         def index
-          plans = TaskManager::Plan.search(params[:q]).result
+          plans = TaskManager::Plan.search(params[:q]).result.order('id DESC')
           result = {
             total: plans.count,
             plans: ActiveModel::ArraySerializer.new(
@@ -84,7 +84,7 @@ module TaskManager
         #         "deadline_minute": ...         # 必填
         #       },
         #       "enabled_at": ...,               # 必填
-        #       "begin_to_remind": ...,          # 必填且小于等于0
+        #       "begin_to_remind": ...,          # 必填且大于等于0
         #       "autocompletable": ...,          # 必填，缺省值为false
         #       "assignables_attributes": [{     # 至少需要一个assignable
         #         "assignee_id": ...,
@@ -162,7 +162,7 @@ module TaskManager
         #         "deadline_minute": ...         # 必填
         #       },
         #       "enabled_at": ...,               # 必填
-        #       "begin_to_remind": ...,          # 必填且小于等于0
+        #       "begin_to_remind": ...,          # 必填且大于等于0
         #       "autocompletable": ...,          # 必填，缺省值为false
         #
         #       "assignables_attributes": [{

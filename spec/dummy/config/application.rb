@@ -15,6 +15,7 @@ require "ransack"
 require "kaminari"
 require "sass-rails"
 require "pry"
+require "squeel"
 
 module Dummy
   class Application < Rails::Application
