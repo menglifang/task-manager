@@ -45,7 +45,7 @@ module TaskManager
         #     }, ...]
         #   }
         def index
-          tasks = TaskManager::Task.search(params[:q]).result
+          tasks = TaskManager::Task.search(params[:q]).result.order('id DESC')
           result = {
             total: tasks.count,
             tasks: ActiveModel::ArraySerializer.new(
