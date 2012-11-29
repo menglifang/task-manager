@@ -142,6 +142,12 @@ Ext.define('TM.view.plan.Form', {
     ['month', 'day', 'hour', 'minute'].forEach(function(name) {
       this.getDeadlineCombo('data.deadline_' + name).setValue(record.get('data')['deadline_' + name]);
     }, this);
+
+    ['x', 'y'].forEach(function(name) {
+      this.query('textfield[name="data.' + name + '"]')[0].setValue(record.get('data')[name]);
+    }, this);
+
+    this.query('assignee_treecombo')[0].setValue(record.get('assignables_attributes'));
   },
 
   // @protected
