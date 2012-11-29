@@ -4,7 +4,6 @@ Ext.define('TM.controller.Plans', {
   views: [
     'plan.Index',
     'plan.AssignablesWindow'
-
   ],
 
   models: [
@@ -26,43 +25,43 @@ Ext.define('TM.controller.Plans', {
     selector: 'plan_editwindow'
   }, {
     ref: 'planEdit',
-    selector: 'plan_edit'
-  }, {
-    ref: 'planType',
-    selector: 'plan_new combo[name="plan_type"]'
-  }, {
-    ref: 'assignablesField',
-    selector: 'plan_new textfield[id="assignables"]'
-  }, {
-    ref: 'selectAssignablesTree',
-    selector: 'plan_selectassignablestree'
-  }, {
-    ref: 'editAssignablesField',
-    selector: 'plan_edit textfield[id="editassignables"]'
-  }, {
-    ref: 'selectAssignables',
-    selector: 'plan_selectassignables'
-  }, {
-    ref: 'assignablesWindow',
-    selector: 'plan_assignableswindow'
-  }],
+  selector: 'plan_edit'
+}, {
+  ref: 'planType',
+  selector: 'plan_new combo[name="plan_type"]'
+}, {
+  ref: 'assignablesField',
+  selector: 'plan_new textfield[id="assignables"]'
+}, {
+  ref: 'selectAssignablesTree',
+  selector: 'plan_selectassignablestree'
+}, {
+  ref: 'editAssignablesField',
+  selector: 'plan_edit textfield[id="editassignables"]'
+}, {
+  ref: 'selectAssignables',
+  selector: 'plan_selectassignables'
+}, {
+  ref: 'assignablesWindow',
+  selector: 'plan_assignableswindow'
+}],
 
-  init: function() {
-    this.control({
-      'plan_search button[action="query"]': {
-        click: this.onQueryClick
-      },
-      'plan_search button[action="reset"]': {
-        click: this.onSearchResetClick
-      },
-      'plan_grid button[action="add"]': {
-        click: this.onAddClick
-      },
-      'plan_grid button[action="edit"]': {
-        click: this.onEditClick
-      },
-      'plan_grid button[action="delete"]': {
-        click: this.onDeleteClick
+init: function() {
+  this.control({
+    'plan_search button[action="query"]': {
+      click: this.onQueryClick
+    },
+    'plan_search button[action="reset"]': {
+      click: this.onSearchResetClick
+    },
+    'plan_grid button[action="add"]': {
+      click: this.onAddClick
+    },
+    'plan_grid button[action="edit"]': {
+      click: this.onEditClick
+    },
+    'plan_grid button[action="delete"]': {
+      click: this.onDeleteClick
       },
       'plan_new textfield[id="assignables"]': {
         render: this.onSelectAssignablesRender
@@ -115,8 +114,8 @@ Ext.define('TM.controller.Plans', {
 
   onSelectAssignablesRender: function() {
     Ext.getStore('TM.store.Assignees').reload();
-    Ext.getStore('TM.store.AssigneesTree')
-      .setRootNode(Ext.getStore('TM.store.Assignees').toTreeStore().root);
+    //Ext.getStore('TM.store.AssigneesTree').
+      //setRootNode(Ext.getStore('TM.store.Assignees').toTreeStore().root);
 
     this.getAssignablesField().getEl().on('click', this.onSelectAssignables, this, {action: 'create'});
   },
@@ -201,10 +200,10 @@ Ext.define('TM.controller.Plans', {
       Ext.Msg.alert('提示', '请选择要修改的数据');
       return;
     }
-     if(length > 1){
-       Ext.Msg.alert('提示', '修改的数据一次只能选择一条！');
-       return;
-     }
+    if(length > 1){
+      Ext.Msg.alert('提示', '修改的数据一次只能选择一条！');
+      return;
+    }
 
     var record = btn.up('plan_grid').getSelectionModel().getSelection()[0];
 
@@ -226,13 +225,13 @@ Ext.define('TM.controller.Plans', {
   generateEditTree: function(assignees) {
     var self = this;
     Ext.getStore('TM.store.Assignees').reload();
-    Ext.getStore('TM.store.AssigneesTree').
-      setRootNode(Ext.getStore('TM.store.Assignees').toTreeStore().root);
+    //Ext.getStore('TM.store.AssigneesTree').
+      //setRootNode(Ext.getStore('TM.store.Assignees').toTreeStore().root);
 
     Ext.Array.each(Ext.getStore('TM.store.AssigneesTree').tree.root.childNodes,
                    function(node, index, nodes) {
-      self.checkNodes(node, assignees);
-    });
+                     self.checkNodes(node, assignees);
+                   });
 
   },
 
@@ -276,13 +275,7 @@ Ext.define('TM.controller.Plans', {
   onSaveClick: function(btn) {
     var self = this;
     var attrs = this.getPlanNew().getValues();
-
-    attrs.assignees = this.getPlanNew().assignees;
-
-    var date = this.getPlanNew().getValues().enabled_at;
-    attrs.enabled_at = Ext.Date.parse(date, "Y/m/d", true);
-
-    attrs.autocompletable = (attrs.autocompletable == 'on') ? true : false;
+    this.prepareAttrsForCreate(attrs);
 
     var Plan = TM.model.Plan;
     var plan = Plan.create(attrs, {
@@ -355,5 +348,33 @@ Ext.define('TM.controller.Plans', {
   },
   index: function() {
     this.render('TM.view.plan.Index');
+  },
+
+  // @private
+  prepareAttrsForCreate: function(attrs) {
+    // 准备执行者参数
+    attrs.assignables_attributes = [];
+
+    var assignees = this.getPlanNew().assignees;
+    Ext.Array.forEach(assignees, function(node, index, assignees) {
+      var record = Ext.getStore('TM.store.Assignees').getById(node.get('id'));
+      attrs.assignables_attributes.push({
+        assignee_id: record.get('id'),
+        assignee_type: record.get('class_name')
+      });
+    });
+
+    var date = this.getPlanNew().getValues().enabled_at;
+    attrs.enabled_at = Ext.Date.parse(date, "Y/m/d", true);
+    attrs.autocompletable = (attrs.autocompletable == 'on') ? true : false;
+
+    attrs.data = {
+      x: attrs['data.x'],
+      y: attrs['data.y'],
+      deadline_month: attrs.plan_type == 'quarterly' ? attrs['data.deadline_quarterly_month'] : (attrs.plan_type == 'yearly' ? attrs['data.deadline_month'] : null),
+      deadline_day: attrs.plan_type == 'weekly' ? attrs['data.deadline_weekly_day'] : (attrs.plan_type == 'daily' ? null : attrs['data.deadline_day']),
+      deadline_hour: attrs['data.deadline_hour'],
+      deadline_minute: attrs['data.deadline_minute']
+    }
   }
 });

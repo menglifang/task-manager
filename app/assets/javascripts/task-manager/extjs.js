@@ -8,13 +8,14 @@
 //
 //= require_self
 //
+//= require ./extjs/app/view/assignee/TreeCombo
 //= require ./extjs/app/view/task/Search
 //= require ./extjs/app/view/task/Grid
 //= require ./extjs/app/view/task/Index
+//= require ./extjs/app/view/plan/Form
 //= require ./extjs/app/view/plan/SelectAssignablesTree
-//= require ./extjs/app/view/plan/SelectAssignablesGrid
-//= require ./extjs/app/view/plan/SelectAssignables 
-//= require ./extjs/app/view/plan/AssignablesWindow 
+//= require ./extjs/app/view/plan/SelectAssignables
+//= require ./extjs/app/view/plan/AssignablesWindow
 //= require ./extjs/app/view/plan/Edit
 //= require ./extjs/app/view/plan/EditWindow
 //= require ./extjs/app/view/plan/New

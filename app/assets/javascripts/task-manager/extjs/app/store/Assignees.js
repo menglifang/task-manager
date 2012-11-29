@@ -4,50 +4,57 @@ Ext.define('TM.store.Assignees', {
   autoLoad: true,
   model: 'TM.model.Assignee',
 
-  toTreeStore: function() {
+  listeners: {
+    load: {
+      fn: function(store) {
+        store.refreshRootNode();
+      }
+    }
+  },
 
-    var self = this;
-    var store = {
+  toTreeStore: function() {
+    this._treeStore = this._treeStore || Ext.create('Ext.data.TreeStore', {
       root: {
         expanded: true,
+        checked: false,
+        text: '全部',
+        id: 'root',
         children: []
       }
-    };
-
-    self.each(function(assignee) {
-      self.addChild(self.getPositionById(store.root,
-                                 assignee.get('parent_id')), assignee);
     });
 
-    return store;
+    return this._treeStore;
   },
 
   // @private
-  getPositionById: function(root, id) {
-    if (id == null || id == 0) return root;
-    if (root.id == id) return root;
-
-    var childrenLength = root.children ? root.children.length : 0;
-    for (var i = 0; i < childrenLength; i++) {
-      var result = this.getPositionById(root.children[i], id);
-      if (result != null) return result;
-    }
-
-    return null;
+  getRootNode: function() {
+    return this.toTreeStore().getRootNode();
   },
 
-  addChild: function(root, record) {
-    if (root.children == null) root.children = [];
+  // @private
+  refreshRootNode: function() {
+    this.each(function(assignee) {
+      var parent = this.getNodeById(assignee.getParentId(true)) || this.getRootNode();
+      var node = parent.findChild('id', assignee.getId(true));
 
-    root.children.push({
-      id: record.get('id'),
-      text: record.get('name'),
+      if(!node) this.appendChildNode(parent, assignee);
+    }, this);
+  },
+
+  // @private
+  appendChildNode: function(parent, assignee) {
+    parent.set('leaf', false);
+    parent.appendChild(parent.createNode({
+      id: assignee.getId(true),
+      text: assignee.get('name'),
       checked: false,
-      leaf: true
-    });
+      leaf: true,
+      record: assignee
+    }));
+  },
 
-    if (root.leaf != null) {
-      root.leaf == true ? root.leaf = false : null;
-    }
+  // @private
+  getNodeById: function(id) {
+    return this.toTreeStore().getNodeById(id);
   }
 });

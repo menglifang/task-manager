@@ -1,27 +1,36 @@
+# ActiveModel 必须包含type或class_name_type（plan_type）属性
 class DeadlineValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     type = get_type(record)
-    if type.blank?
-      record.errors[:type] << (options[:message] || 'invalid type')
-    else
-      record.errors[attribute] << (options[:message] || "deadline_hour is required") if value.blank? || value[:deadline_hour].blank?
-      record.errors[attribute] << (options[:message] || "deadline_minute is required") if value.blank? || value[:deadline_minute].blank?
+    return unless type
 
-      case type.to_sym
-      when :weekly, :monthly
-        record.errors[attribute] << (options[:message] || "deadline_day is required in a #{type} plan") if value.blank? || value[:deadline_day].blank?
-      when :quarterly, :yearly
-        record.errors[attribute] << (options[:message] || "deadline_month is required in a #{type} plan") if value.blank? || value[:deadline_month].blank?
-        record.errors[attribute] << (options[:message] || "deadline_day is required in a #{type} plan") if value.blank? || value[:deadline_day].blank?
-      else
-        record.errors[attribute] << (options[:message] || "invalid type!") unless type.to_sym == :daily
-      end
+    names = []
+    case type.to_sym
+    when :daily
+      names = [:hour, :minute]
+    when :weekly, :monthly
+      names = [:hour, :minute, :day]
+    when :quarterly, :yearly
+      names = [:hour, :minute, :day, :month]
     end
+
+    validate_deadline_of(record, attribute, value, names)
   end
 
+  private
   def get_type(record)
     return record.type if record.respond_to?(:type)
 
     record.send("#{record.class.name.demodulize.underscore}_type")
   end
+
+  def validate_deadline_of(record, attribute, value, names)
+    names = [names] unless names.is_a? Array
+
+    names.each do |name|
+      name = "deadline_#{name}".to_sym
+      record.errors[attribute] << ("#{name} is required") if value[name].blank?
+    end
+  end
+
 end

@@ -43,10 +43,10 @@ Ext.define('TM.view.plan.New', {
       allowBlank: false
     }, {
       fieldLabel: '横向指标',
-      name: 'dataX'
+      name: 'data.x'
     }, {
       fieldLabel: '纵向指标',
-      name: 'dataY'
+      name: 'data.y'
     }, {
       fieldLabel: '生效时间',
       xtype: 'datefield',
@@ -81,7 +81,7 @@ Ext.define('TM.view.plan.New', {
     items: [{
       fieldLabel: '月',
       id: 'new_quarterly_month',
-      name: 'quarterly_month',
+      name: 'data.deadline_quarterly_month',
       xtype: 'combo',
       store: 'TM.store.QuarterlyMonths',
       valueField: 'value',
@@ -89,7 +89,7 @@ Ext.define('TM.view.plan.New', {
     }, {
       fieldLabel: '月',
       id: 'new_month',
-      name: 'month',
+      name: 'data.deadline_month',
       xtype: 'combo',
       store: 'TM.store.Months',
       valueField: 'value',
@@ -97,7 +97,7 @@ Ext.define('TM.view.plan.New', {
     }, {
       fieldLabel: '日',
       id: 'new_weekly_day',
-      name: 'weekly_day',
+      name: 'data.deadline_weekly_day',
       store: 'TM.store.WeekDays',
       valueField: 'value',
       xtype: 'combo',
@@ -105,7 +105,7 @@ Ext.define('TM.view.plan.New', {
     }, {
       fieldLabel: '日',
       id: 'new_day',
-      name: 'day',
+      name: 'data.deadline_day',
       store: 'TM.store.Days',
       valueField: 'value',
       xtype: 'combo',
@@ -113,7 +113,7 @@ Ext.define('TM.view.plan.New', {
     }, {
       fieldLabel: '时',
       id: 'new_hour',
-      name: 'hour',
+      name: 'data.deadline_hour',
       store: 'TM.store.Hours',
       valueField: 'value',
       xtype: 'combo',
@@ -121,7 +121,7 @@ Ext.define('TM.view.plan.New', {
     }, {
       fieldLabel: '分',
       id: 'new_minute',
-      name: 'minute',
+      name: 'data.deadline_minute',
       store: 'TM.store.Minutes',
       valueField: 'value',
       xtype: 'combo',

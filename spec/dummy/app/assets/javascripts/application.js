@@ -3,7 +3,7 @@
 //
 //= require_tree ./extjs/lib
 //
-//= require task-manager/application
+//= require task-manager/extjs
 //
 //= require ./extjs/app/view/Header
 //= require ./extjs/app/view/Sidebar
