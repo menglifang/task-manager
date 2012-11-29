@@ -55,8 +55,7 @@ Ext.define('TM.view.plan.Form', {
       editable: false,
       anchor: '100%',
       format: 'Y/m/d',
-      name: 'enabled_at',
-      minValue: new Date()
+      name: 'enabled_at'
     }, {
       fieldLabel: '完成前几天提醒',
       emptyText: '计划完成前多少天开始提醒，此处为倒计时。',
@@ -147,7 +146,7 @@ Ext.define('TM.view.plan.Form', {
       this.query('textfield[name="data.' + name + '"]')[0].setValue(record.get('data')[name]);
     }, this);
 
-    this.query('assignee_treecombo')[0].setValue(record.get('assignables_attributes'));
+    this.checkSelectedAssignees(record.get('assignees'));
   },
 
   // @protected
@@ -162,6 +161,27 @@ Ext.define('TM.view.plan.Form', {
     beginToRemindField.setValue(this.defaultBeginToRemind);
 
     this.refreshDeadline(this.defaultPlanType);
+  },
+
+  // @private
+  checkSelectedAssignees: function(assignees) {
+    var values = [];
+    assignees.forEach(function(a) {
+      var node = this.getAssigneesTreeCombo().tree.getRootNode().findChildBy(function(node) {
+        with(node.raw) {
+          return record.get('id') == a.id &&
+            record.get('name') == a.name
+        }
+      }, this, true);
+
+      values.push({
+        assignee_id: node.raw.record.get('id'),
+        assignee_type: node.raw.record.get('class_name')
+      });
+    }, this);
+
+    console.log(values);
+    this.getAssigneesTreeCombo().setValue(values);
   },
 
   //@private
@@ -257,5 +277,10 @@ Ext.define('TM.view.plan.Form', {
     combos.forEach(function(c) {
       this.getDeadlineCombo('data.deadline_' + c).hide();
     }, this);
+  },
+
+  // @private
+  getAssigneesTreeCombo: function() {
+    return this.query('assignee_treecombo')[0];
   }
 });
