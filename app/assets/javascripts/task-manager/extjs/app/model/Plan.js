@@ -98,6 +98,20 @@ Ext.define('TM.model.Plan', {
     //}
   //},
 
+  save: function(opts) {
+    var self = this;
+    opts = opts || {};
+    var success = opts.success;
+    opts.success = function(record, operation) {
+      self.set(Ext.JSON.decode(operation.response.responseText).plan);
+      self.commit();
+      if(success) success.call(self);
+    };
+
+    this.callParent([opts]);
+  },
+
+
   update: function(attrs, opts) {
       var self = this;
       var plan = Ext.create('TM.model.Plan', attrs);
