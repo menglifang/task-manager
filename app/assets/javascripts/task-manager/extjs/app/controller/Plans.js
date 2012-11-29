@@ -65,8 +65,9 @@ Ext.define('TM.controller.Plans', {
     var record = btn.up('plan_grid').getSelectionModel().getSelection()[0];
 
     var win = Ext.create('TM.view.plan.FormWindow', { title: '修改计划' } );
-    this.getPlanForm().loadRecord(record);
     win.show();
+
+    this.getPlanForm().loadRecord(record);
   },
 
   onDeleteClick: function(btn) {
