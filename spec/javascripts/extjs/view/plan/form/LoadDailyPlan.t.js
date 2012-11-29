@@ -9,9 +9,9 @@ StartTest(function(t) {
       deadline_hour: 3,
       deadline_minute: 4
     },
-    assignables_attributes: [{
-      assignee_id: 1,
-      assignee_type: 'Department'
+    assignees: [{
+      id: 1,
+      name: '组织机构-0'
     }]
   });
 
