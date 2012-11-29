@@ -1,5 +1,5 @@
 before_script:
   - psql -c 'create database dummy_test;' -U postgres
 script:
-  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - RAILS_ENV=test bundle exec rake -f spec/dummy/Rakefile db:migrate --trace
   - bundle exec rspec
