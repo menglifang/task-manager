@@ -165,6 +165,8 @@ Ext.define('TM.view.plan.Form', {
 
   // @private
   checkSelectedAssignees: function(assignees) {
+    if(typeof assignees === 'undefined') return;
+
     var values = [];
     assignees.forEach(function(a) {
       var node = this.getAssigneesTreeCombo().tree.getRootNode().findChildBy(function(node) {
@@ -174,10 +176,12 @@ Ext.define('TM.view.plan.Form', {
         }
       }, this, true);
 
-      values.push({
-        assignee_id: node.raw.record.get('id'),
-        assignee_type: node.raw.record.get('class_name')
-      });
+      if(node) {
+        values.push({
+          assignee_id: node.raw.record.get('id'),
+          assignee_type: node.raw.record.get('class_name')
+        });
+      }
     }, this);
 
     console.log(values);
