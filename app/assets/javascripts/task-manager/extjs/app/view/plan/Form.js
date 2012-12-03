@@ -1,7 +1,10 @@
 Ext.define('TM.view.plan.Form', {
-  requires: ['Ext.ux.TreeCombo'],
   extend: 'Ext.form.Panel',
   xtype: 'plan_form',
+
+  //requires: [
+    //'Ext.ux.TreeCombo',
+  //],
 
   defaultPlanType: 'yearly',
   defaultBeginToRemind: 0,
@@ -64,6 +67,17 @@ Ext.define('TM.view.plan.Form', {
       fieldLabel: '是否自动完成',
       xtype: 'checkbox',
       name: 'autocompletable'
+    }, {
+      fieldLabel: '超时回调',
+      xtype: 'callback_checkboxcombo',
+      editable: false,
+      name: 'callables_attributes',
+      store: 'TM.store.Callbacks',
+      displayField: 'name',
+      valueField: 'id',
+      addAllSelector: true,
+      allSelector: true,
+      allText: '全部'
     }]
   }, {
     xtype: 'fieldset',
