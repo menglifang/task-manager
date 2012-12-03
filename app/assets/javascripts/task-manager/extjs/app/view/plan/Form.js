@@ -73,9 +73,7 @@ Ext.define('TM.view.plan.Form', {
       editable: false,
       name: 'callables_attributes',
       store: 'TM.store.Callbacks',
-      addAllSelector: true,
-      allSelector: false,
-      allText: '全部',
+      multiSelect: true,
       displayField: 'name',
       valueField: 'id'
     }]
