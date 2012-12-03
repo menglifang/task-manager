@@ -1,5 +1,5 @@
 Ext.define('TM.view.callback.CheckboxCombo', {
-  extend: 'Ext.ux.CheckCombo',
+  extend: 'Ext.ux.form.CheckboxListCombo',
   xtype: 'callback_checkboxcombo',
 
   getSubmitValue: function() {
