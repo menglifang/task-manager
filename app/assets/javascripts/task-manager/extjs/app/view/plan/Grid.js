@@ -68,6 +68,14 @@ Ext.define('TM.view.plan.Grid', {
       return names.join(', ');
     },
     flex: 3
+  }, {
+    text: '超时回调',
+    renderer: function(v, m, record) {
+      var names = new Array();
+      Ext.Array.forEach(record.get('callbacks'), function(callback, index) {names.push(callback.name)});
+      return names.join(', ');
+    },
+    flex: 3
   //}, {
     //text: '最后任务生成时间',
     //dataIndex: 'last_task_created_at',

@@ -4,5 +4,6 @@ module TaskManager
       :begin_to_remind, :autocompletable, :created_at, :updated_at
 
     has_many :assignees
+    has_many :callbacks
   end
 end
