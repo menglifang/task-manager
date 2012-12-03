@@ -9,7 +9,7 @@ Ext.define('TM.view.plan.FormWindow', {
 	modal: true,
 
 	width: 600,
-	height: 550,
+	height: 580,
 
 	layout: {
 		type: 'fit',

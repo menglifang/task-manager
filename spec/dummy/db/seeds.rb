@@ -8,3 +8,6 @@ end
 
 d = Department.all[2]
 Department.create!(name: "组织-#{d.id}-1", parent_id: d.id)
+
+10.times { |i| Callback.create!(name: "超时回调－#{i}") }
+

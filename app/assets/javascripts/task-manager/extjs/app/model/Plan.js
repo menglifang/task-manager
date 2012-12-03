@@ -19,6 +19,7 @@ Ext.define('TM.model.Plan', {
     { name: 'updated_at', type: 'date', persist: false },
 
     { name: 'assignees', type: 'auto', persist: false, defaultValue: [] },
+    { name: 'callbacks', type: 'auto', persist: false, defaultValue: [] },
     { name: 'assignables_attributes', type: 'auto', defaultValue: [] },
     { name: 'callables_attributes', type: 'auto', defaultValue: [] }
   ],

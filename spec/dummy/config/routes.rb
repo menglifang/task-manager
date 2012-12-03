@@ -5,4 +5,5 @@ Rails.application.routes.draw do
 
   resources :extjs
   resources :assignees
+  resources :callbacks
 end

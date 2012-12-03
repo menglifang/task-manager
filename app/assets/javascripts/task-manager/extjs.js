@@ -9,6 +9,7 @@
 //= require_self
 //
 //= require ./extjs/app/view/assignee/TreeCombo
+//= require ./extjs/app/view/callback/CheckboxCombo
 //= require ./extjs/app/view/task/Search
 //= require ./extjs/app/view/task/Grid
 //= require ./extjs/app/view/task/Index
@@ -24,6 +25,7 @@
 Ext.data.StoreManager.register(
 	Ext.create('TM.store.Tasks', { storeId: 'TM.store.Tasks'}),
   Ext.create('TM.store.Assignees', { storeId: 'TM.store.Assignees'}),
+  Ext.create('TM.store.Callbacks', { storeId: 'TM.store.Callbacks'}),
   Ext.create('TM.store.WeekDays', { storeId: 'TM.store.WeekDays'}),
   Ext.create('TM.store.QuarterlyMonths', { storeId: 'TM.store.QuarterlyMonths'}),
   Ext.create('TM.store.Months', { storeId: 'TM.store.Months'}),
