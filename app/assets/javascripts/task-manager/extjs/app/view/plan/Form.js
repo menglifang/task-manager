@@ -1,7 +1,10 @@
 Ext.define('TM.view.plan.Form', {
-  requires: ['Ext.ux.TreeCombo'],
   extend: 'Ext.form.Panel',
   xtype: 'plan_form',
+
+  //requires: [
+    //'Ext.ux.TreeCombo',
+  //],
 
   defaultPlanType: 'yearly',
   defaultBeginToRemind: 0,
@@ -64,6 +67,15 @@ Ext.define('TM.view.plan.Form', {
       fieldLabel: '是否自动完成',
       xtype: 'checkbox',
       name: 'autocompletable'
+    }, {
+      fieldLabel: '超时回调',
+      xtype: 'callback_checkboxcombo',
+      editable: false,
+      name: 'callables_attributes',
+      store: 'TM.store.Callbacks',
+      multiSelect: true,
+      displayField: 'name',
+      valueField: 'id'
     }]
   }, {
     xtype: 'fieldset',
@@ -147,6 +159,7 @@ Ext.define('TM.view.plan.Form', {
     }, this);
 
     this.checkSelectedAssignees(record.get('assignees'));
+    this.checkSelectedCallbacks(record.get('callbacks'));
   },
 
   // @protected
@@ -161,6 +174,19 @@ Ext.define('TM.view.plan.Form', {
     beginToRemindField.setValue(this.defaultBeginToRemind);
 
     this.refreshDeadline(this.defaultPlanType);
+  },
+
+  // @private
+  checkSelectedCallbacks: function(callbacks) {
+    if (typeof callbacks === 'undefined') return;
+
+    var values = [];
+    callbacks.forEach(function(c) {
+      values.push(c.id);
+    });
+
+    //this.getCallbackCheckCombo().setValue(values.join(', '));
+    this.getCallbackCheckCombo().setValue(values);
   },
 
   // @private
@@ -184,7 +210,7 @@ Ext.define('TM.view.plan.Form', {
       }
     }, this);
 
-    console.log(values);
+    //console.log(values);
     this.getAssigneesTreeCombo().setValue(values);
   },
 
@@ -286,5 +312,10 @@ Ext.define('TM.view.plan.Form', {
   // @private
   getAssigneesTreeCombo: function() {
     return this.query('assignee_treecombo')[0];
+  },
+
+  // @private
+  getCallbackCheckCombo: function() {
+    return this.query('callback_checkboxcombo')[0];
   }
 });
