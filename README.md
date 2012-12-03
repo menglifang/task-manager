@@ -90,6 +90,64 @@ API文档](http://rdoc.info/github/menglifang/task-manager/master/TaskManager/Ap
 /*= require task-manager/extjs */
 ```
 
+在`app/assets/javascripts/extjs/app.js`文件中`controllers`添加：
+
+```javascript
+controllers: [..., 'TM.controller.Plans', 'TM.controller.Tasks'];
+```
+
+#### 后台
+
+##### Ruby Project
+
+* 在`app/controllers/task_manager`下创建`AssigneesController.rb`文件：
+
+示例：
+
+```ruby
+# -*- encoding: utf-8 -*-
+module TaskManager
+  class AssigneesController < ApplicationController
+    respond_to :json
+  
+    def index
+      departments = Department.all
+      assignees = departments.inject([]) do |c, i|
+        c << {
+          id: i.id,
+          parent_id: i.parent_id,
+          name: i.name,
+          class_name: i.class.name
+        }
+      end
+      # 或者使用如下方式
+      # assignees = departments.inject([]) { |c, i| c << i.as_json }
+  
+      result = {
+        total: assignees.count,
+        assignees: assignees
+      }
+  
+      render json: result, status: :ok
+    end
+  end
+end
+```
+
+* 在`config/routes.rb`文件中添加：
+
+```ruby
+resources :assignees, only: [:index], module: 'TaskManager'
+```
+
+使用`rake
+routes`命令，检查是否添加成功。如果成功，命令行中将会有如下输出：
+
+```
+Routes for TaskManager::Engine:
+assignees GET    /assigneess(.:format)     TaskManager/assignees#index {:format=>"json"}
+```
+
 ### 开发指南
 
 * 安装依赖包
