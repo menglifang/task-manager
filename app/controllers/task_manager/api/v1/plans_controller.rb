@@ -47,12 +47,11 @@ module TaskManager
         #     }, ...]
         #   }
         def index
-          plans = TaskManager::Plan.search(params[:q]).result.order('id DESC')
+          plans = TaskManager::Plan.page(params[:page]).per(params[:limit]).
+            order('id DESC').search(params[:q]).result
           result = {
-            total: plans.count,
-            plans: ActiveModel::ArraySerializer.new(
-              plans.page(params[:page]).per(params[:limit])
-            ).as_json
+            total: plans.total_count,
+            plans: ActiveModel::ArraySerializer.new(plans).as_json
           }
 
           render json: result, status: :ok
@@ -217,6 +216,7 @@ module TaskManager
         #   }
         def update
           plan.assignables.destroy_all
+          plan.callables.destroy_all
 
           if plan.update_attributes(params[:plan])
             render json: plan, status: :ok

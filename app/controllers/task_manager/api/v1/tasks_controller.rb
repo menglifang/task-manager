@@ -45,12 +45,11 @@ module TaskManager
         #     }, ...]
         #   }
         def index
-          tasks = TaskManager::Task.search(params[:q]).result.order('id DESC')
+          tasks = TaskManager::Task.page(params[:page]).per(params[:limit]).
+            order('id DESC').search(params[:q]).result
           result = {
-            total: tasks.count,
-            tasks: ActiveModel::ArraySerializer.new(
-              tasks.page(params[:page]).per(params[:limit])
-            ).as_json
+            total: tasks.total_count,
+            tasks: ActiveModel::ArraySerializer.new(tasks).as_json
           }
 
           render json: result, status: :ok

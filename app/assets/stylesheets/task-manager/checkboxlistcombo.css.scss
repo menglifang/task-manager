@@ -1,0 +1,10 @@
+.ux-checkboxlistcombo-icon {
+    float: left; width:16px; height:16px;
+    background-position: -1px -1px ! important; background-repeat: no-repeat ! important;
+}
+.x-boundlist-item>div>.ux-checkboxlistcombo-icon {
+  background: url(image_path("extjs/resources/themes/images/default/grid/unchecked.gif")) no-repeat;
+}
+.x-boundlist-item.x-boundlist-selected>div>.ux-checkboxlistcombo-icon {
+  background: url(image_path("extjs/resources/themes/images/default/grid/checked.gif")) no-repeat;
+}
