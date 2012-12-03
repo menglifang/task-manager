@@ -1,6 +1,7 @@
 Ext.define('TM.view.assignee.TreeCombo', {
   xtype: 'assignee_treecombo',
   extend: 'Ext.ux.TreeCombo',
+  editable: false,
 
   setValue: function(valueInit) {
     if(typeof valueInit === 'object') {
