@@ -73,11 +73,11 @@ Ext.define('TM.view.plan.Form', {
       editable: false,
       name: 'callables_attributes',
       store: 'TM.store.Callbacks',
-      displayField: 'name',
-      valueField: 'id',
       addAllSelector: true,
-      allSelector: true,
-      allText: '全部'
+      allSelector: false,
+      allText: '全部',
+      displayField: 'name',
+      valueField: 'id'
     }]
   }, {
     xtype: 'fieldset',
@@ -161,6 +161,7 @@ Ext.define('TM.view.plan.Form', {
     }, this);
 
     this.checkSelectedAssignees(record.get('assignees'));
+    this.checkSelectedCallbacks(record.get('callbacks'));
   },
 
   // @protected
@@ -175,6 +176,19 @@ Ext.define('TM.view.plan.Form', {
     beginToRemindField.setValue(this.defaultBeginToRemind);
 
     this.refreshDeadline(this.defaultPlanType);
+  },
+
+  // @private
+  checkSelectedCallbacks: function(callbacks) {
+    if (typeof callbacks === 'undefined') return;
+
+    var values = [];
+    callbacks.forEach(function(c) {
+      values.push(c.id);
+    });
+
+    //this.getCallbackCheckCombo().setValue(values.join(', '));
+    this.getCallbackCheckCombo().setValue(values);
   },
 
   // @private
@@ -198,7 +212,7 @@ Ext.define('TM.view.plan.Form', {
       }
     }, this);
 
-    console.log(values);
+    //console.log(values);
     this.getAssigneesTreeCombo().setValue(values);
   },
 
@@ -300,5 +314,10 @@ Ext.define('TM.view.plan.Form', {
   // @private
   getAssigneesTreeCombo: function() {
     return this.query('assignee_treecombo')[0];
+  },
+
+  // @private
+  getCallbackCheckCombo: function() {
+    return this.query('callback_checkboxcombo')[0];
   }
 });
