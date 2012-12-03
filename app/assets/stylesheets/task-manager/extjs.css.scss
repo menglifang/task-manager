@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require ./checkcombo
  */
 .btn-add-icon {
   background: url(image_path('task-manager/icons/add.png')) no-repeat;
