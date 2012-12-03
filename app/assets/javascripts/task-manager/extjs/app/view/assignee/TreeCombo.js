@@ -39,7 +39,7 @@ Ext.define('TM.view.assignee.TreeCombo', {
   initComponent: function() {
     this.callParent(arguments);
 
-    this.on('show', this.unCheckNodes);
+    this.on('render', this.unCheckNodes);
   },
 
   // @private
