@@ -19,6 +19,9 @@ Ext.define('TM.controller.Plans', {
   }, {
     ref: 'planForm',
     selector: 'plan_form'
+  }, {
+    ref: 'planGrid',
+    selector: 'plan_grid'
   }],
 
   index: function() {
@@ -108,6 +111,8 @@ Ext.define('TM.controller.Plans', {
     record.save({
       success: function() {
         Ext.Msg.alert('提示', '保存计划成功!');
+
+        self.getPlanGrid().reconfigure();
         self.getPlanFormWindow().close();
       },
       failure: function() {
