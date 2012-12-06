@@ -68,7 +68,7 @@ Ext.define('TM.view.plan.Form', {
       xtype: 'checkbox',
       name: 'autocompletable'
     }, {
-      fieldLabel: '超时回调',
+      fieldLabel: '逾期处理',
       xtype: 'callback_checkboxcombo',
       editable: false,
       name: 'callables_attributes',
