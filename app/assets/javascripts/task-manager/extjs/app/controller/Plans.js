@@ -21,6 +21,10 @@ Ext.define('TM.controller.Plans', {
     selector: 'plan_form'
   }],
 
+  index: function() {
+    this.render('TM.view.plan.Index');
+  },
+
   init: function() {
     this.control({
       'plan_search button[action="query"]': {
@@ -38,6 +42,9 @@ Ext.define('TM.controller.Plans', {
       'plan_grid button[action="delete"]': {
         click: this.onDeleteClick
       },
+      'plan_grid': {
+        render: this.onGridRender
+      },
       'plan_form button[action="save"]': {
         click: this.onSaveClick
       },
@@ -47,10 +54,12 @@ Ext.define('TM.controller.Plans', {
     });
   },
 
+  // @protected
   onAddClick: function() {
     Ext.create('TM.view.plan.FormWindow', { title: '添加计划' }).show();
   },
 
+  // @protected
   onEditClick: function(btn) {
     var length = btn.up('plan_grid').getSelectionModel().getSelection().length;
     if (length == 0) {
@@ -70,6 +79,7 @@ Ext.define('TM.controller.Plans', {
     this.getPlanForm().loadRecord(record);
   },
 
+  // @protected
   onDeleteClick: function(btn) {
     var select = btn.up('plan_grid').getSelectionModel().getSelection()[0];
     if(select == null) {
@@ -87,6 +97,7 @@ Ext.define('TM.controller.Plans', {
     });
   },
 
+  // @protected
   onSaveClick: function(btn) {
     var self = this;
     var attrs = this.getPlanForm().getValues();
@@ -105,20 +116,26 @@ Ext.define('TM.controller.Plans', {
     });
   },
 
+  // @protected
   onCancelClick: function(btn) {
     this.getPlanFormWindow().close();
   },
 
+  // @protected
   onQueryClick: function(btn) {
     var params = this.getSearchForm().getValues();
     Ext.getStore('TM.store.Plans').load({ params: params });
   },
 
+  // @protected
   onSearchResetClick: function(btn) {
     this.getSearchForm().getForm().reset();
   },
 
-  index: function() {
-    this.render('TM.view.plan.Index');
+  // @protected
+  onGridRender: function(grid) {
+    if(grid.getStore().getCount() <= 0) {
+      grid.getStore().load();
+    }
   }
 });
