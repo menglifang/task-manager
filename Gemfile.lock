@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    task-manager (0.1.4)
+    task-manager (0.1.5)
       active_model_serializers (~> 0.6.0)
       activerecord-postgres-hstore (~> 0.4.1)
       default_value_for (~> 2.0.1)
