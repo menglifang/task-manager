@@ -69,7 +69,7 @@ Ext.define('TM.view.plan.Grid', {
     },
     flex: 3
   }, {
-    text: '超时回调',
+    text: '逾期处理',
     renderer: function(v, m, record) {
       var names = new Array();
       Ext.Array.forEach(record.get('callbacks'), function(callback, index) {names.push(callback.name)});
@@ -89,8 +89,11 @@ Ext.define('TM.view.plan.Grid', {
     },
     flex: 1
   }, {
-    text: '开始提醒天数',
+    text: '提前几天提醒',
     dataIndex: 'begin_to_remind',
+    renderer: function(v, m, record) {
+      return v / (24 * 60);
+    },
     flex: 1
   }]
 });

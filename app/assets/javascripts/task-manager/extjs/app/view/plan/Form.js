@@ -2,10 +2,6 @@ Ext.define('TM.view.plan.Form', {
   extend: 'Ext.form.Panel',
   xtype: 'plan_form',
 
-  //requires: [
-    //'Ext.ux.TreeCombo',
-  //],
-
   defaultPlanType: 'yearly',
   defaultBeginToRemind: 0,
 
@@ -29,28 +25,30 @@ Ext.define('TM.view.plan.Form', {
     },
 
     items: [{
-      fieldLabel: '计划名称',
+      fieldLabel: '名称',
       name: 'name',
       allowBlank: false
     }, {
       xtype: 'assignee_treecombo',
-      fieldLabel: '计划执行人',
+      fieldLabel: '执行人',
       name: 'assignables_attributes',
       store: Ext.getStore('TM.store.Assignees').toTreeStore()
     }, {
-      fieldLabel: '计划类型',
+      fieldLabel: '类型',
       name: 'plan_type',
       store: 'TM.store.Types',
       editable: false,
       valueField: 'value',
       xtype: 'combo',
-      blankText: '请选择计划类型!',
+      blankText: '请选择类型!',
       allowBlank: false
     }, {
       fieldLabel: '横向指标',
+      emptyText: '请用逗号分割指标项',
       name: 'data.x'
     }, {
       fieldLabel: '纵向指标',
+      emptyText: '请用逗号分割指标项',
       name: 'data.y'
     }, {
       fieldLabel: '生效时间',
@@ -60,15 +58,14 @@ Ext.define('TM.view.plan.Form', {
       format: 'Y/m/d',
       name: 'enabled_at'
     }, {
-      fieldLabel: '完成前几天提醒',
-      emptyText: '计划完成前多少天开始提醒，此处为倒计时。',
+      fieldLabel: '提前几天提醒',
       name: 'begin_to_remind'
     }, {
       fieldLabel: '是否自动完成',
       xtype: 'checkbox',
       name: 'autocompletable'
     }, {
-      fieldLabel: '超时回调',
+      fieldLabel: '逾期处理',
       xtype: 'callback_checkboxcombo',
       editable: false,
       name: 'callables_attributes',
@@ -80,7 +77,7 @@ Ext.define('TM.view.plan.Form', {
   }, {
     xtype: 'fieldset',
     itemId: 'deadline',
-    title: '计划完成截至时限',
+    title: '截止时间',
     layout: {
       type: 'table',
       columns: 2
@@ -142,6 +139,8 @@ Ext.define('TM.view.plan.Form', {
       delete values['data.' + name];
     }, this);
 
+    values.begin_to_remind = values.begin_to_remind * 24 * 60;
+
     return values;
   },
 
@@ -157,6 +156,8 @@ Ext.define('TM.view.plan.Form', {
     ['x', 'y'].forEach(function(name) {
       this.query('textfield[name="data.' + name + '"]')[0].setValue(record.get('data')[name]);
     }, this);
+
+    this.query('textfield[name="begin_to_remind"]')[0].setValue(record.get('begin_to_remind') / (24 * 60));
 
     this.checkSelectedAssignees(record.get('assignees'));
     this.checkSelectedCallbacks(record.get('callbacks'));
@@ -210,7 +211,6 @@ Ext.define('TM.view.plan.Form', {
       }
     }, this);
 
-    //console.log(values);
     this.getAssigneesTreeCombo().setValue(values);
   },
 

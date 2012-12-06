@@ -61,7 +61,7 @@ module TaskManager
 
       Task.create! do |t|
         t.name = name
-        t.data = { x: data[:x], y: data[:y] }
+        t.data = data.select{ |k, v| !(k.to_s.start_with?('deadline_')) }
         t.task_type = plan_type
         t.deadline = calculate_deadline(plan_type, data)
         t.reminding_at = reminding_at
@@ -118,7 +118,9 @@ module TaskManager
                        when :yearly then now.beginning_of_year
                        end
 
-        squeel{ (plan_type == type) & (last_task_created_at <= beginning_at) & (enabled_at <= now) }
+        squeel{ (plan_type == type) &
+                ((last_task_created_at <= beginning_at) | (last_task_created_at == nil)) &
+                (enabled_at <= now) }
       end
     end
   end

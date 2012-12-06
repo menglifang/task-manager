@@ -52,7 +52,7 @@ Ext.define('TM.view.task.Grid', {
     },
     flex:2
   }, {
-    text: '截至时间',
+    text: '截止时间',
     dataIndex: 'deadline',
     renderer: function(v, m, record) {
       return Ext.Date.format(v, 'Y年m月j日 H:i:s');
