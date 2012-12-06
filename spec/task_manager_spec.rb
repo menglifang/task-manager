@@ -7,23 +7,33 @@ describe TaskManager do
 
     context 'when having an enabled plan' do
       before do
-        plan = FactoryGirl.create(:plan_with_assignees, assignees_count: assignees_count, enabled_at: enabled_at)
+        @plan = FactoryGirl.create(:plan_with_assignees, assignees_count: assignees_count, enabled_at: enabled_at)
       end
 
-      context 'and only one assignee exists' do
-        let(:assignees_count) { 1 }
+      shared_examples 'having an enabled plan' do
+        context 'and only one assignee exists' do
+          let(:assignees_count) { 1 }
 
-        it 'creates only one task' do
-          tasks.should have(1).item
+          it 'creates only one task' do
+            tasks.should have(1).item
+          end
+        end
+
+        context 'and many assignees exist' do
+          let(:assignees_count) { 3 }
+
+          it 'creates a task for each assignee' do
+            tasks.should have(3).items
+          end
         end
       end
 
-      context 'and many assignees exist' do
-        let(:assignees_count) { 3 }
+      it_behaves_like 'having an enabled plan'
 
-        it 'creates a task for each assignee' do
-          tasks.should have(3).items
-        end
+      context 'and last_task_created_at is nil' do
+        before { @plan.update_attributes(last_task_created_at: nil) }
+
+        it_behaves_like 'having an enabled plan'
       end
     end
 
