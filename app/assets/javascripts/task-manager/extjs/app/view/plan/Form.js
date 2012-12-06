@@ -211,7 +211,6 @@ Ext.define('TM.view.plan.Form', {
       }
     }, this);
 
-    //console.log(values);
     this.getAssigneesTreeCombo().setValue(values);
   },
 
