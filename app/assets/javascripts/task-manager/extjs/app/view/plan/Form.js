@@ -2,10 +2,6 @@ Ext.define('TM.view.plan.Form', {
   extend: 'Ext.form.Panel',
   xtype: 'plan_form',
 
-  //requires: [
-    //'Ext.ux.TreeCombo',
-  //],
-
   defaultPlanType: 'yearly',
   defaultBeginToRemind: 0,
 
@@ -29,22 +25,22 @@ Ext.define('TM.view.plan.Form', {
     },
 
     items: [{
-      fieldLabel: '计划名称',
+      fieldLabel: '名称',
       name: 'name',
       allowBlank: false
     }, {
       xtype: 'assignee_treecombo',
-      fieldLabel: '计划执行人',
+      fieldLabel: '执行人',
       name: 'assignables_attributes',
       store: Ext.getStore('TM.store.Assignees').toTreeStore()
     }, {
-      fieldLabel: '计划类型',
+      fieldLabel: '类型',
       name: 'plan_type',
       store: 'TM.store.Types',
       editable: false,
       valueField: 'value',
       xtype: 'combo',
-      blankText: '请选择计划类型!',
+      blankText: '请选择类型!',
       allowBlank: false
     }, {
       fieldLabel: '横向指标',
@@ -80,7 +76,7 @@ Ext.define('TM.view.plan.Form', {
   }, {
     xtype: 'fieldset',
     itemId: 'deadline',
-    title: '计划完成截至时限',
+    title: '截至时间',
     layout: {
       type: 'table',
       columns: 2
