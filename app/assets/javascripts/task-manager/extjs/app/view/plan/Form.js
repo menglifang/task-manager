@@ -255,7 +255,7 @@ Ext.define('TM.view.plan.Form', {
       bindStore(Ext.getStore('TM.store.Days'));
 
     this.showDeadlineCombos(["month", "day", "hour", "minute"]);
-    this.allowBlankDeadlineCombos(["month", "day", "hour", "minute"]);
+    this.requireDeadlineCombos(["month", "day", "hour", "minute"]);
   },
 
   // @private
@@ -266,7 +266,7 @@ Ext.define('TM.view.plan.Form', {
       bindStore(Ext.getStore('TM.store.Days'));
 
     this.showDeadlineCombos(["month", "day", "hour", "minute"]);
-    this.allowBlankDeadlineCombos(["month", "day", "hour", "minute"]);
+    this.requireDeadlineCombos(["month", "day", "hour", "minute"]);
   },
 
   // @private
