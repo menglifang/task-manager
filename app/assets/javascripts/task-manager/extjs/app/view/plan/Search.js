@@ -112,7 +112,7 @@ Ext.define('TM.view.plan.Search', {
             action: 'reset'
           }]
         }]
-      }],
+      }]
     }]
   }],
 

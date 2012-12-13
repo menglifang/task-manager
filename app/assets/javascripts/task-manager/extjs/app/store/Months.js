@@ -14,6 +14,6 @@ Ext.define('TM.store.Months',{
 	  { "text": "9月", 'value': '09' },
 	  { "text": "10月", 'value': '10' },
 	  { "text": "11月", 'value': '11' },
-	  { "text": "12月", 'value': '12' },
+	  { "text": "12月", 'value': '12' }
 	]
 });

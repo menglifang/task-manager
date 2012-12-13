@@ -19,5 +19,5 @@ Ext.define('TM.model.Task', {
       root: 'tasks',
       totalProperty: 'total'
     }
-  },
+  }
 });

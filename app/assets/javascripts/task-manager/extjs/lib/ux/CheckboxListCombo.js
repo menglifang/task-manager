@@ -124,5 +124,5 @@ Ext.define('Ext.ux.form.CheckboxListCombo', {
         }
       }
     }
-  },
+  }
 });

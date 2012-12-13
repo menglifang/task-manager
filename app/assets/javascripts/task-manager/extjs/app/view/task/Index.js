@@ -18,4 +18,4 @@ Ext.define('TM.view.task.Index', {
 		xtype: 'task_grid',
 		flex: 1
 	}]
-})
+});
