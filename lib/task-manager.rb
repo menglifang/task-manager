@@ -34,4 +34,10 @@ module TaskManager
 
     tasks
   end
+
+  def self.finish_autocompletable
+    Task.active.each do |t|
+      t.finish if t.autocompletable && t.deadline >= Time.now
+    end
+  end
 end
