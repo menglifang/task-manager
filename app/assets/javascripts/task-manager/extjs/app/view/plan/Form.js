@@ -30,7 +30,7 @@ Ext.define('TM.view.plan.Form', {
       allowBlank: false
     }, {
       xtype: 'assignee_treecombo',
-      fieldLabel: '计划执行人',
+      fieldLabel: '执行人',
       allowBlank: false,
       name: 'assignables_attributes',
       store: Ext.getStore('TM.store.Assignees').toTreeStore()
