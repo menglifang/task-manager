@@ -74,6 +74,7 @@ Ext.define('TM.view.plan.Form', {
       fieldLabel: '超时回调',
       xtype: 'callback_checkboxcombo',
       editable: false,
+      allowBlank: false,
       name: 'callables_attributes',
       store: 'TM.store.Callbacks',
       multiSelect: true,
