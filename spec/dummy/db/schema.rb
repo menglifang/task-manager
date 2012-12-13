@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(:version => 20121203030133) do
 
   create_table "departments", :force => true do |t|
     t.string   "name"
-    t.integer  "parent_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -69,7 +68,6 @@ ActiveRecord::Schema.define(:version => 20121203030133) do
     t.hstore   "data"
     t.datetime "deadline"
     t.datetime "reminding_at"
-    t.datetime "finished_at"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
