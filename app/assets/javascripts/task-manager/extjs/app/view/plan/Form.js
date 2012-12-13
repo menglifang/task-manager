@@ -30,7 +30,8 @@ Ext.define('TM.view.plan.Form', {
       allowBlank: false
     }, {
       xtype: 'assignee_treecombo',
-      fieldLabel: '执行人',
+      fieldLabel: '计划执行人',
+      allowBlank: false,
       name: 'assignables_attributes',
       store: Ext.getStore('TM.store.Assignees').toTreeStore()
     }, {
@@ -254,6 +255,7 @@ Ext.define('TM.view.plan.Form', {
       bindStore(Ext.getStore('TM.store.Days'));
 
     this.showDeadlineCombos(["month", "day", "hour", "minute"]);
+    this.defaultDeadlineCombos(["month", "day", "hour", "minute"]);
   },
 
   // @private
@@ -264,6 +266,7 @@ Ext.define('TM.view.plan.Form', {
       bindStore(Ext.getStore('TM.store.Days'));
 
     this.showDeadlineCombos(["month", "day", "hour", "minute"]);
+    this.defaultDeadlineCombos(["month", "day", "hour", "minute"]);
   },
 
   // @private
@@ -273,6 +276,8 @@ Ext.define('TM.view.plan.Form', {
 
     this.showDeadlineCombos(["day", "hour", "minute"]);
     this.hideDeadlineCombos(["month"]);
+    this.defaultDeadlineCombos(["day", "hour", "minute"]);
+    this.disdefaultDeadlineCombos(["month"]);
   },
 
   // @private
@@ -282,12 +287,16 @@ Ext.define('TM.view.plan.Form', {
 
     this.showDeadlineCombos(["day", "hour", "minute"]);
     this.hideDeadlineCombos(["month"]);
+    this.defaultDeadlineCombos(["day", "hour", "minute"]);
+    this.disdefaultDeadlineCombos(["month"]);
   },
 
   // @private
   showDailyDeadlineCombos: function() {
     this.showDeadlineCombos(["hour", "minute"]);
     this.hideDeadlineCombos(["month", "day"]);
+    this.defaultDeadlineCombos(["hour", "minute"]);
+    this.disdefaultDeadlineCombos(["month","day"]);
   },
 
   // @private
@@ -306,6 +315,20 @@ Ext.define('TM.view.plan.Form', {
   hideDeadlineCombos: function(combos) {
     combos.forEach(function(c) {
       this.getDeadlineCombo('data.deadline_' + c).hide();
+    }, this);
+  },
+
+  // @private
+  defaultDeadlineCombos: function(combos) {
+    combos.forEach(function(c) {
+      this.getDeadlineCombo('data.deadline_' + c).allowBlank = false;
+    }, this);
+  },
+
+  // @private
+  disdefaultDeadlineCombos: function(combos) {
+    combos.forEach(function(c) {
+      this.getDeadlineCombo('data.deadline_' + c).allowBlank = true;
     }, this);
   },
 
