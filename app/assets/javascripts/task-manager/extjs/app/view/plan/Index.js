@@ -19,6 +19,6 @@ Ext.define('TM.view.plan.Index', {
     width: 50
   }, {
     xtype: 'plan_grid',
-    flex: 1,
+    flex: 1
   }]
 });

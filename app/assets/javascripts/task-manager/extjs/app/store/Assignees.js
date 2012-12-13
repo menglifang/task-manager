@@ -37,7 +37,7 @@ Ext.define('TM.store.Assignees', {
       var parent = this.getNodeById(assignee.getParentId(true)) || this.getRootNode();
       var node = parent.findChild('id', assignee.getId(true));
 
-      if(!node) this.appendChildNode(parent, assignee);
+      if(!node) { this.appendChildNode(parent, assignee); }
     }, this);
   },
 

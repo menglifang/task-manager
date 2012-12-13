@@ -84,7 +84,7 @@ Ext.define('TM.view.plan.Form', {
       columns: 2
     },
     defaults: {
-      labelAlign: 'right',
+      labelAlign: 'right'
     },
     items: [{
       fieldLabel: '月',

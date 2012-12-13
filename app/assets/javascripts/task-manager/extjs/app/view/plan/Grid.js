@@ -45,7 +45,7 @@ Ext.define('TM.view.plan.Grid', {
           '<td class="name">纵向指标:</td>',
           '<td class="value">{[values.data.y == null ? "" : values.data.y]}</td>',
         '</tr>',
-      '</table>',
+      '</table>'
      ]
   }],
 

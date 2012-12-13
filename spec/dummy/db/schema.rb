@@ -65,9 +65,11 @@ ActiveRecord::Schema.define(:version => 20121203030133) do
     t.string   "name"
     t.string   "task_type"
     t.string   "status"
+    t.boolean  "autocompletable"
     t.hstore   "data"
     t.datetime "deadline"
     t.datetime "reminding_at"
+    t.datetime "finished_at"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
