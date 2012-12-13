@@ -107,6 +107,7 @@ Ext.define('TM.controller.Plans', {
     var record = this.getPlanForm().getRecord() ||
       Ext.create('TM.model.Plan');
 
+    attrs.autocompletable = attrs.autocompletable ? true: false;
     record.set(attrs);
     record.save({
       success: function() {
