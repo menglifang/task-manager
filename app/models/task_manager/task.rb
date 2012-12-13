@@ -77,6 +77,10 @@ module TaskManager
       def remindable
         active.where("reminding_at <= ?", Time.now)
       end
+
+      def autocompletable
+        where(autocompletable: true)
+      end
     end
   end
 end

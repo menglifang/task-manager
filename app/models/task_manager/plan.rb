@@ -53,11 +53,6 @@ module TaskManager
       data.symbolize_keys!
 
       reminding_at = default_deadline.ago(begin_to_remind * 60)
-      #if autocompletable
-        #status, finished_at = :finished, Time.now
-      #else
-        #status, finished_at = :new, nil
-      #end
 
       Task.create! do |t|
         t.name = name
