@@ -69,7 +69,6 @@ Ext.define('TM.view.plan.Form', {
       fieldLabel: '逾期处理',
       xtype: 'callback_checkboxcombo',
       editable: false,
-      allowBlank: false,
       name: 'callables_attributes',
       store: 'TM.store.Callbacks',
       multiSelect: true,
