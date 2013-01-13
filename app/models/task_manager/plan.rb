@@ -63,7 +63,6 @@ module TaskManager
         t.status = :new
         t.finished_at = nil
         t.autocompletable = autocompletable
-binding.pry
         t.create_assignable(
           assignee_id: a.assignee_id,
           assignee_type: a.assignee_type,
