@@ -22,6 +22,9 @@ Ext.define('TM.controller.Plans', {
   }, {
     ref: 'planGrid',
     selector: 'plan_grid'
+  }, {
+    ref: 'callbackCheckboxCombo',
+    selector: 'plan_form callback_checkboxcombo' 
   }],
 
   index: function() {
@@ -53,8 +56,20 @@ Ext.define('TM.controller.Plans', {
       },
       'plan_form button[action="cancel"]': {
         click: this.onCancelClick
+      },
+      'plan_form checkbox[name="autocompletable"]': {
+        change: this.onAutocompletableChange
       }
     });
+  },
+
+  onAutocompletableChange: function () {
+    record = this.getPlanForm().getValues().autocompletable;
+    if(record == "on"){
+      this.getCallbackCheckboxCombo().hide();
+    } else {
+      this.getCallbackCheckboxCombo().show();;
+    }
   },
 
   // @protected
@@ -107,6 +122,9 @@ Ext.define('TM.controller.Plans', {
     var record = this.getPlanForm().getRecord() ||
       Ext.create('TM.model.Plan');
 
+    if(attrs.autocompletable == "on") {
+      delete attrs["callables_attributes"];
+    }
     attrs.autocompletable = attrs.autocompletable ? true: false;
     record.set(attrs);
     record.save({
