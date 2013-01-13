@@ -9,7 +9,7 @@ module TaskManager
         #
         # 支持的查询属性有：
         #   name                      计划名
-        #   plan_type                 计划类型
+        #   plan_type                 计划周期
         #   autocompletable           是否自动完成
         #   last_task_created_at      最后任务生成时间
         #   enabled_at                生效时间

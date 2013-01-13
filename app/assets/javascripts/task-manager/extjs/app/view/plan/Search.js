@@ -30,7 +30,7 @@ Ext.define('TM.view.plan.Search', {
           fieldLabel: '名称',
           name: 'q[name_cont]'
         }, {
-          fieldLabel: '类型',
+          fieldLabel: '周期',
           editable: false,
           xtype: 'combo',
           store: 'TM.store.Types',

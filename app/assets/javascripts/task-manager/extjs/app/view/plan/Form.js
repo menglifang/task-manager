@@ -35,13 +35,13 @@ Ext.define('TM.view.plan.Form', {
       name: 'assignables_attributes',
       store: Ext.getStore('TM.store.Assignees').toTreeStore()
     }, {
-      fieldLabel: '类型',
+      fieldLabel: '周期',
       name: 'plan_type',
       store: 'TM.store.Types',
       editable: false,
       valueField: 'value',
       xtype: 'combo',
-      blankText: '请选择类型!',
+      blankText: '请选择周期',
       allowBlank: false
     }, {
       fieldLabel: '横向指标',
@@ -78,7 +78,7 @@ Ext.define('TM.view.plan.Form', {
   }, {
     xtype: 'fieldset',
     itemId: 'deadline',
-    title: '截止时间',
+    title: '完成时限',
     layout: {
       type: 'table',
       columns: 2
