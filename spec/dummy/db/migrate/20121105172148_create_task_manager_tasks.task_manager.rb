@@ -5,6 +5,7 @@ class CreateTaskManagerTasks < ActiveRecord::Migration
       t.string :name
       t.string :task_type
       t.string :status
+      t.boolean :autocompletable
 
       t.hstore :data
 

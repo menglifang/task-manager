@@ -7,6 +7,7 @@ Ext.define('TM.model.Task', {
 		{ name: 'task_type'},
 		{ name: 'data', type: 'auto' },
 		{ name: 'status' },
+    { name: 'assignee', type: 'auto', persist: false },
 		{ name: 'deadline', type: 'date'},
 		{ name: 'created_at', type: 'date' },
     { name: 'updated_at', type: 'date' }
@@ -19,5 +20,5 @@ Ext.define('TM.model.Task', {
       root: 'tasks',
       totalProperty: 'total'
     }
-  },
+  }
 });

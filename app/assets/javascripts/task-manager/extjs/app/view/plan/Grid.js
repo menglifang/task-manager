@@ -32,7 +32,7 @@ Ext.define('TM.view.plan.Grid', {
       '<table class="data">',
         '<tr>',
           '<td rowspan="3" class="title">内容</td>',
-          '<td class="name">截止时间:</td>',
+          '<td class="name">完成时限：</td>',
           '<td class="value">第{[values.data.deadline_month == null ? 0 : values.data.deadline_month]}',
           '个月，第{[values.data.deadline_day == null ? 0 : values.data.deadline_day]}天，',
           '{data.deadline_hour}时{data.deadline_minute}分</td>',
@@ -45,7 +45,7 @@ Ext.define('TM.view.plan.Grid', {
           '<td class="name">纵向指标:</td>',
           '<td class="value">{[values.data.y == null ? "" : values.data.y]}</td>',
         '</tr>',
-      '</table>',
+      '</table>'
      ]
   }],
 
@@ -54,7 +54,7 @@ Ext.define('TM.view.plan.Grid', {
     dataIndex: 'name',
     flex: 2
   }, {
-    text: '类型',
+    text: '周期',
     dataIndex: 'plan_type',
     renderer: function(v, m, record) {
       return this.translateType(v);

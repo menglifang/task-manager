@@ -9,8 +9,8 @@ module TaskManager
         #
         # 支持的查询属性有：
         #   name                      任务名
-        #   task_type                 任务类型
-        #   deadline                  截止时间
+        #   task_type                 任务周期
+        #   deadline                  完成时限
         #   status                    状态
         #   updated_at                完成时间
         #

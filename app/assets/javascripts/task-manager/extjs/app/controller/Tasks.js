@@ -43,7 +43,7 @@ Ext.define('TM.controller.Tasks', {
   // @protected
 	onDeleteClick: function(btn) {
 		var select = btn.up('task_grid').getSelectionModel().getSelection()[0];
-    if(select == null) {
+    if(select === null) {
       Ext.Msg.alert('提示','请选择要删除的计划任务');
       return;
     }

@@ -13,7 +13,8 @@ module TaskManager
 
     default_value_for :status, :new
 
-    attr_accessible :data, :deadline, :name, :reminding_at, :status, :task_type, :finished_at
+    attr_accessible :data, :deadline, :name, :reminding_at, :status,
+       :task_type, :finished_at, :autocompletable
 
     validates_presence_of :name, :task_type, :status, :assignable, :deadline
 
@@ -75,6 +76,10 @@ module TaskManager
 
       def remindable
         active.where("reminding_at <= ?", Time.now)
+      end
+
+      def autocompletable
+        where(autocompletable: true)
       end
     end
   end

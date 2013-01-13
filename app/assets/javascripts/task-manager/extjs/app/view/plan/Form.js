@@ -31,16 +31,17 @@ Ext.define('TM.view.plan.Form', {
     }, {
       xtype: 'assignee_treecombo',
       fieldLabel: '执行人',
+      allowBlank: false,
       name: 'assignables_attributes',
       store: Ext.getStore('TM.store.Assignees').toTreeStore()
     }, {
-      fieldLabel: '类型',
+      fieldLabel: '周期',
       name: 'plan_type',
       store: 'TM.store.Types',
       editable: false,
       valueField: 'value',
       xtype: 'combo',
-      blankText: '请选择类型!',
+      blankText: '请选择周期',
       allowBlank: false
     }, {
       fieldLabel: '横向指标',
@@ -77,13 +78,13 @@ Ext.define('TM.view.plan.Form', {
   }, {
     xtype: 'fieldset',
     itemId: 'deadline',
-    title: '截止时间',
+    title: '完成时限',
     layout: {
       type: 'table',
       columns: 2
     },
     defaults: {
-      labelAlign: 'right',
+      labelAlign: 'right'
     },
     items: [{
       fieldLabel: '月',
@@ -254,6 +255,7 @@ Ext.define('TM.view.plan.Form', {
       bindStore(Ext.getStore('TM.store.Days'));
 
     this.showDeadlineCombos(["month", "day", "hour", "minute"]);
+    this.requireDeadlineCombos(["month", "day", "hour", "minute"]);
   },
 
   // @private
@@ -264,6 +266,7 @@ Ext.define('TM.view.plan.Form', {
       bindStore(Ext.getStore('TM.store.Days'));
 
     this.showDeadlineCombos(["month", "day", "hour", "minute"]);
+    this.requireDeadlineCombos(["month", "day", "hour", "minute"]);
   },
 
   // @private
@@ -273,6 +276,8 @@ Ext.define('TM.view.plan.Form', {
 
     this.showDeadlineCombos(["day", "hour", "minute"]);
     this.hideDeadlineCombos(["month"]);
+    this.requireDeadlineCombos(["day", "hour", "minute"]);
+    this.allowBlankDeadlineCombos(["month"]);
   },
 
   // @private
@@ -282,12 +287,16 @@ Ext.define('TM.view.plan.Form', {
 
     this.showDeadlineCombos(["day", "hour", "minute"]);
     this.hideDeadlineCombos(["month"]);
+    this.requireDeadlineCombos(["day", "hour", "minute"]);
+    this.allowBlankDeadlineCombos(["month"]);
   },
 
   // @private
   showDailyDeadlineCombos: function() {
     this.showDeadlineCombos(["hour", "minute"]);
     this.hideDeadlineCombos(["month", "day"]);
+    this.requireDeadlineCombos(["hour", "minute"]);
+    this.allowBlankDeadlineCombos(["month","day"]);
   },
 
   // @private
@@ -306,6 +315,20 @@ Ext.define('TM.view.plan.Form', {
   hideDeadlineCombos: function(combos) {
     combos.forEach(function(c) {
       this.getDeadlineCombo('data.deadline_' + c).hide();
+    }, this);
+  },
+
+  // @private
+  requireDeadlineCombos: function(combos) {
+    combos.forEach(function(c) {
+      this.getDeadlineCombo('data.deadline_' + c).allowBlank = false;
+    }, this);
+  },
+
+  // @private
+  allowBlankDeadlineCombos: function(combos) {
+    combos.forEach(function(c) {
+      this.getDeadlineCombo('data.deadline_' + c).allowBlank = true;
     }, this);
   },
 
