@@ -22,7 +22,6 @@ Ext.define('TM.view.task.Search', {
         border: 0,
         defaults: {
           xtype: 'textfield',
-          id: 'textfield',
           labelAlign: 'right',
           width: 300,
           labelWidth: 130
