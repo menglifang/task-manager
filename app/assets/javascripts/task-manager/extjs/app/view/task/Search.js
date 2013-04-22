@@ -22,7 +22,6 @@ Ext.define('TM.view.task.Search', {
         border: 0,
         defaults: {
           xtype: 'textfield',
-          id: 'textfield',
           labelAlign: 'right',
           width: 300,
           labelWidth: 130
@@ -72,7 +71,7 @@ Ext.define('TM.view.task.Search', {
             name: 'q[finished_at_gteq]',
             id: 'last_task'
           }, {
-            fieldLabel: '截至时间 从',
+            fieldLabel: '截止时间 从',
             format: 'Y-m-d',
             xtype: 'datefield',
             editable: false,

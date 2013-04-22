@@ -123,7 +123,7 @@ Ext.define('TM.controller.Plans', {
       Ext.create('TM.model.Plan');
 
     if(attrs.autocompletable == "on") {
-      delete attrs["callables_attributes"];
+       attrs.callables_attributes = [];
     }
     attrs.autocompletable = attrs.autocompletable ? true: false;
     record.set(attrs);
