@@ -63,12 +63,15 @@ module TaskManager
         t.status = :new
         t.finished_at = nil
         t.autocompletable = autocompletable
-binding.pry
         t.create_assignable(
           assignee_id: a.assignee_id,
           assignee_type: a.assignee_type,
         )
-        t.callables = callables
+        #t.callables = callables
+        t.callables = []
+        callables.each do |c|
+          t.callables << Callable.create!(callback_id: c.callback_id, callback_type: c.callback_type)
+        end
       end
     end
 
