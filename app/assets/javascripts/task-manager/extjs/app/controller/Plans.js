@@ -19,7 +19,17 @@ Ext.define('TM.controller.Plans', {
   }, {
     ref: 'planForm',
     selector: 'plan_form'
+  }, {
+    ref: 'planGrid',
+    selector: 'plan_grid'
+  }, {
+    ref: 'callbackCheckboxCombo',
+    selector: 'plan_form callback_checkboxcombo' 
   }],
+
+  index: function() {
+    this.render('TM.view.plan.Index');
+  },
 
   init: function() {
     this.control({
@@ -38,19 +48,36 @@ Ext.define('TM.controller.Plans', {
       'plan_grid button[action="delete"]': {
         click: this.onDeleteClick
       },
+      'plan_grid': {
+        render: this.onGridRender
+      },
       'plan_form button[action="save"]': {
         click: this.onSaveClick
       },
       'plan_form button[action="cancel"]': {
         click: this.onCancelClick
+      },
+      'plan_form checkbox[name="autocompletable"]': {
+        change: this.onAutocompletableChange
       }
     });
   },
 
+  onAutocompletableChange: function () {
+    record = this.getPlanForm().getValues().autocompletable;
+    if(record == "on"){
+      this.getCallbackCheckboxCombo().hide();
+    } else {
+      this.getCallbackCheckboxCombo().show();;
+    }
+  },
+
+  // @protected
   onAddClick: function() {
     Ext.create('TM.view.plan.FormWindow', { title: '添加计划' }).show();
   },
 
+  // @protected
   onEditClick: function(btn) {
     var length = btn.up('plan_grid').getSelectionModel().getSelection().length;
     if (length == 0) {
@@ -70,6 +97,7 @@ Ext.define('TM.controller.Plans', {
     this.getPlanForm().loadRecord(record);
   },
 
+  // @protected
   onDeleteClick: function(btn) {
     var select = btn.up('plan_grid').getSelectionModel().getSelection()[0];
     if(select == null) {
@@ -87,16 +115,23 @@ Ext.define('TM.controller.Plans', {
     });
   },
 
+  // @protected
   onSaveClick: function(btn) {
     var self = this;
     var attrs = this.getPlanForm().getValues();
     var record = this.getPlanForm().getRecord() ||
       Ext.create('TM.model.Plan');
 
+    if(attrs.autocompletable == "on") {
+       attrs.callables_attributes = [];
+    }
+    attrs.autocompletable = attrs.autocompletable ? true: false;
     record.set(attrs);
     record.save({
       success: function() {
         Ext.Msg.alert('提示', '保存计划成功!');
+
+        self.getPlanGrid().reconfigure();
         self.getPlanFormWindow().close();
       },
       failure: function() {
@@ -105,20 +140,26 @@ Ext.define('TM.controller.Plans', {
     });
   },
 
+  // @protected
   onCancelClick: function(btn) {
     this.getPlanFormWindow().close();
   },
 
+  // @protected
   onQueryClick: function(btn) {
     var params = this.getSearchForm().getValues();
     Ext.getStore('TM.store.Plans').load({ params: params });
   },
 
+  // @protected
   onSearchResetClick: function(btn) {
     this.getSearchForm().getForm().reset();
   },
 
-  index: function() {
-    this.render('TM.view.plan.Index');
+  // @protected
+  onGridRender: function(grid) {
+    if(grid.getStore().getCount() <= 0) {
+      grid.getStore().load();
+    }
   }
 });

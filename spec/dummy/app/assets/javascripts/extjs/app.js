@@ -35,10 +35,8 @@ Ext.application({
         });
       },
       beforedispatch: function(uri, match, params) {
-        console.log('beforedispatch ' + uri);
       },
       dispatch: function(uri, match, params, controller) {
-        console.log('dispatch ' + uri);
         //TIP: you could automize rendering task here, inside dispatch event
       }
     });

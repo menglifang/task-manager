@@ -13,7 +13,7 @@ Ext.define('TM.helper.ApplicationHelper', {
 
   translateStatus: function(s) {
     var translations = {
-      new: '新建',
+      'new': '新建',
       in_process: '进行中',
       expired: '已过期',
       finished: '已完成'

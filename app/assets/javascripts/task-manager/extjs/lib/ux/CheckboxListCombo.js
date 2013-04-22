@@ -120,10 +120,9 @@ Ext.define('Ext.ux.form.CheckboxListCombo', {
             }
             me.resumeEvents();// resume events, though selectAll & deselectAll send them anyway
             me.view.resumeEvents();
-            console.log("CheckboxComboList.changed: " + allState + " / " + nChecked);
           }
         }
       }
     }
-  },
+  }
 });

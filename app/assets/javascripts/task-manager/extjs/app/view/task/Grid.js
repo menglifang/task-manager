@@ -38,7 +38,7 @@ Ext.define('TM.view.task.Grid', {
     dataIndex: 'name',
     flex: 2
   }, {
-    text: '类型',
+    text: '周期',
     dataIndex: 'task_type',
     renderer: function(v, m, record) {
       return this.translateType(v);
@@ -52,7 +52,7 @@ Ext.define('TM.view.task.Grid', {
     },
     flex:2
   }, {
-    text: '截至时间',
+    text: '完成时限',
     dataIndex: 'deadline',
     renderer: function(v, m, record) {
       return Ext.Date.format(v, 'Y年m月j日 H:i:s');
