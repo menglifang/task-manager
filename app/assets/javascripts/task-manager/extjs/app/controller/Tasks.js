@@ -53,7 +53,7 @@ Ext.define('TM.controller.Tasks', {
 
       var selected = btn.up('task_grid').getSelectionModel().getSelection();
       Ext.each(selected, function(s){
-        this.callParent(arguments);
+        s.destroy();
 
     		if(this.store) this.store.remove(this);
       });
